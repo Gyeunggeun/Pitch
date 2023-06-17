@@ -23,7 +23,10 @@ def 팀():
 
 def 선수():
     st.title('투수 목록')
-    st.image('rat.png')
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/6a00464c37f059ac3b52898fabd77bad8e7b36f3/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png'
+        
 
 def 설정():
     st.title('설정')
