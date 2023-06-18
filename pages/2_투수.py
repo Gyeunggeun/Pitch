@@ -73,10 +73,10 @@ else:
     if selected_page == '강효종':
         tab1, tab2, tab3, tab4, tab5 = st.tabs(['선수 프로필', '부상분석', '부상 시각화', '부상위험요인', '부상이력'])
         with tab1:
-            col1, col2 = st.columns(2)
-            with col1:
+            col301, col302 = st.columns(2)
+            with col301:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=300)
-            with col2:
+            with col302:
                 st.subheader("선수 기본 프로필")
                 st.text("이름: 강효종")
                 st.text("포지션: 투수")
@@ -89,7 +89,7 @@ else:
             st.write('기록')
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
-        # 고우석 선수에 대한 자세한 정보를 표시하는 코드...
+        # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
 
 
