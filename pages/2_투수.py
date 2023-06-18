@@ -69,10 +69,24 @@ if selected_page == '선수 목록':
                     ''', height=200)
 else:
     st.title(f'{selected_page}')
-    # 선수의 세부 페이지에서 보여줄 정보를 검색하거나 계산
+    # 선수의 세부 페이지에서 보여줄 정보
     if selected_page == '강효종':
-        st.write('강효종 상세정보')
-        # 강효종 선수에 대한 자세한 정보를 표시하는 코드...
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(['선수 프로필', '부상분석', '부상 시각화', '부상위험요인', '부상이력'])
+        with tab1:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=300)
+            with col2:
+                st.subheader("선수 기본 프로필")
+                st.text("이름: 강효종")
+                st.text("포지션: 투수")
+                st.text("팀: LG 트윈스")
+                st.text("생년월일: 2002년 10월 14일")
+                st.text("신장/체중: 184cm/86kg")
+            st.subheader("부상 정보 요약")
+            st.text("그래프가 들어갈 곳")
+        with tab2:
+            st.write('기록')
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 선수에 대한 자세한 정보를 표시하는 코드...
