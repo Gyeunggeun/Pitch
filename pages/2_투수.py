@@ -88,21 +88,20 @@ else:
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
             col303, col304 = st.columns(2)
-            with col303:
-                st.subheader("최근 부상 이력")
-                st.text("5월 27일 Tommy john surgery (23일 전)")
-            with col304: 
-                st.dataframe(df1)
+            st.dataframe(df1)
+            st.markdown("   ") 
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)")
         
         with tab2:
-            st.write('기록')
-            col401, col402, col403 = st.columns(3)
+            st.subheader('투구폼 분석')
+            col401, col402 = st.columns(2)
             with col401:
-                st.video('')
+                st.video('https://youtu.be/f-tq3W2HvT8')
             with col402:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4.png', width=300)
-            with col403:
-                st.write('heatmap')
+                st.video('https://youtu.be/8s-ZllEX4Zk')
+
+            st.text('투구폼 분석 결과')
         with tab3:
             st.write('부상위험요인')
             col501, col502, col503 = st.columns(3)
