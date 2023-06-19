@@ -98,9 +98,9 @@ else:
             st.write('기록')
             col401, col402, col403 = st.columns(3)
             with col401:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/jw_temp/원본.png', width=300)
+                st.image('jw_temp/원본.png', width=300)
             with col402:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/jw_temp/스켈레톤.png', width=300)
+                st.image('jw_temp/스켈레톤.png', width=300)
             with col403:
                 st.write('heatmap')
         # 팀즈로 메세지 보낼게요
@@ -111,7 +111,7 @@ else:
             #    #st.
             #with col502:
             #    #st.
-            #with col503:
+            #왼쪽 상단에 터미널 -> 새 터미널 해보세요!
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
