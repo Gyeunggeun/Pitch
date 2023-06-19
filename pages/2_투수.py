@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 
 # 선수 이미지 URL
-players = {
+players = { 
     '강효종': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/6a00464c37f059ac3b52898fabd77bad8e7b36f3/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png',
     '고우석': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png',
     '김대현': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B9%80%EB%8C%80%ED%98%84.png',
@@ -71,7 +71,7 @@ else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
     if selected_page == '강효종':
-        tab1, tab2, tab3, tab4, tab5 = st.tabs(['선수 프로필', '부상분석', '부상 시각화', '부상위험요인', '부상이력'])
+        tab1, tab2, tab3 = st.tabs(['선수 프로필', '부상분석', '부상위험요인'])
         with tab1:
             col301, col302 = st.columns(2)
             with col301:
@@ -83,13 +83,22 @@ else:
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
-            st.subheader("부상 정보 요약")
-            st.text("그래프가 들어갈 곳")
+            col303, col304 = st.columns(2)
+            with col303:
+                st.subheader("최근 부상 이력")
+                st.text("5월 27일 Tommy john surgery (23일 전)")
+            with col304: 
+                st.text("데이터프레임 들어갈 곳(투수기록)")
+
+            
         with tab2:
             st.write('기록')
+
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
+
+
 
 
