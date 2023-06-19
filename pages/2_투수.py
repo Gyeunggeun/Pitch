@@ -98,7 +98,7 @@ else:
             st.write('기록')
             col401, col402, col403 = st.columns(3)
             with col401:
-                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%9B%90%EB%B3%B8.png', width=300)
+                st.video('')
             with col402:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4.png', width=300)
             with col403:
