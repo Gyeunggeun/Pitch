@@ -98,20 +98,16 @@ else:
             st.write('기록')
             col401, col402, col403 = st.columns(3)
             with col401:
-                st.image('jw_temp/원본.png', width=300)
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%9B%90%EB%B3%B8.png', width=300)
             with col402:
-                st.image('jw_temp/스켈레톤.png', width=300)
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4.png', width=300)
             with col403:
                 st.write('heatmap')
-        # 팀즈로 메세지 보낼게요
         with tab3:
             st.write('부상위험요인')
             col501, col502, col503 = st.columns(3)
-            #with col501:
-            #    #st.
-            #with col502:
-            #    #st.
-            #왼쪽 상단에 터미널 -> 새 터미널 해보세요!
+            with col501:
+                st.write('부상위험요인1')
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
