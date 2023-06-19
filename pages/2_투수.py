@@ -1,5 +1,9 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import pandas as pd
+df = pd.read_csv('lgpitch.csv')
+df1 = df[['선수ID', '포지션', '보직', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
+df1 = df1.set_index('선수ID')
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -88,12 +92,26 @@ else:
                 st.subheader("최근 부상 이력")
                 st.text("5월 27일 Tommy john surgery (23일 전)")
             with col304: 
-                st.text("데이터프레임 들어갈 곳(투수기록)")
-
-            
+                st.dataframe(df1)
+        
         with tab2:
             st.write('기록')
-
+            col401, col402, col403 = st.columns(3)
+            with col401:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/jw_temp/원본.png', width=300)
+            with col402:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/jw_temp/스켈레톤.png', width=300)
+            with col403:
+                st.write('heatmap')
+        # 팀즈로 메세지 보낼게요
+        with tab3:
+            st.write('부상위험요인')
+            col501, col502, col503 = st.columns(3)
+            #with col501:
+            #    #st.
+            #with col502:
+            #    #st.
+            #with col503:
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
