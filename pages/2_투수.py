@@ -100,11 +100,14 @@ else:
             st.subheader('투구폼 분석')
             col401, col402 = st.columns(2)
             with col401:
-                st.video('https://youtu.be/f-tq3W2HvT8')
+                st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
             with col402:
                 st.video('https://youtu.be/8s-ZllEX4Zk')
             st.text('투구폼 분석 결과')
-            st.dataframe('')
+            # 여따가 들어갈 표, 시각화툴 필요함
+            #이 선수의 팔 부상확률이 몇 프로 
+            #유사 투구를 하는 선수 링크(?)
+            st.dataframe('') # 예시, 대체가능
         with tab3:
             st.subheader('부상위험요인')
             col501, col502, col503 = st.columns(3)
@@ -114,7 +117,6 @@ else:
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
-
 
 
 
