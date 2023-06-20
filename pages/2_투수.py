@@ -1,5 +1,12 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import pandas as pd
+# 데이터프레임 여기에
+df = pd.read_csv('lgpitch.csv')
+df1 = df[['선수ID', '포지션', '보직', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
+df1 = df1.set_index('선수ID')
+
+
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -9,7 +16,7 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 
 # 선수 이미지 URL
-players = {
+players = { 
     '강효종': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/6a00464c37f059ac3b52898fabd77bad8e7b36f3/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png',
     '고우석': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png',
     '김대현': 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B9%80%EB%8C%80%ED%98%84.png',
@@ -97,8 +104,9 @@ else:
             with col402:
                 st.video('https://youtu.be/8s-ZllEX4Zk')
             st.text('투구폼 분석 결과')
+            st.dataframe('')
         with tab3:
-            st.write('부상위험요인')
+            st.subheader('부상위험요인')
             col501, col502, col503 = st.columns(3)
             with col501:
                 st.write('부상위험요인1')
