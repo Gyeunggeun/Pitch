@@ -107,7 +107,7 @@ else:
             # 여따가 들어갈 표, 시각화툴 필요함
             #이 선수의 팔 부상확률이 몇 프로 
             #유사 투구를 하는 선수 링크(?)
-            st.dataframe('') # 예시, 대체가능
+            st.markdown('') # 예시, 대체가능
         with tab3:
             st.subheader('부상위험요인')
             col501, col502, col503 = st.columns(3)
