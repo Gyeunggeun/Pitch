@@ -71,12 +71,12 @@ if selected_page == '선수 목록':
                 player = player_list[i + j]
                 with columns[j]:
                     image_url = players[player]
-                    components.html(f'''
-                        <center>
+                    st.markdown(f'''
+                        <div style="text-align: center;">
                             <img src="{image_url}" width="100%">
                             <p style="margin-top: 0px; color: white; font-size: 20px; font-weight: bold">{player}</p>
-                        </center>
-                    ''', height=200)
+                        </div>
+                    ''', unsafe_allow_html=True)
 else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
