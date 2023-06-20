@@ -2,6 +2,11 @@ import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
 from streamlit_echarts import st_echarts
+from streamlit_extras.switch_page_button import switch_page
+from streamlit_faker import get_streamlit_faker
+
+# streamlit faker
+fake = get_streamlit_faker(seed=42)
 
 # 부상자 csv 데이터프레임 !!
 # injury = pd.read_csv('injury.csv')
@@ -30,6 +35,13 @@ st.set_page_config(
 
 st.title('대시보드')
 # 대시보드 페이지의 내용 추가
+want_to_contribute = st.button("팀 화면으로 이동")
+if want_to_contribute:
+    switch_page("팀")
+
+want_to_contribute1 = st.button("투수 화면으로 이동")
+if want_to_contribute1:
+    switch_page("투수")
 
 ## -------------------- ▼ 요약 ▼ --------------------
 
@@ -38,6 +50,7 @@ with col11:
     st.subheader("요약")
     st.write('팀부상빈도: 12',) # st.write('팀부상빈도:', injury[부상].sum)
     st.write('팀부상누적일수: 140')
+    fake.dataframe()
     #부상투수통계 도넛차트
     
     col111, col112 = st.columns(2)
@@ -151,10 +164,9 @@ with col11:
 
 with col12:
     st.subheader("경기일정")
-    st.dataframe(df)  # 경기일정 date 프레임이 들어가야함
+    st.dataframe(df)  # 경기일정 data프레임이 들어가야함
 
 st.subheader("부상통계")
-
 
 # # 선수 이미지 URL
 # players = { 

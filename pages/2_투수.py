@@ -1,12 +1,15 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
+from streamlit_faker import get_streamlit_faker
+
 # 데이터프레임 여기에
 df = pd.read_csv('lgpitch.csv')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID')
 
-
+# streamlit faker 사용 (임시)
+fake = get_streamlit_faker(seed=42)
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -108,9 +111,12 @@ else:
                 st.image('0619/예측히트맵.png', width=500)
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
+            fake.bar_chart()
+            
 
         with tab2:
             st.subheader('투구 분석')
+            fake.line_chart()
             # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
