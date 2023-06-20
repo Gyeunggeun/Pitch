@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import pandas as pd
 # 데이터프레임 여기에
 df = pd.read_csv('lgpitch.csv')
-df1 = df[['선수ID', '포지션', '보직', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
+df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID')
 
 
@@ -91,19 +91,34 @@ else:
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
             col303, col304 = st.columns(2)
-            st.dataframe(df1)
-            st.markdown("   ") 
-            st.subheader("최근 부상 이력")
-            st.text("5월 27일 Tommy john surgery (23일 전)")
-        
+            with col303 :
+                st.write('2023시즌')
+                st.dataframe(df1)
+                st.markdown("   ")
+                st.subheader("최근 부상 이력")
+                st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+                st.image('0619/부상이력히트맵.png', width=100)
+            with col304:
+                st.image('0619/예측히트맵.png', width=100)
+                
         with tab2:
-            st.subheader('투구폼 분석')
-            col401, col402 = st.columns(2)
-            with col401:
-                st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
-            with col402:
-                st.video('https://youtu.be/8s-ZllEX4Zk')
-            st.text('투구폼 분석 결과')
+            st.subheader('투구 분석')
+            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            option = st.selectbox('투구를 선택하세요',
+                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
+            st.write('선택 옵션:', option)
+            if option == '1구':
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
+                with col402:
+                    st.video('https://youtu.be/8s-ZllEX4Zk')
+            elif option == '2구':
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')
             # 여따가 들어갈 표, 시각화툴 필요함
             #이 선수의 팔 부상확률이 몇 프로 
             #유사 투구를 하는 선수 링크(?)
@@ -117,6 +132,3 @@ else:
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
-
-
-
