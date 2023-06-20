@@ -78,7 +78,7 @@ else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
     if selected_page == '강효종':
-        tab1, tab2, tab3 = st.tabs(['선수 프로필', '부상분석', '부상위험요인'])
+        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
             col301, col302 = st.columns(2)
             with col301:
@@ -90,17 +90,25 @@ else:
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
+            st.text('팔꿈치 부상 위험 존재') # 이것도 볼드체로
+            st.write('2023시즌') # 볼드체로
+            st.dataframe(df1, width=1000)
+            st.markdown("   ")
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
             col303, col304 = st.columns(2)
             with col303 :
-                st.write('2023시즌')
-                st.dataframe(df1)
-                st.markdown("   ")
-                st.subheader("최근 부상 이력")
-                st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-                st.image('0619/부상이력히트맵.png', width=100)
+                #st.write('2023시즌')
+                #st.markdown("   ")
+                #st.subheader("최근 부상 이력")
+                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+                st.image('0619/부상이력히트맵.png', width=500)
             with col304:
-                st.image('0619/예측히트맵.png', width=100)
-                
+                #st.markdown("    ") # 줄바꿈 여러번 추가
+                st.image('0619/예측히트맵.png', width=500)
+            st.markdown(' ')
+            st.subheader('부상 패턴 예측 들어갈곳')
+
         with tab2:
             st.subheader('투구 분석')
             # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
@@ -111,7 +119,7 @@ else:
                 col401, col402 = st.columns(2)
                 with col401:
                     st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
-                with col402:
+                with col402: 
                     st.video('https://youtu.be/8s-ZllEX4Zk')
             elif option == '2구':
                 col403, col404 = st.columns(2)
@@ -119,15 +127,6 @@ else:
                     st.image('0619/스켈레톤.png')
                 with col404:
                     st.image('0619/원본.png')
-            # 여따가 들어갈 표, 시각화툴 필요함
-            #이 선수의 팔 부상확률이 몇 프로 
-            #유사 투구를 하는 선수 링크(?)
-            st.markdown('') # 예시, 대체가능
-        with tab3:
-            st.subheader('부상위험요인')
-            col501, col502, col503 = st.columns(3)
-            with col501:
-                st.write('부상위험요인1')
     elif selected_page == '고우석':
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
