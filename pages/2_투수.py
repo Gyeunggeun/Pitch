@@ -1,9 +1,12 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
+# 데이터프레임 여기에
 df = pd.read_csv('lgpitch.csv')
 df1 = df[['선수ID', '포지션', '보직', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID')
+
+
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -88,23 +91,25 @@ else:
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
             col303, col304 = st.columns(2)
-            with col303:
-                st.subheader("최근 부상 이력")
-                st.text("5월 27일 Tommy john surgery (23일 전)")
-            with col304: 
-                st.dataframe(df1)
+            st.dataframe(df1)
+            st.markdown("   ") 
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)")
         
         with tab2:
-            st.write('기록')
-            col401, col402, col403 = st.columns(3)
+            st.subheader('투구폼 분석')
+            col401, col402 = st.columns(2)
             with col401:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%9B%90%EB%B3%B8.png', width=300)
+                st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
             with col402:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/0619/%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4.png', width=300)
-            with col403:
-                st.write('heatmap')
+                st.video('https://youtu.be/8s-ZllEX4Zk')
+            st.text('투구폼 분석 결과')
+            # 여따가 들어갈 표, 시각화툴 필요함
+            #이 선수의 팔 부상확률이 몇 프로 
+            #유사 투구를 하는 선수 링크(?)
+            st.dataframe('') # 예시, 대체가능
         with tab3:
-            st.write('부상위험요인')
+            st.subheader('부상위험요인')
             col501, col502, col503 = st.columns(3)
             with col501:
                 st.write('부상위험요인1')
@@ -112,7 +117,6 @@ else:
         st.write('고우석 상세정보')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
-
 
 
 
