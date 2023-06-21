@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
+import plotly.express as px
 from streamlit_echarts import st_echarts
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
@@ -31,6 +32,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded")
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
+
 # -------------------- ▼ Streamlit 웹 화면 구성 START ▼ --------------------
 
 st.title('대시보드')
@@ -43,130 +45,152 @@ want_to_contribute1 = st.button("투수 화면으로 이동")
 if want_to_contribute1:
     switch_page("투수")
 
-## -------------------- ▼ 요약 ▼ --------------------
+## -------------------- ▼ 요약 START ▼ --------------------
 
 col11, col12 = st.columns(2)
 with col11:
     st.subheader("요약")
-    st.write('팀부상빈도: 12',) # st.write('팀부상빈도:', injury[부상].sum)
-    st.write('팀부상누적일수: 140')
-    fake.dataframe()
+    st.write(f"시즌 총 부상빈도 : {df1['출장경기수'][0]}") # st.write('팀부상빈도:', injury[부상].sum)
+    st.write(f"시즌 총 누적부상일수 : {df1['이닝'][0]}")
+    #fake.dataframe()
     #부상투수통계 도넛차트
     
     col111, col112 = st.columns(2)
     
     with col111:
-        option = {
-            "tooltip": {
-                "formatter": '{a} <br/>{b} : {c}%'
-            },
-            "series": [{
-                # "name": '进度',
-                "type": 'gauge',
-                "startAngle": 180,
-                "endAngle": 0,
-                "progress": {
-                    "show": "true"
-                },
-                "radius":'100%', 
+        # 현재 투수 부상 현황
+        fig = px.pie(df1, values="이닝", names = "포지션", title="현재 투수 부상 현황", hole=.7)
+        fig.update_traces(textposition='inside', textinfo='percent+label+value')
+        fig.update_layout(font=dict(size=16))
+        st.plotly_chart(fig)
+        
+        # 반원 차트1
+        # option = {
+        #     "tooltip": {
+        #         "formatter": '{a} <br/>{b} : {c}%'
+        #     },
+        #     "series": [{
+        #         # "name": '进度',
+        #         "type": 'gauge',
+        #         "startAngle": 180,
+        #         "endAngle": 0,
+        #         "progress": {
+        #             "show": "true"
+        #         },
+        #         "radius":'100%', 
     
-                "itemStyle": {
-                    "color": '#58D9F9',
-                    "shadowColor": 'rgba(0,138,255,0.45)',
-                    "shadowBlur": 10,
-                    "shadowOffsetX": 2,
-                    "shadowOffsetY": 2,
-                    "radius": '55%',
-                },
-                "progress": {
-                    "show": "true",
-                    "roundCap": "true",
-                    "width": 15
-                },
-                "pointer": {
-                    "length": '60%',
-                    "width": 8,
-                    "offsetCenter": [0, '5%']
-                },
-                "detail": {
-                    "valueAnimation": "true",
-                    "formatter": '{value}%',
-                    "backgroundColor": '#58D9F9',
-                    "borderColor": '#999',
-                    "borderWidth": 4,
-                    "width": '60%',
-                    "lineHeight": 20,
-                    "height": 20,
-                    "borderRadius": 188,
-                    "offsetCenter": [0, '40%'],
-                    "valueAnimation": "true",
-                },
-                "data": [{
-                    "value": 66.66
-                }]
-            }]
-        };
-        st_echarts(options=option, key="1")
+        #         "itemStyle": {
+        #             "color": '#58D9F9',
+        #             "shadowColor": 'rgba(0,138,255,0.45)',
+        #             "shadowBlur": 10,
+        #             "shadowOffsetX": 2,
+        #             "shadowOffsetY": 2,
+        #             "radius": '55%',
+        #         },
+        #         "progress": {
+        #             "show": "true",
+        #             "roundCap": "true",
+        #             "width": 15
+        #         },
+        #         "pointer": {
+        #             "length": '60%',
+        #             "width": 8,
+        #             "offsetCenter": [0, '5%']
+        #         },
+        #         "detail": {
+        #             "valueAnimation": "true",
+        #             "formatter": '{value}%',
+        #             "backgroundColor": '#58D9F9',
+        #             "borderColor": '#999',
+        #             "borderWidth": 4,
+        #             "width": '60%',
+        #             "lineHeight": 20,
+        #             "height": 20,
+        #             "borderRadius": 188,
+        #             "offsetCenter": [0, '40%'],
+        #             "valueAnimation": "true",
+        #         },
+        #         "data": [{
+        #             "value": 66.66
+        #         }]
+        #     }]
+        # };
+        # st_echarts(options=option, key="1")
 
     #부상고위험투수통계 도넛차트
     
     with col112:
-        option1 = {
-            "tooltip": {
-                "formatter": '{a} <br/>{b} : {c}%'
-            },
-            "series": [{
-                "type": 'gauge',
-                "startAngle": 180,
-                "endAngle": 0,
-                "progress": {
-                    "show": "true"
-                },
-                "radius":'100%', 
+        # 현재 팀 투수 부상 누적일수
+        fig2 = px.pie(df1, values="출장경기수", names = "포지션", title="현재 투수 부상 현황", hole=.7)
+        fig2.update_traces(textposition='inside', textinfo='percent+label+value')
+        fig2.update_layout(font=dict(size=16))
+        st.plotly_chart(fig2)
+        
+        # 반원 차트1
+        # option1 = {
+        #     "tooltip": {
+        #         "formatter": '{a} <br/>{b} : {c}%'
+        #     },
+        #     "series": [{
+        #         "type": 'gauge',
+        #         "startAngle": 180,
+        #         "endAngle": 0,
+        #         "progress": {
+        #             "show": "true"
+        #         },
+        #         "radius":'100%', 
 
-                    "itemStyle": {
-                    "color": '#58D9F9',
-                    "shadowColor": 'rgba(0,138,255,0.45)',
-                    "shadowBlur": 10,
-                    "shadowOffsetX": 2,
-                    "shadowOffsetY": 2,
-                    "radius": '55%',
-                },
-                "progress": {
-                    "show": "true",
-                    "roundCap": "true",
-                    "width": 15
-                },
-                "pointer": {
-                    "length": '60%',
-                    "width": 8,
-                    "offsetCenter": [0, '5%']
-                },
-                "detail": {
-                    "valueAnimation": "true",
-                    "formatter": '{value}%',
-                    "backgroundColor": '#58D9F9',
-                    "borderColor": '#999',
-                    "borderWidth": 4,
-                    "width": '60%',
-                    "lineHeight": 20,
-                    "height": 20,
-                    "borderRadius": 188,
-                    "offsetCenter": [0, '40%'],
-                    "valueAnimation": "true",
-                },
-                "data": [{
-                    "value": 66.66
-                }]
-            }]
-        };
-        st_echarts(options=option1, key="2")
+        #             "itemStyle": {
+        #             "color": '#58D9F9',
+        #             "shadowColor": 'rgba(0,138,255,0.45)',
+        #             "shadowBlur": 10,
+        #             "shadowOffsetX": 2,
+        #             "shadowOffsetY": 2,
+        #             "radius": '55%',
+        #         },
+        #         "progress": {
+        #             "show": "true",
+        #             "roundCap": "true",
+        #             "width": 15
+        #         },
+        #         "pointer": {
+        #             "length": '60%',
+        #             "width": 8,
+        #             "offsetCenter": [0, '5%']
+        #         },
+        #         "detail": {
+        #             "valueAnimation": "true",
+        #             "formatter": '{value}%',
+        #             "backgroundColor": '#58D9F9',
+        #             "borderColor": '#999',
+        #             "borderWidth": 4,
+        #             "width": '60%',
+        #             "lineHeight": 20,
+        #             "height": 20,
+        #             "borderRadius": 188,
+        #             "offsetCenter": [0, '40%'],
+        #             "valueAnimation": "true",
+        #         },
+        #         "data": [{
+        #             "value": 66.66
+        #         }]
+        #     }]
+        # };
+        # st_echarts(options=option1, key="2")
+
+# -------------------- ▲ 요약 End ▲ --------------------
+
+## -------------------- ▼ 경기일정 START ▼ --------------------
 
 with col12:
     st.subheader("경기일정")
     st.dataframe(df)  # 경기일정 data프레임이 들어가야함
 
+# --------------------- ▲ 경기일정 End ▲ --------------------
+
 st.subheader("부상통계")
+col21, col22, col23, col24, col25, col26, col27 = st.columns(2)
+
 
 # # 선수 이미지 URL
 # players = { 
