@@ -56,7 +56,6 @@ with col11:
     #부상투수통계 도넛차트
     
     col111, col112 = st.columns(2)
-    
     with col111:
         # 현재 투수 부상 현황
         fig = px.pie(df1, values="이닝", names = "포지션", title="현재 투수 부상 현황", hole=.7)
@@ -121,7 +120,7 @@ with col11:
     
     with col112:
         # 현재 팀 투수 부상 누적일수
-        fig2 = px.pie(df1, values="출장경기수", names = "포지션", title="현재 투수 부상 현황", hole=.7)
+        fig2 = px.pie(df1, values="출장경기수", names = "포지션", title="현재 부상 고위험 투수 통계", hole=.7)
         fig2.update_traces(textposition='inside', textinfo='percent+label+value')
         fig2.update_layout(font=dict(size=16))
         st.plotly_chart(fig2)
