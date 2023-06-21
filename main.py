@@ -16,6 +16,7 @@ fake = get_streamlit_faker(seed=42)
 
 # 현재부상투수현황 데이터프레임
 now_injured = pd.read_csv('now_injured.csv', encoding='cp949')
+
 # 부상x선수 중 부상 위험도 데이터프레임
 high = pd.read_csv('high.csv', encoding='cp949')
 
@@ -58,23 +59,34 @@ if want_to_contribute:
 want_to_contribute1 = st.button("투수 화면으로 이동")
 if want_to_contribute1:
     switch_page("투수")
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
 
+            """, unsafe_allow_html=True)
 ## -------------------- ▼ 요약 START ▼ --------------------
 
 col11, col12 = st.columns(2)
 with col11:
     st.subheader("요약")
-    #fake.dataframe()
     
     col111, col112 = st.columns(2)
     with col111:
         col111.metric('시즌 총 부상빈도', '7 회', '작년 대비 2 회')
+
         # 현재 투수 부상 현황
+        custom_order = ['부상', '재활', '가능']
         fig = px.pie(now_injured.sort_values(by = '출전여부', key=lambda s: s.map({k: i for i, k in enumerate(injury)})), values="값", names = "출전여부", title="현재 투수 부상 현황", hole=.7, 
-                     color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'})
+                     color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, 
+                     category_orders={"출전여부": custom_order})
         fig.update_traces(textposition='outside', textinfo='percent+label+value', textfont_size=10)
         fig.update_layout(font=dict(size=16))
-        fig.update_layout(width=250,height=300)
+        fig.update_layout(width=280,height=320)
         fig.update(layout_showlegend=False)
         st.plotly_chart(fig)
         
@@ -85,15 +97,26 @@ with col11:
         col112.metric('시즌 총 누적부상일수', '125 일', ' 작년대비 20일')
         
         # 현재 팀 투수 부상 누적일수
+        custom_order1 = ['고위험', '보통']
         fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7
-                      , color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'})
+                      , color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},
+                      category_orders={"부상위험": custom_order1})
         fig2.update_traces(textposition='outside', textinfo='percent+label+value', textfont_size=10)
         fig2.update_layout(font=dict(size=16))
-        fig2.update_layout(width=250,height=300)
+        fig2.update_layout(width=280,height=320)
         fig2.update(layout_showlegend=False)
         st.plotly_chart(fig2)
         
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
 
+            """, unsafe_allow_html=True)
 # -------------------- ▲ 요약 End ▲ --------------------
 
 ## -------------------- ▼ 경기일정 START ▼ --------------------
@@ -128,10 +151,12 @@ with col23:
              <h3 style="margin-top: 15px;">이정용</h3>
          </div>
          """, unsafe_allow_html=True)
-        
-        st.text('부상부위: tommy john surgury') # 1. 파일에 부상정보가 없음(가라데이터 필요) 2. 지금은 선수 부상부위가 중복으로 들어간게 있음      
-        st.text(f"부상발생일: {Injured_List['날짜'][0]}") # 해당 선수의 부상일자로 변경해야함
-        st.text("예상 복귀일: D-7")
+        # 1. 파일에 부상정보가 없음(가라데이터 필요) 2. 지금은 선수 부상부위가 중복으로 들어간게 있음, 해당 선수의 부상일자로 변경해야함
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-10".format(Injured_List['날짜'][0]))
+
+
         
 # 선수 2    
     with col233:
@@ -142,9 +167,10 @@ with col23:
          </div>
          """, unsafe_allow_html=True)
         
-        st.text('부상부위: tommy john surgury')           
-        st.text(f"부상 발생일: {Injured_List['날짜'][1]}") 
-        st.text("예상 복귀일: D-7")
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-7".format(Injured_List['날짜'][1]))
+
  
 # 선수 3        
     with col235:
@@ -155,9 +181,9 @@ with col23:
          </div>
          """, unsafe_allow_html=True)
         
-        st.text('부상부위: tommy john surgury')           
-        st.text(f"부상발생일: {Injured_List['날짜'][0]}") 
-        st.text("예상 복귀일: D-3")
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-3".format(Injured_List['날짜'][2]))
     
     
     
