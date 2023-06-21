@@ -114,7 +114,7 @@ else:
                 st.image('0619/부상이력히트맵.png', width=500)
             with col304:
                 #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('0619/예측히트맵.png', width=500)
+                st.image('body/어깨 후면.jpeg', width=500)
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart()
@@ -138,7 +138,7 @@ else:
                 with col403:
                     st.image('0619/스켈레톤.png')
                 with col404:
-                    st.image('0619/원본.png')
+                    st.image('body/어깨 후면.png')
     elif selected_page == '고우석':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
@@ -294,4 +294,3 @@ else:
                     st.image('0619/원본.png')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가
-
