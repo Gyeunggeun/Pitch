@@ -1,6 +1,11 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_card import card
+import pandas as pd
+
+
+df = pd.read_csv('./players/Injured_List4.csv', encoding='UTF-8')
+df = df.set_index('선수')
 
 st.set_page_config(
     page_title="팀 요약",
@@ -170,6 +175,71 @@ with col205:
 st.subheader('부상자 명단')
 st.write("\n")  # additional space
 
+col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+with col201:
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
+    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">이정용</h4>', unsafe_allow_html=True)
+    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">YI JUNG YONG</h6>', unsafe_allow_html=True)
+
+# with col202:
+#     st.markdown("""<br>
+#         <div style="text-align: center;">
+#             <h3 style="margin-top: 15px;">이정용</h3>
+#             <h4 style="margin-top: -15px;">투수</h4>
+#         </div>
+#     """, unsafe_allow_html=True)
+
+with col203:
+    st.table(df.iloc[-1])
+    # st.markdown(" ")
+    # st.markdown(" ")
+    # st.text("어깨")
+    # st.text("2023-05-30")
+    # st.text("예상 복귀일 D-7")
+
+
+col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+with col201:
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
+    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">고우석</h4>', unsafe_allow_html=True)
+    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">GO WOO SUK</h6>', unsafe_allow_html=True)
+
+# with col202:
+#     st.markdown("""<br>
+#         <div style="text-align: center;">
+#             <h3 style="margin-top: 15px;">고우석</h3>
+#             <h4 style="margin-top: -15px;">투수</h4>
+#         </div>
+#     """, unsafe_allow_html=True)
+
+with col203:
+    st.table(df.iloc[-5])
+    # st.markdown(" ")
+    # st.markdown(" ")
+    # st.text("어깨")
+    # st.text("2023-05-02")
+    # st.text("예상 복귀일 D-3")
+
+col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+with col201:
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
+    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">이민호</h4>', unsafe_allow_html=True)
+    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">LEE MIN HO</h6>', unsafe_allow_html=True)
+# with col202:
+#     st.markdown("""
+#         <div style="text-align: center;">
+#             <h3 style="margin-top: 15px;">이민호</h3>
+#             <h4 style="margin-top: -15px;">투수</h4>
+#         </div>
+#     """, unsafe_allow_html=True)
+with col203:
+    st.table(df.iloc[-6])
+    # st.markdown(" ")
+    # st.markdown(" ")
+    # st.text("팔꿈치")
+    # st.text("2023-04-10")
+    # st.text("예상 복귀일 D-1")
+=======
 col201, col202, col203 = st.columns([0.2, 0.2, 0.6])
 with col201:
     st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
