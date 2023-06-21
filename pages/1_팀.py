@@ -170,64 +170,56 @@ with col205:
 st.subheader('부상자 명단')
 st.write("\n")  # additional space
 
-col201, col202, col203 = st.columns([0.1, 0.2, 0.7])
+col201, col202, col203 = st.columns([0.2, 0.2, 0.6])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=200)
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
 with col202:
-    st.markdown("""
+    st.markdown("""<br>
         <div style="text-align: center;">
-            <h3 style="margin-top: 15px;">강효종</h3>
-            <h4 style="margin-top: 5px;">투수</h4>
+            <h3 style="margin-top: 15px;">이정용</h3>
+            <h4 style="margin-top: -15px;">투수</h4>
         </div>
     """, unsafe_allow_html=True)
 
 with col203:
-    st.markdown("""
-        <style>
-            p {
-                font-size: 18px;
-                margin-top: 10px;
-            }
-        </style>
-        <div style="display: flex; justify-content: space-between;">
-            <p>왼쪽 어꺠</p>
-            <p>오른쪽 팔꿈치</p>
-            <p>왼쪽 발목</p>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-            <p>복귀일 D-7</p>
-            <p>복귀일 D-10</p>
-            <p>복귀일 D-14</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown(" ")
+    st.markdown(" ")
+    st.text("어깨")
+    st.text("2023-05-30")
+    st.text("예상 복귀일 D-7")
 
 
 col201, col202, col203 = st.columns([0.1, 0.2, 0.7])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=200)
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
 with col202:
-    st.markdown("""
+    st.markdown("""<br>
         <div style="text-align: center;">
             <h3>고우석</h3>
             <h4 style="margin-top: 0px;">투수</h4>
         </div>
     """, unsafe_allow_html=True)
 with col203:
-    st.text("왼쪽 어깨")
-    st.text("복귀일 D-7")
+    st.markdown(" ")
+    st.markdown(" ")
+    st.text("어깨")
+    st.text("2023-05-02")
+    st.text("예상 복귀일 D-3")
 
 col201, col202, col203 = st.columns([0.1, 0.2, 0.7])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=200)
+    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
 with col202:
     st.markdown("""
         <div style="text-align: center;">
-            <h3>김윤식</h3>
+            <h3>이민호</h3>
             <h4 style="margin-top: 0px;">투수</h4>
         </div>
     """, unsafe_allow_html=True)
 with col203:
-    st.text("오른쪽 팔꿈치")
-    st.text("복귀일 D-10")
-
+    st.markdown(" ")
+    st.markdown(" ")
+    st.text("팔꿈치")
+    st.text("2023-04-10")
+    st.text("예상 복귀일 D-1")
 
