@@ -171,16 +171,28 @@ with col205:
 
 
 
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
 
+            """, unsafe_allow_html=True)
 st.subheader('부상자 명단')
 st.write("\n")  # additional space
 
-col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
-    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">이정용</h4>', unsafe_allow_html=True)
-    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">YI JUNG YONG</h6>', unsafe_allow_html=True)
-
+    st.markdown("""
+        <div style='text-align: center;'>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png' width='200' />
+            <h4 style='margin-top: -5px; margin-bottom: 0;'>이정용</h4>
+            <h6 style='color: gray; margin-top: -10px;'>YI JUNG YONG</h6>
+        </div>
+    """, unsafe_allow_html=True)
 # with col202:
 #     st.markdown("""<br>
 #         <div style="text-align: center;">
@@ -198,11 +210,15 @@ with col203:
     # st.text("예상 복귀일 D-7")
 
 
-col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
-    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">고우석</h4>', unsafe_allow_html=True)
-    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">GO WOO SUK</h6>', unsafe_allow_html=True)
+    st.markdown("""
+        <div style='text-align: center;'>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png' width='200' />
+            <h4 style='margin-top: -5px; margin-bottom: 0;'>고우석</h4>
+            <h6 style='color: gray; margin-top: -10px;'>GO WOO SUK</h6>
+        </div>
+    """, unsafe_allow_html=True)
 
 # with col202:
 #     st.markdown("""<br>
@@ -220,11 +236,15 @@ with col203:
     # st.text("2023-05-02")
     # st.text("예상 복귀일 D-3")
 
-col201, col202, col203 = st.columns([0.25, 0.2, 0.6])
+col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
-    st.markdown('<h4 style="text-align:center; margin-bottom: 0;">이민호</h4>', unsafe_allow_html=True)
-    st.markdown('<h6 style="text-align:center; color:gray; margin-top: 0;">LEE MIN HO</h6>', unsafe_allow_html=True)
+    st.markdown("""
+        <div style='text-align: center;'>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png' width='200' />
+            <h4 style='margin-top: -5px; margin-bottom: 0;'>이민호</h4>
+            <h6 style='color: gray; margin-top: -10px;'>LEE MIN HO</h6>
+        </div>
+    """, unsafe_allow_html=True)
 # with col202:
 #     st.markdown("""
 #         <div style="text-align: center;">
@@ -239,57 +259,4 @@ with col203:
     # st.text("팔꿈치")
     # st.text("2023-04-10")
     # st.text("예상 복귀일 D-1")
-=======
-col201, col202, col203 = st.columns([0.2, 0.2, 0.6])
-with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
-with col202:
-    st.markdown("""<br>
-        <div style="text-align: center;">
-            <h3 style="margin-top: 15px;">이정용</h3>
-            <h4 style="margin-top: -15px;">투수</h4>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col203:
-    st.markdown(" ")
-    st.markdown(" ")
-    st.text("어깨")
-    st.text("2023-05-30")
-    st.text("예상 복귀일 D-7")
-
-
-col201, col202, col203 = st.columns([0.1, 0.2, 0.7])
-with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
-with col202:
-    st.markdown("""<br>
-        <div style="text-align: center;">
-            <h3>고우석</h3>
-            <h4 style="margin-top: 0px;">투수</h4>
-        </div>
-    """, unsafe_allow_html=True)
-with col203:
-    st.markdown(" ")
-    st.markdown(" ")
-    st.text("어깨")
-    st.text("2023-05-02")
-    st.text("예상 복귀일 D-3")
-
-col201, col202, col203 = st.columns([0.1, 0.2, 0.7])
-with col201:
-    st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
-with col202:
-    st.markdown("""
-        <div style="text-align: center;">
-            <h3>이민호</h3>
-            <h4 style="margin-top: 0px;">투수</h4>
-        </div>
-    """, unsafe_allow_html=True)
-with col203:
-    st.markdown(" ")
-    st.markdown(" ")
-    st.text("팔꿈치")
-    st.text("2023-04-10")
-    st.text("예상 복귀일 D-1")
 
