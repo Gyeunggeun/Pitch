@@ -25,7 +25,7 @@ with col201:
         </div>
         <style>
             .stProgress > div > div > div > div {
-                background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
+                background-image: linear-gradient(to right, yellow, #C10505, #15FF0D);
             }
             .stMarkdown h4 {
                 text-align: center;

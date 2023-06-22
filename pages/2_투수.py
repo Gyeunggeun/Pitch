@@ -14,6 +14,9 @@ df3 = df3.set_index('선수ID') # 이민호
 df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
 df4 = df4.set_index('선수ID') # 이정용
 
+#선수 기본정보 csv 파일 읽어오기
+binfo = pd.read_csv('baseinfo.csv')
+
 # streamlit faker 사용 (임시)
 fake = get_streamlit_faker(seed=42)
 
