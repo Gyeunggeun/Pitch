@@ -5,17 +5,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcl
 import matplotlib.patches as mpt
+import hydralit_components as hc
 import seaborn as sns
 import plotly.express as px
 from streamlit_echarts import st_echarts
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
+from streamlit_card import card
 import elbowtorque as tq
+
 
 # streamlit faker
 fake = get_streamlit_faker(seed=42)
 
 # 현재부상투수현황 데이터프레임
+# 재활, 부상, 가능 나열하기 위한 리스트
+injury = ['가능','재활','부상']
 now_injured = pd.read_csv('now_injured.csv', encoding='euc-kr')
 
 # 부상x선수 중 부상 위험도 데이터프레임
@@ -26,13 +31,18 @@ high = pd.read_csv('high.csv', encoding='euc-kr')
 # df1 = injury[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 # df1 = df1.set_index('선수ID')
 
-
-
 #일단 예시로 해당csv파일 활용
 df = pd.read_csv('lgpitch.csv')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID')
 
+# injured_list.csv 파일
+Injured_List = pd.read_csv('Injured_List.csv')
+
+# injured_list3.csv 파일
+Injured_List3 = pd.read_csv('Injured_List3.csv',encoding='cp949' )
+Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
+Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 # injured_list.csv 파일
 Injured_List = pd.read_csv('Injured_List.csv')
@@ -41,6 +51,7 @@ Injured_List = pd.read_csv('Injured_List.csv')
 Injured_List3 = pd.read_csv('players/Injured_List3.csv')
 Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
 Injured_List3 = Injured_List3.sort_values(ascending=False)
+
 
 # -------------------- ▼ 필요 변수 생성 코딩 Start ▼ --------------------
 
@@ -81,104 +92,32 @@ st.title('대시보드')
 st.subheader("경기일정")
 st.write('2023년 06월 21일 (수)')
 
-wch_colour_box = (142,142,141)
-wch_colour_font = (0,0,0)
-fontsize = 18
-valign = "left"
-iconname = "fas fa-asterisk"
-sline = "NC"
-place="away 창원"
-lnk = '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">'
-i = '06.22. (목) 18:30'
 
-htmlstr = f"""<p style='background-color: rgb({wch_colour_box[0]}, 
-                                              {wch_colour_box[1]}, 
-                                              {wch_colour_box[2]}, 0.75); 
-                        color: rgb({wch_colour_font[0]}, 
-                                   {wch_colour_font[1]}, 
-                                   {wch_colour_font[2]}, 0.75); 
-                        font-size: {fontsize}px; 
-                        border-radius: 7px; 
-                        padding-left: 12px; 
-                        padding-top: 18px; 
-                        padding-bottom: 18px; 
-                        line-height:25px;'>
-                        <i class=' fa-xs'></i> {i}
-                        </style><BR><span style='font-size: 24px; 
-                        margin-top: 0;'>{sline}</style></span>
-                        </style><BR><span style='font-size: 18px; 
-                        margin-top: 0;'>{place}</style></span></p>"""
 
-wch_colour_box2 = (223,131,155)
-sline2 = "롯데"
-place2="home 잠실"
-i2 = '06.23. (금) 18:30'
-i3 = '06.24. (토) 17:00'
-i4 = '06.25. (일) 17:00'
 
-htmlstr2 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
-                                              {wch_colour_box2[1]}, 
-                                              {wch_colour_box2[2]}, 0.75); 
-                        color: rgb({wch_colour_font[0]}, 
-                                   {wch_colour_font[1]}, 
-                                   {wch_colour_font[2]}, 0.75); 
-                        font-size: {fontsize}px; 
-                        border-radius: 7px; 
-                        padding-left: 12px; 
-                        padding-top: 18px; 
-                        padding-bottom: 18px; 
-                        line-height:25px;'>
-                        <i class=' fa-xs'></i> {i2}
-                        </style><BR><span style='font-size: 24px; 
-                        margin-top: 0;'>{sline2}</style></span>
-                        </style><BR><span style='font-size: 18px; 
-                        margin-top: 0;'>{place2}</style></span></p>"""
 
-htmlstr3 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
-                                              {wch_colour_box2[1]}, 
-                                              {wch_colour_box2[2]}, 0.75); 
-                        color: rgb({wch_colour_font[0]}, 
-                                   {wch_colour_font[1]}, 
-                                   {wch_colour_font[2]}, 0.75); 
-                        font-size: {fontsize}px; 
-                        border-radius: 7px; 
-                        padding-left: 12px; 
-                        padding-top: 18px; 
-                        padding-bottom: 18px; 
-                        line-height:25px;'>
-                        <i class=' fa-xs'></i> {i3}
-                        </style><BR><span style='font-size: 24px; 
-                        margin-top: 0;'>{sline2}</style></span>
-                        </style><BR><span style='font-size: 18px; 
-                        margin-top: 0;'>{place2}</style></span></p>"""
+#can apply customisation to almost all the properties of the card, including the progress bar
+                              
 
-htmlstr4 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
-                                              {wch_colour_box2[1]}, 
-                                              {wch_colour_box2[2]}, 0.75); 
-                        color: rgb({wch_colour_font[0]}, 
-                                   {wch_colour_font[1]}, 
-                                   {wch_colour_font[2]}, 0.75); 
-                        font-size: {fontsize}px; 
-                        border-radius: 7px; 
-                        padding-left: 12px; 
-                        padding-top: 18px; 
-                        padding-bottom: 18px; 
-                        line-height:25px;'>
-                        <i class=' fa-xs'></i> {i4}
-                        </style><BR><span style='font-size: 24px; 
-                        margin-top: 0;'>{sline2}</style></span>
-                        </style><BR><span style='font-size: 18px; 
-                        margin-top: 0;'>{place2}</style></span></p>"""
+theme_away = {'bgcolor': '#f6f6f6','title_color': '#8e8e8d','content_color': '#8e8e8d','icon_color': 'red', 'icon': 'fas fa-sign-in'}
+theme_home = {'bgcolor': '#ededed','title_color': '#be0737','content_color': '#be0737','icon_color': 'orange', 'icon': 'fa fa-sign-out'}
 
-col101, col102, col103, col104 = st.columns(4)
-with col101:
-    st.markdown(lnk + htmlstr, unsafe_allow_html=True)
-with col102:
-    st.markdown(lnk + htmlstr2, unsafe_allow_html=True)
-with col103:
-    st.markdown(lnk + htmlstr3, unsafe_allow_html=True)
-with col104:
-    st.markdown(lnk + htmlstr4, unsafe_allow_html=True)
+cc = st.columns(4)
+
+with cc[0]:
+    # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
+    hc.info_card(title='NC', content='06.22. (목) 18:30\naway 창원', theme_override=theme_away)
+
+with cc[1]:
+    hc.info_card(title='롯데', content='06.23. (금) 18:30 home 잠실',theme_override=theme_home)
+
+with cc[2]:
+    hc.info_card(title='롯데', content='06.24. (토) 17:00 home 잠실',theme_override=theme_home)
+
+with cc[3]:
+ #customise the the theming for a neutral content
+    hc.info_card(title='롯데',content='06.25. (일) 17:00 home 잠실',key='sec',theme_override=theme_home)
+
     
 # -------------------- ▲ 경기일정 End ▲ --------------------
 
@@ -191,19 +130,20 @@ with col201:
     st.write(" ")
     st.write(" ")
     st.write(" ")
-    col201.metric('시즌 총 부상빈도', "7", '2 회')
+    col201.metric('시즌 총 부상빈도', "7 회", '2 회')
 
 with col202:
     st.write(" ")
     st.write(" ")
     st.write(" ")
     st.write(" ")
-    col202.metric('시즌 총 누적부상일수', "115", ' 20일')
+    col202.metric('시즌 총 누적부상일수', "115 일", ' 20일')
 
 with col203:
     custom_order = ['부상', '재활', '가능']
-    fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'},
-                 category_orders={"출전여부": custom_order})
+
+    fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
+
     #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
     fig.update_traces(textposition='outside', textinfo='label+value',
                           textfont_size=10) # textfont_color="blact"
@@ -211,11 +151,13 @@ with col203:
     fig.update_layout(width=250,height=300)
     fig.update(layout_showlegend=False)
     st.plotly_chart(fig)
+
 with col204:
     # 현재 팀 투수 부상 누적일수
     custom_order1 = ['고위험', '보통']
-    fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},
-                  category_orders={"부상위험": custom_order1})
+    
+    fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
+
     fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
     fig2.update_layout(font=dict(size=16))
     fig2.update_layout(width=250,height=300)
@@ -227,6 +169,7 @@ with col204:
 # --------------------- ▲ 요약 End ▲ --------------------
 
 ## -------------------- ▼ 부상통계 START (규한파일합치기) ▼ --------------------
+
 
 st.subheader("부상통계")
 st.write("\n")  # additional space
@@ -249,12 +192,10 @@ with col23:
              <h3 style="margin-top: 15px;">이정용</h3>
          </div>
          """, unsafe_allow_html=True)
-        # 1. 파일에 부상정보가 없음(가라데이터 필요) 2. 지금은 선수 부상부위가 중복으로 들어간게 있음, 해당 선수의 부상일자로 변경해야함
+
         st.markdown("부상부위: tommy john surgury\n"
             "\n부상발생일: {}\n"
             "\n예상 복귀일: D-10".format(Injured_List['날짜'][0]))
-
-
         
 # 선수 2    
     with col233:
@@ -264,12 +205,11 @@ with col23:
              <h3 style="margin-top: 15px;">고우석</h3>
          </div>
          """, unsafe_allow_html=True)
-        
+       
         st.markdown("부상부위: tommy john surgury\n"
             "\n부상발생일: {}\n"
             "\n예상 복귀일: D-7".format(Injured_List['날짜'][1]))
 
- 
 # 선수 3        
     with col235:
         st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
@@ -278,12 +218,9 @@ with col23:
              <h3 style="margin-top: 15px;">이민호</h3>
          </div>
          """, unsafe_allow_html=True)
-        
+   
         st.markdown("부상부위: tommy john surgury\n"
             "\n부상발생일: {}\n"
             "\n예상 복귀일: D-3".format(Injured_List['날짜'][2]))
     
-    
-    
-    
-  
+   
