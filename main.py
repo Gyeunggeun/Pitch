@@ -30,10 +30,10 @@ df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '�
 df1 = df1.set_index('선수ID')
 
 # injured_list.csv 파일
-Injured_List = pd.read_csv('Injured_List.csv')
+Injured_List = pd.read_csv('Injured_List.csv', encoding='cp949')
 
 # injured_list3.csv 파일
-Injured_List3 = pd.read_csv('Injured_List3.csv',encoding='cp949' )
+Injured_List3 = pd.read_csv('./players/Injured_List3.csv', encoding='cp949')
 Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
 Injured_List3 = Injured_List3.sort_values(ascending=False)
 
