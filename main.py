@@ -141,6 +141,7 @@ with col202:
 
 with col203:
     custom_order = ['부상', '재활', '가능']
+
     fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
 
     #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
@@ -154,7 +155,9 @@ with col203:
 with col204:
     # 현재 팀 투수 부상 누적일수
     custom_order1 = ['고위험', '보통']
+    
     fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
+
     fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
     fig2.update_layout(font=dict(size=16))
     fig2.update_layout(width=250,height=300)
