@@ -10,15 +10,16 @@ import plotly.express as px
 from streamlit_echarts import st_echarts
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
+import elbowtorque as tq
 
 # streamlit faker
 fake = get_streamlit_faker(seed=42)
 
 # 현재부상투수현황 데이터프레임
-now_injured = pd.read_csv('now_injured.csv', encoding='cp949')
+now_injured = pd.read_csv('now_injured.csv', encoding='euc-kr')
 
 # 부상x선수 중 부상 위험도 데이터프레임
-high = pd.read_csv('high.csv', encoding='cp949')
+high = pd.read_csv('high.csv', encoding='euc-kr')
 
 # 부상자 csv 데이터프레임 !!
 # injury = pd.read_csv('injury.csv')
@@ -34,10 +35,10 @@ df1 = df1.set_index('선수ID')
 
 
 # injured_list.csv 파일
-Injured_List = pd.read_csv('Injured_List.csv', encoding='cp949')
+Injured_List = pd.read_csv('Injured_List.csv')
 
 # injured_list3.csv 파일
-Injured_List3 = pd.read_csv('Injured_List3.csv',encoding='cp949' )
+Injured_List3 = pd.read_csv('players/Injured_List3.csv')
 Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
 Injured_List3 = Injured_List3.sort_values(ascending=False)
 
