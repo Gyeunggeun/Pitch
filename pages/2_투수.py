@@ -105,16 +105,19 @@ else:
             st.markdown("   ")
             st.subheader("최근 부상 이력")
             st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-            col303, col304 = st.columns(2)
-            with col303 :
-                #st.write('2023시즌')
-                #st.markdown("   ")
-                #st.subheader("최근 부상 이력")
-                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-                st.image('0619/부상이력히트맵.png', width=500)
+            col303, col304, col305 = st.columns(3)
+            with col303:
+                st.image('body/어깨원.png', width=250)
+                st.markdown('#### <p style="text-align: center;">Shoulder | Jan1</p>', unsafe_allow_html=True)
+
             with col304:
-                #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('body/어깨 후면.jpeg', width=500)
+                st.image('body/이두원.png', width=250)
+                st.markdown('#### <p style="text-align: center;">Biceps | Feb 17</p>', unsafe_allow_html=True)
+
+            with col305:
+                st.image('body/허리원.png', width=250)
+                st.markdown('#### <p style="text-align: center;">Oblique | May 4</p>', unsafe_allow_html=True)
+
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart()
