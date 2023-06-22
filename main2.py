@@ -44,8 +44,8 @@ st.set_page_config(
 
 # -------------------- ▼ Streamlit 웹 화면 구성 START ▼ --------------------
 
-st.title('대시보드')
-# 대시보드 페이지의 내용 추가
+# st.title('대시보드')
+# # 대시보드 페이지의 내용 추가
 # want_to_contribute = st.button("팀 화면으로 이동")
 # if want_to_contribute:
 #     switch_page("팀")
@@ -56,11 +56,113 @@ st.title('대시보드')
 
 ## -------------------- ▼ 요약 START ▼ --------------------
 
+st.title('대시보드')
+st.subheader("경기일정")
+st.write('2023년 06월 21일 (수)')
 
+wch_colour_box = (142,142,141)
+wch_colour_font = (0,0,0)
+fontsize = 18
+valign = "left"
+iconname = "fas fa-asterisk"
+sline = "NC"
+place="away 창원"
+lnk = '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">'
+i = '06.22. (목) 18:30'
 
+htmlstr = f"""<p style='background-color: rgb({wch_colour_box[0]}, 
+                                              {wch_colour_box[1]}, 
+                                              {wch_colour_box[2]}, 0.75); 
+                        color: rgb({wch_colour_font[0]}, 
+                                   {wch_colour_font[1]}, 
+                                   {wch_colour_font[2]}, 0.75); 
+                        font-size: {fontsize}px; 
+                        border-radius: 7px; 
+                        padding-left: 12px; 
+                        padding-top: 18px; 
+                        padding-bottom: 18px; 
+                        line-height:25px;'>
+                        <i class=' fa-xs'></i> {i}
+                        </style><BR><span style='font-size: 24px; 
+                        margin-top: 0;'>{sline}</style></span>
+                        </style><BR><span style='font-size: 18px; 
+                        margin-top: 0;'>{place}</style></span></p>"""
+
+wch_colour_box2 = (223,131,155)
+sline2 = "롯데"
+place2="home 잠실"
+i2 = '06.23. (금) 18:30'
+i3 = '06.24. (토) 17:00'
+i4 = '06.25. (일) 17:00'
+
+htmlstr2 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
+                                              {wch_colour_box2[1]}, 
+                                              {wch_colour_box2[2]}, 0.75); 
+                        color: rgb({wch_colour_font[0]}, 
+                                   {wch_colour_font[1]}, 
+                                   {wch_colour_font[2]}, 0.75); 
+                        font-size: {fontsize}px; 
+                        border-radius: 7px; 
+                        padding-left: 12px; 
+                        padding-top: 18px; 
+                        padding-bottom: 18px; 
+                        line-height:25px;'>
+                        <i class=' fa-xs'></i> {i2}
+                        </style><BR><span style='font-size: 24px; 
+                        margin-top: 0;'>{sline2}</style></span>
+                        </style><BR><span style='font-size: 18px; 
+                        margin-top: 0;'>{place2}</style></span></p>"""
+
+htmlstr3 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
+                                              {wch_colour_box2[1]}, 
+                                              {wch_colour_box2[2]}, 0.75); 
+                        color: rgb({wch_colour_font[0]}, 
+                                   {wch_colour_font[1]}, 
+                                   {wch_colour_font[2]}, 0.75); 
+                        font-size: {fontsize}px; 
+                        border-radius: 7px; 
+                        padding-left: 12px; 
+                        padding-top: 18px; 
+                        padding-bottom: 18px; 
+                        line-height:25px;'>
+                        <i class=' fa-xs'></i> {i3}
+                        </style><BR><span style='font-size: 24px; 
+                        margin-top: 0;'>{sline2}</style></span>
+                        </style><BR><span style='font-size: 18px; 
+                        margin-top: 0;'>{place2}</style></span></p>"""
+
+htmlstr4 = f"""<p style='background-color: rgb({wch_colour_box2[0]}, 
+                                              {wch_colour_box2[1]}, 
+                                              {wch_colour_box2[2]}, 0.75); 
+                        color: rgb({wch_colour_font[0]}, 
+                                   {wch_colour_font[1]}, 
+                                   {wch_colour_font[2]}, 0.75); 
+                        font-size: {fontsize}px; 
+                        border-radius: 7px; 
+                        padding-left: 12px; 
+                        padding-top: 18px; 
+                        padding-bottom: 18px; 
+                        line-height:25px;'>
+                        <i class=' fa-xs'></i> {i4}
+                        </style><BR><span style='font-size: 24px; 
+                        margin-top: 0;'>{sline2}</style></span>
+                        </style><BR><span style='font-size: 18px; 
+                        margin-top: 0;'>{place2}</style></span></p>"""
+
+col301, col302, col303, col304 = st.columns(4)
+with col301:
+    st.markdown(lnk + htmlstr, unsafe_allow_html=True)
+with col302:
+    st.markdown(lnk + htmlstr2, unsafe_allow_html=True)
+with col303:
+    st.markdown(lnk + htmlstr3, unsafe_allow_html=True)
+with col304:
+    st.markdown(lnk + htmlstr4, unsafe_allow_html=True)
+
+st.subheader("요약")
 col11, col12 = st.columns(2)
 with col11:
-    st.subheader("요약")
+    
     #st.write(f"시즌 총 부상빈도 : {df1['출장경기수'][0]} (임시)") # st.write('팀부상빈도:', injury[부상].sum)
     #st.write(f"시즌 총 누적부상일수 : {df1['이닝'][0]} (임시)")
     #fake.dataframe()
@@ -70,21 +172,19 @@ with col11:
     
     col111, col112 = st.columns(2)
     with col111:
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
         col111.metric('시즌 총 부상빈도', temp1, '2 회')
         #현재 투수 부상 현황
         leg = ['불가능', '가능']
                 
-        fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'})
-        #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
-        fig.update_traces(textposition='outside', textinfo='label+value', textfont_size=10) # textfont_color="blact"
-        fig.update_layout(font=dict(size=16))
-        fig.update_layout(width=250,height=300)
-        fig.update(layout_showlegend=False)
         
         #title="현재투수부상현황",        
         #now_injured.sort_values(by="출전여부", key=lambda s: s.map({k: i for i, k in enumerate(leg)}))
            
-        st.plotly_chart(fig)
+        
         
         # 반원 차트1
         # option = {
@@ -142,15 +242,13 @@ with col11:
     #부상고위험투수통계 도넛차트
     
     with col112:
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
         col112.metric('시즌 총 누적부상일수', temp2, ' 20일')
         
-        # 현재 팀 투수 부상 누적일수
-        fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'})
-        fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
-        fig2.update_layout(font=dict(size=16))
-        fig2.update_layout(width=250,height=300)
-        fig2.update(layout_showlegend=False)
-        st.plotly_chart(fig2)
+
         
         # 반원 차트1
         # option1 = {
@@ -209,16 +307,27 @@ with col11:
 ## -------------------- ▼ 경기일정 START ▼ --------------------
 
 with col12:
-    st.subheader("경기일정")
-    st.write('2023년 06월 21일 (수)')
+
+
     
     col201, col202 = st.columns(2)
     with col201:
-        col201.metric('06.22. (목) 18:30', 'NC', 'away 창원')
-        col201.metric('06.24. (토) 17:00', '롯데', 'home 잠실')
+        fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'})
+        #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
+        fig.update_traces(textposition='outside', textinfo='label+value',
+                          textfont_size=10) # textfont_color="blact"
+        fig.update_layout(font=dict(size=16))
+        fig.update_layout(width=250,height=300)
+        fig.update(layout_showlegend=False)
+        st.plotly_chart(fig)
     with col202:
-        col202.metric('06.23. (금) 18:30', '롯데', 'home 잠실')
-        col202.metric('06.25. (일) 17:00', '롯데', 'home 잠실')
+                # 현재 팀 투수 부상 누적일수
+        fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'})
+        fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
+        fig2.update_layout(font=dict(size=16))
+        fig2.update_layout(width=250,height=300)
+        fig2.update(layout_showlegend=False)
+        st.plotly_chart(fig2)
     
     #st.dataframe(df)  # 경기일정 data프레임이 들어가야함
 
