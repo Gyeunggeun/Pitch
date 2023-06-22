@@ -4,9 +4,15 @@ import pandas as pd
 from streamlit_faker import get_streamlit_faker
 
 # 데이터프레임 여기에
-df = pd.read_csv('lgpitch.csv')
+df = pd.read_excel('lgpitch.xlsx')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
-df1 = df1.set_index('선수ID')
+df1 = df1.set_index('선수ID') # 강효종
+df2 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[1]]
+df2 = df2.set_index('선수ID') # 고우석
+df3 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[3]]
+df3 = df3.set_index('선수ID') # 이민호
+df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
+df4 = df4.set_index('선수ID') # 이정용
 
 # streamlit faker 사용 (임시)
 fake = get_streamlit_faker(seed=42)
@@ -108,7 +114,7 @@ else:
                 st.image('0619/부상이력히트맵.png', width=500)
             with col304:
                 #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('0619/예측히트맵.png', width=500)
+                st.image('body/어깨 후면.jpeg', width=500)
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart()
@@ -132,8 +138,159 @@ else:
                 with col403:
                     st.image('0619/스켈레톤.png')
                 with col404:
-                    st.image('0619/원본.png')
+                    st.image('body/어깨 후면.png')
     elif selected_page == '고우석':
-        st.write('고우석 상세정보')
+        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        with tab1:
+            col301, col302 = st.columns(2)
+            with col301:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=300)
+            with col302:
+                st.subheader("선수 기본 프로필")
+                st.text("이름: 고우석")
+                st.text("포지션: 투수")
+                st.text("팀: LG 트윈스")
+                st.text("생년월일: 1998년 8월 6일")
+                st.text("신장/체중: 177cm/90kg")
+            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.write('2023시즌')
+            st.dataframe(df2, width=1000)
+            st.markdown("   ")
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304 = st.columns(2)
+            with col303 :
+                #st.write('2023시즌')
+                #st.markdown("   ")
+                #st.subheader("최근 부상 이력")
+                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+                st.image('0619/부상이력히트맵.png', width=500)
+            with col304:
+                #st.markdown("    ") # 줄바꿈 여러번 추가
+                st.image('0619/예측히트맵.png', width=500)
+            st.markdown(' ')
+            st.subheader('부상 패턴 예측 들어갈곳')
+            fake.bar_chart()
+        with tab2:
+            st.subheader('투구 분석')
+            fake.line_chart()
+            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            option = st.selectbox('투구를 선택하세요',
+                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
+            st.write('선택 옵션:', option)
+            if option == '1구':
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/KzDgIkzRfw8') # 출처 필요 -> 세부 페이지에
+                with col402: 
+                    st.video('https://youtu.be/HTNdAHUKhjg')
+            elif option == '2구':
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')
+    elif selected_page == '이민호':
+        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        with tab1:
+            col301, col302 = st.columns(2)
+            with col301:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=300)
+            with col302:
+                st.subheader("선수 기본 프로필")
+                st.text("이름: 이민호")
+                st.text("포지션: 투수")
+                st.text("팀: LG 트윈스")
+                st.text("생년월일: 2001년 8월 30일")
+                st.text("신장/체중: 189cm/95kg")
+            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.write('2023시즌')
+            st.dataframe(df3, width=1000)
+            st.markdown("   ")
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304 = st.columns(2)
+            with col303 :
+                #st.write('2023시즌')
+                #st.markdown("   ")
+                #st.subheader("최근 부상 이력")
+                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+                st.image('0619/부상이력히트맵.png', width=500)
+            with col304:
+                #st.markdown("    ") # 줄바꿈 여러번 추가
+                st.image('0619/예측히트맵.png', width=500)
+            st.markdown(' ')
+            st.subheader('부상 패턴 예측 들어갈곳')
+            fake.bar_chart() 
+        with tab2:
+            st.subheader('투구 분석')
+            fake.line_chart()
+            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            option = st.selectbox('투구를 선택하세요',
+                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
+            st.write('선택 옵션:', option)
+            if option == '1구':
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/vmfSRPTCd08') # 출처 필요 -> 세부 페이지에
+                with col402: 
+                    st.video('https://youtu.be/n-5u2sF28VI')
+            elif option == '2구':
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')           
+    elif selected_page == '이정용':
+        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        with tab1:
+            col301, col302 = st.columns(2)
+            with col301:
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=300)
+            with col302:
+                st.subheader("선수 기본 프로필")
+                st.text("이름: 이정용")
+                st.text("포지션: 투수")
+                st.text("팀: LG 트윈스")
+                st.text("생년월일: 1996년 3월 26일")
+                st.text("신장/체중: 186cm/85kg")
+            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.write('2023시즌')
+            st.dataframe(df4, width=1000)
+            st.markdown("   ")
+            st.subheader("최근 부상 이력")
+            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304 = st.columns(2)
+            with col303 :
+                #st.write('2023시즌')
+                #st.markdown("   ")
+                #st.subheader("최근 부상 이력")
+                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+                st.image('0619/부상이력히트맵.png', width=500)
+            with col304:
+                #st.markdown("    ") # 줄바꿈 여러번 추가
+                st.image('0619/예측히트맵.png', width=500)
+            st.markdown(' ')
+            st.subheader('부상 패턴 예측 들어갈곳')
+            fake.bar_chart()
+        with tab2:
+            st.subheader('투구 분석')
+            fake.line_chart()
+            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            option = st.selectbox('투구를 선택하세요',
+                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
+            st.write('선택 옵션:', option)
+            if option == '1구':
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/9hXEKLezRmA') # 출처 필요 -> 세부 페이지에
+                with col402: 
+                    st.video('https://youtu.be/06f3maD7DzA')
+            elif option == '2구':
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')
         # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가

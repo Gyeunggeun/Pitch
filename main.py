@@ -16,6 +16,7 @@ fake = get_streamlit_faker(seed=42)
 
 # 현재부상투수현황 데이터프레임
 now_injured = pd.read_csv('now_injured.csv', encoding='cp949')
+
 # 부상x선수 중 부상 위험도 데이터프레임
 high = pd.read_csv('high.csv', encoding='cp949')
 
@@ -24,13 +25,21 @@ high = pd.read_csv('high.csv', encoding='cp949')
 # df1 = injury[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 # df1 = df1.set_index('선수ID')
 
-# 경기일정 csv 데이터프레임 !!
-# date
+
 
 #일단 예시로 해당csv파일 활용
 df = pd.read_csv('lgpitch.csv')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID')
+
+
+# injured_list.csv 파일
+Injured_List = pd.read_csv('Injured_List.csv')
+
+# injured_list3.csv 파일
+Injured_List3 = pd.read_csv('players/Injured_List3.csv')
+Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
+Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 # -------------------- ▼ 필요 변수 생성 코딩 Start ▼ --------------------
 
@@ -53,6 +62,17 @@ st.set_page_config(
 # want_to_contribute1 = st.button("투수 화면으로 이동")
 # if want_to_contribute1:
 #     switch_page("투수")
+
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
 
 ## -------------------- ▼ 경기일정 START ▼ --------------------
 
@@ -204,3 +224,61 @@ with col204:
 ## -------------------- ▼ 부상통계 START (규한파일합치기) ▼ --------------------
 
 st.subheader("부상통계")
+st.write("\n")  # additional space
+col21, col22, col23 = st.columns([0.8, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
+
+# 팀부상종류 통계
+with col21:
+    st.text('2023시즌 팀 부상 종류')
+    st.dataframe(Injured_List3)
+    
+# 팀부상선수 한명씩 나열    
+# 선수 1
+with col23:
+    st.text('최근 부상자')
+    col231, col232, col233, col234, col235= st.columns([0.4, 0.05, 0.4, 0.05, 0.4])
+    with col231:
+        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
+        st.markdown("""<br>
+         <div style="text-align: center;">
+             <h3 style="margin-top: 15px;">이정용</h3>
+         </div>
+         """, unsafe_allow_html=True)
+        # 1. 파일에 부상정보가 없음(가라데이터 필요) 2. 지금은 선수 부상부위가 중복으로 들어간게 있음, 해당 선수의 부상일자로 변경해야함
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-10".format(Injured_List['날짜'][0]))
+
+
+        
+# 선수 2    
+    with col233:
+        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
+        st.markdown("""<br>
+         <div style="text-align: center;">
+             <h3 style="margin-top: 15px;">고우석</h3>
+         </div>
+         """, unsafe_allow_html=True)
+        
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-7".format(Injured_List['날짜'][1]))
+
+ 
+# 선수 3        
+    with col235:
+        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
+        st.markdown("""<br>
+         <div style="text-align: center;">
+             <h3 style="margin-top: 15px;">이민호</h3>
+         </div>
+         """, unsafe_allow_html=True)
+        
+        st.markdown("부상부위: tommy john surgury\n"
+            "\n부상발생일: {}\n"
+            "\n예상 복귀일: D-3".format(Injured_List['날짜'][2]))
+    
+    
+    
+    
+  
