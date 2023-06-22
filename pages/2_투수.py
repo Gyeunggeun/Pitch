@@ -104,19 +104,30 @@ else:
             st.dataframe(df1, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
             col303, col304, col305 = st.columns(3)
-            with col303:
-                st.image('body/어깨원.png', width=250)
-                st.markdown('#### <p style="text-align: center;">Shoulder | Jan1</p>', unsafe_allow_html=True)
 
+            with col303:
+                st.image('body/어깨원.png')
+                st.markdown('<div style="text-align: center;">'
+                '<strong>Shoulder</strong> | May 1<br>'
+                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                '</div>', unsafe_allow_html=True)
+
+                
             with col304:
-                st.image('body/이두원.png', width=250)
-                st.markdown('#### <p style="text-align: center;">Biceps | Feb 17</p>', unsafe_allow_html=True)
+                st.image('body/이두원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Biceps</strong> | April 17<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
 
             with col305:
-                st.image('body/허리원.png', width=250)
-                st.markdown('#### <p style="text-align: center;">Oblique | May 4</p>', unsafe_allow_html=True)
+                st.image('body/허리원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Oblique</strong> | Feb 4<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
+                            '</div>', unsafe_allow_html=True)
 
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
@@ -160,17 +171,31 @@ else:
             st.dataframe(df2, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-            col303, col304 = st.columns(2)
-            with col303 :
-                #st.write('2023시즌')
-                #st.markdown("   ")
-                #st.subheader("최근 부상 이력")
-                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-                st.image('0619/부상이력히트맵.png', width=500)
+            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304, col305 = st.columns(3)
+
+            with col303:
+                st.image('body/어깨원.png')
+                st.markdown('<div style="text-align: center;">'
+                '<strong>Shoulder</strong> | May 22<br>'
+                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                '</div>', unsafe_allow_html=True)
+
+                
             with col304:
-                #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('0619/예측히트맵.png', width=500)
+                st.image('body/어깨원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Shoulder</strong> | May 12<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
+
+            with col305:
+                st.image('body/어깨원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Shoulder</strong> | May 2<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
+                st.markdown('')
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart()
@@ -211,17 +236,31 @@ else:
             st.dataframe(df3, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-            col303, col304 = st.columns(2)
-            with col303 :
-                #st.write('2023시즌')
-                #st.markdown("   ")
-                #st.subheader("최근 부상 이력")
-                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-                st.image('0619/부상이력히트맵.png', width=500)
+            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304, col305 = st.columns(3)
+
+            with col303:
+                st.image('body/삼두원.png')
+                st.markdown('<div style="text-align: center;">'
+                '<strong>Shoulder</strong> | April 10<br>'
+                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                '</div>', unsafe_allow_html=True)
+
+                
             with col304:
-                #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('0619/예측히트맵.png', width=500)
+                st.image('body/옆구리원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Oblique</strong> | March 23<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
+
+            with col305:
+                st.image('body/허리원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Oblique</strong> | Feb 4<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
+                            '</div>', unsafe_allow_html=True)
+
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart() 
@@ -262,17 +301,30 @@ else:
             st.dataframe(df4, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-            col303, col304 = st.columns(2)
-            with col303 :
-                #st.write('2023시즌')
-                #st.markdown("   ")
-                #st.subheader("최근 부상 이력")
-                #st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
-                st.image('0619/부상이력히트맵.png', width=500)
+            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
+            col303, col304, col305 = st.columns(3)
+
+            with col303:
+                st.image('body/어깨원.png')
+                st.markdown('<div style="text-align: center;">'
+                '<strong>Shoulder</strong> | May 1<br>'
+                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                '</div>', unsafe_allow_html=True)
+
+                
             with col304:
-                #st.markdown("    ") # 줄바꿈 여러번 추가
-                st.image('0619/예측히트맵.png', width=500)
+                st.image('body/이두원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Biceps</strong> | April 17<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
+
+            with col305:
+                st.image('body/허리원.png')
+                st.markdown('<div style="text-align: center;">'
+                            '<strong>Oblique</strong> | Feb 4<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
+                            '</div>', unsafe_allow_html=True)
             st.markdown(' ')
             st.subheader('부상 패턴 예측 들어갈곳')
             fake.bar_chart()
