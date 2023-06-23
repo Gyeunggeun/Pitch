@@ -3,6 +3,8 @@ import streamlit.components.v1 as components
 import pandas as pd
 from streamlit_faker import get_streamlit_faker
 from streamlit_extras.app_logo import add_logo
+import plotly.graph_objs as go
+import time
 
 # 데이터프레임 여기에
 df = pd.read_excel('lgpitch.xlsx')
@@ -31,6 +33,7 @@ fake = get_streamlit_faker(seed=42)
 # Streamlit 애플리케이션 설정
 st.set_page_config(
     page_title="선수",
+
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
@@ -171,8 +174,78 @@ else:
 
         with tab2:
             st.subheader('투구 분석')
-            fake.line_chart()
-            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            hjt = pd.read_csv('torque/hjtorque.csv')
+            if st.button("부하 측정"):
+                
+                # Streamlit 구성
+                st.text("투구별 토크 측정")
+                progress_bar = st.sidebar.progress(0)
+                status_text = st.sidebar.empty()
+                chart = st.empty()
+        
+                # 위험 범위 정의
+                elbow_torque_danger = [105, 119]
+                shoulder_torque_danger = 25
+        
+                # 그래프 및 데이터 초기 설정
+                fig = go.Figure()
+                elbow_x, elbow_y = [], []
+                shoulder_x, shoulder_y = [], []
+                elbow_danger_x, elbow_danger_y = [], []
+                elbow_very_danger_x, elbow_very_danger_y = [], []
+                shoulder_danger_x, shoulder_danger_y = [], []
+        
+                # 처음에 선 그래프를 그립니다
+                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
+        
+                # 초기 위험 점 추가
+                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='red'), name='Low Shoulder Torque'))
+        
+                for i in range(len(hjt)):
+                    # 데이터프레임 행 단위 추가
+                    row = hjt.iloc[i]
+                
+                    # 데이터 업데이트
+                    elbow_x.append(row['회차'])
+                    elbow_y.append(row['elbow_Torque'])
+                    shoulder_x.append(row['회차'])
+                    shoulder_y.append(row['shoulder_Torque'])
+        
+                    # 위험 점 표시
+                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                        elbow_danger_x.append(row['회차'])
+                        elbow_danger_y.append(row['elbow_Torque'])
+                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                        elbow_very_danger_x.append(row['회차'])
+                        elbow_very_danger_y.append(row['elbow_Torque'])
+                
+                    if row['shoulder_Torque'] < shoulder_torque_danger:
+                        shoulder_danger_x.append(row['회차'])
+                        shoulder_danger_y.append(row['shoulder_Torque'])
+                
+                    # 그래프 업데이트
+                    fig.data[0].x = elbow_x
+                    fig.data[0].y = elbow_y
+                    fig.data[1].x = shoulder_x
+                    fig.data[1].y = shoulder_y
+                    fig.data[2].x = elbow_danger_x
+                    fig.data[2].y = elbow_danger_y
+                    fig.data[3].x = elbow_very_danger_x
+                    fig.data[3].y = elbow_very_danger_y
+                    fig.data[4].x = shoulder_danger_x
+                    fig.data[4].y = shoulder_danger_y
+                    
+                    chart.plotly_chart(fig)
+                    status_text.text(f"{i+1}/{len(hjt)} rows processed.")
+                    progress_bar.progress((i+1)/len(hjt))
+                
+                    # 0.5초 간격 설정
+                    time.sleep(0.5)
+                
+                progress_bar.empty()
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
             st.write('선택 옵션:', option)
