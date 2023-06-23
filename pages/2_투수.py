@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
 from streamlit_faker import get_streamlit_faker
+from streamlit_extras.app_logo import add_logo
 
 # 데이터프레임 여기에
 df = pd.read_excel('lgpitch.xlsx')
@@ -26,6 +27,7 @@ st.set_page_config(
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
+add_logo("body/LGtwins.png", height=250)
 
 # 선수 이미지 URL
 players = { 
