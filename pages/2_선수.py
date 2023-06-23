@@ -32,7 +32,8 @@ fake = get_streamlit_faker(seed=42)
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
-    page_title="선수 목록",
+    page_title="선수",
+
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
@@ -77,12 +78,27 @@ players = {
 }
 
 # 사이드바
-pages = ['선수 목록'] + list(players.keys())
-selected_page = st.sidebar.selectbox('페이지', pages)
+pages = ['선수'] + list(players.keys())
+selected_page = st.sidebar.selectbox('확인할 선수를 선택해주세요.', pages)
 
 # 선수 목록 페이지 구성
-if selected_page == '선수 목록':
-    st.title('선수 목록')
+if selected_page == '선수':
+    st.title('선수')
+    st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
+    
+    st.subheader('투수 목록')
+    st.write("가나다순")
+    st.write("")
+    
     player_list = list(players.keys())
     for i in range(0, len(player_list), 5):  # 5*7 로 총 35명의 선수 이미지 표현
         columns = st.columns(5)
