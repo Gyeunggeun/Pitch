@@ -14,6 +14,11 @@ from streamlit_faker import get_streamlit_faker
 from streamlit_card import card
 import elbowtorque as tq
 
+from streamlit_extras.app_logo import add_logo
+
+
+
+
 
 # streamlit faker
 fake = get_streamlit_faker(seed=42)
@@ -61,6 +66,9 @@ st.set_page_config(
     page_icon="⚾",
     layout="wide",
     initial_sidebar_state="expanded")
+
+add_logo("body/LGtwins.png", height=250)
+
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
 # -------------------- ▼ Streamlit 웹 화면 구성 START ▼ --------------------
