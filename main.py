@@ -36,7 +36,7 @@ Injured_List = pd.read_csv('Injured_List.csv')
 
 # injured_list3.csv 파일
 Injured_List3 = pd.read_csv('players/Injured_List3.csv')
-Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
+Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count().rename('빈도')
 Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 
@@ -65,6 +65,11 @@ add_logo("body/LGtwins.png", height=250)
 # if want_to_contribute1:
 #     switch_page("투수")
 
+
+## -------------------- ▼ 경기일정 START ▼ --------------------
+
+st.title('대시보드')
+
 st.markdown("""
             <style>
                   hr {
@@ -76,11 +81,8 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 
-## -------------------- ▼ 경기일정 START ▼ --------------------
-
-st.title('대시보드')
 st.subheader("경기일정")
-st.write('2023년 06월 21일 (수)')
+st.write('기준: 2023년 06월 21일 (수)')
 
 #can apply customisation to almost all the properties of the card, including the progress bar
                               
@@ -91,7 +93,7 @@ cc = st.columns(4)
 
 with cc[0]:
     # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
-    hc.info_card(title='NC', content='06.22. (목) 18:30\naway 창원', theme_override=theme_away)
+    hc.info_card(title='NC', content='06.22. (목) 18:30 away 창원', theme_override=theme_away)
 
 with cc[1]:
     hc.info_card(title='롯데', content='06.23. (금) 18:30 home 잠실',theme_override=theme_home)
@@ -102,6 +104,17 @@ with cc[2]:
 with cc[3]:
  #customise the the theming for a neutral content
     hc.info_card(title='롯데',content='06.25. (일) 17:00 home 잠실',key='sec',theme_override=theme_home)
+    
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
 
     
 # -------------------- ▲ 경기일정 End ▲ --------------------
@@ -113,16 +126,12 @@ col201, col202, col203, col204 = st.columns(4)
 with col201:
     st.write(" ")
     st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    col201.metric('시즌 총 부상빈도', "7 회", '2 회')
+    col201.metric('시즌 부상횟수', "7 회", ' 2회')
 
 with col202:
     st.write(" ")
     st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    col202.metric('시즌 총 누적부상일수', "115 일", ' 20일')
+    col202.metric('시즌 누적부상일수', "115 일", ' 20일')
 
 with col203:
     custom_order = ['부상', '재활', '가능']
@@ -149,7 +158,16 @@ with col204:
     fig2.update(layout_showlegend=False)
     st.plotly_chart(fig2)
     
-    #st.dataframe(df)  # 경기일정 data프레임이 들어가야함
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
 
 # --------------------- ▲ 요약 End ▲ --------------------
 
@@ -162,7 +180,7 @@ col21, col22, col23 = st.columns([0.8, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0
 # 팀부상종류 통계
 with col21:
     st.markdown('<h2 style="font-size: 1.25rem;">2023시즌 팀 부상 종류</h2>', unsafe_allow_html=True)
-    st.dataframe(Injured_List3)
+    st.dataframe(Injured_List3, width=500)
     
 # 팀부상선수 한명씩 나열    
 with col23:
