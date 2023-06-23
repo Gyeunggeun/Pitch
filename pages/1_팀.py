@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_card import card
 import pandas as pd
+from streamlit_extras.app_logo import add_logo
 
 
 df = pd.read_csv('./players/Injured_List4.csv', encoding='UTF-8')
@@ -12,6 +13,7 @@ st.set_page_config(
     page_icon="⚾️",
     layout="wide",
     initial_sidebar_state="expanded")
+add_logo("body/LGtwins.png", height=250)
 
 st.subheader('부상 위험 감지 투수 명단')
 
