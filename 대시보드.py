@@ -13,6 +13,7 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
 from streamlit_card import card
 import elbowtorque as tq
+from pandas.io.formats.style import Styler
 
 from streamlit_extras.app_logo import add_logo
 
@@ -81,7 +82,7 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 
-st.subheader("경기일정")
+st.subheader("경기 일정 📅")
 st.write('기준: 2023년 06월 21일 (수)')
 
 #can apply customisation to almost all the properties of the card, including the progress bar
@@ -121,22 +122,25 @@ st.markdown("""
 
 ## -------------------- ▼ 요약 START ▼ --------------------
 
-st.subheader("요약")
+st.subheader("부상 통계 📊")
 col201, col202, col203, col204 = st.columns(4)
 with col201:
     st.write(" ")
     st.write(" ")
-    col201.metric('시즌 부상횟수', "7 회", ' 2회')
+    st.markdown("<h3 style='font-size: 1rem;'>1. 시즌 부상횟수</h3>", unsafe_allow_html=True)
+    col201.metric("", "7 회", "2 회")
 
 with col202:
     st.write(" ")
     st.write(" ")
-    col202.metric('시즌 누적부상일수', "115 일", ' 20일')
+    st.markdown("<h3 style='font-size: 1rem;'>2. 시즌 누적부상일수</h3>", unsafe_allow_html=True)
+    col202.metric('',"115 일", "20일")
+    #col202.metric('2. 시즌 누적부상일수', "115 일", ' 20일')
 
 with col203:
     custom_order = ['부상', '재활', '가능']
 
-    fig = px.pie(now_injured, values="값", names="출전여부", title="현재투수부상현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
+    fig = px.pie(now_injured, values="값", names="출전여부", title="3. 투수 부상 현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
 
     #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
     fig.update_traces(textposition='outside', textinfo='label+value',
@@ -150,7 +154,7 @@ with col204:
     # 현재 팀 투수 부상 누적일수
     custom_order1 = ['고위험', '보통']
     
-    fig2 = px.pie(high, values="값", names = "부상위험", title="현재 부상 고위험 투수 통계", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
+    fig2 = px.pie(high, values="값", names = "부상위험", title="4. 부상 고위험 투수 현황", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
 
     fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
     fig2.update_layout(font=dict(size=16))
@@ -174,17 +178,19 @@ st.markdown("""
 ## -------------------- ▼ 부상통계 START ▼ --------------------
 
 
-st.subheader("부상통계")
-col21, col22, col23 = st.columns([0.8, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
+st.subheader("부상 종류 👨‍⚕️")
+col21, col22, col23 = st.columns([0.7, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
 
 # 팀부상종류 통계
 with col21:
-    st.markdown('<h2 style="font-size: 1.25rem;">2023시즌 팀 부상 종류</h2>', unsafe_allow_html=True)
-    st.dataframe(Injured_List3, width=500)
+    st.markdown('<h2 style="font-size: 1.25rem;"> 1. 2023 시즌 부상 종류</h2>', unsafe_allow_html=True)
+    col211,col212, col213 = st.columns([0.05, 1, 0.3])
+    with col212:
+        st.dataframe(Injured_List3, width=700)
     
 # 팀부상선수 한명씩 나열    
 with col23:
-    st.markdown('<h2 style="font-size: 1.25rem;">최근 부상자</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="font-size: 1.25rem;"> 2. 최근 부상자</h2>', unsafe_allow_html=True)
     col231, col232, col233, col234, col235= st.columns([0.4, 0.05, 0.4, 0.05, 0.4])
     
     # 선수 1
