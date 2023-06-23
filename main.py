@@ -170,13 +170,13 @@ with col23:
     
     # 선수 1
     with col231:
-        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png'
+        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png'
         image_width = 200
         injured_date = Injured_List['날짜'][66]
         text = '''
         <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
         <img src="{image_url}" width="{image_width}">
-        <h3 style="margin-top: 15px; font-size: 1rem;">이민호</h3>
+        <h3 style="margin-top: 15px; font-size: 1rem;">이정용</h3>
         <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
         부상 부위: Shoulder<br>
         부상 발생일: {injured_date}<br>
@@ -217,7 +217,7 @@ with col23:
         <img src="{image_url}" width="{image_width}">
         <h3 style="margin-top: 15px; font-size: 1rem;">이민호</h3>
         <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
-        부상 부위: Shoulder<br>
+        부상 부위: Oblique<br>
         부상 발생일: {injured_date}<br>
         예상 복귀일: D-3
         </p>
