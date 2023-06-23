@@ -14,6 +14,7 @@ df3 = df3.set_index('선수ID') # 이민호
 df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
 df4 = df4.set_index('선수ID') # 이정용
 
+
 # 부상 패턴 매트릭스
 injury_recsys = pd.read_csv('injury_recsys.csv')
 
@@ -21,6 +22,7 @@ injury_list_gang = injury_recsys.iloc[29].sort_values(ascending =False).head(3) 
 injury_list_suk = injury_recsys.iloc[5].sort_values(ascending =False).head(3)    #'이우석' 부상 패턴 top3
 injury_list_ho= injury_recsys.iloc[4].sort_values(ascending =False).head(3)      #'이민호' 부상 패턴 top3
 injury_list_young = injury_recsys.iloc[6].sort_values(ascending =False).head(3)  #'이정용' 부상 패턴 top3
+
 
 # streamlit faker 사용 (임시)
 fake = get_streamlit_faker(seed=42)
