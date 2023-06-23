@@ -14,7 +14,6 @@ from streamlit_faker import get_streamlit_faker
 from streamlit_card import card
 import elbowtorque as tq
 from pandas.io.formats.style import Styler
-
 from streamlit_extras.app_logo import add_logo
 
 
@@ -31,6 +30,7 @@ now_injured = pd.read_csv('now_injured.csv', encoding='euc-kr')
 
 # 부상 선수 중 부상 위험도 데이터프레임
 high = pd.read_csv('high.csv', encoding='euc-kr')
+
 
 # injured_list.csv 파일
 Injured_List = pd.read_csv('Injured_List.csv')
@@ -67,6 +67,7 @@ add_logo("body/LGtwins.png", height=250)
 #     switch_page("투수")
 
 
+
 ## -------------------- ▼ 경기일정 START ▼ --------------------
 
 st.title('대시보드')
@@ -82,11 +83,13 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 
+
 st.subheader("경기 일정 📅")
 st.write('기준: 2023년 06월 21일 (수)')
 
 #can apply customisation to almost all the properties of the card, including the progress bar
                               
+
 theme_away = {'bgcolor': '#f6f6f6','title_color': '#8e8e8d','content_color': '#8e8e8d','icon_color': 'red', 'icon': 'fas fa-sign-in'}
 theme_home = {'bgcolor': '#ededed','title_color': '#be0737','content_color': '#be0737','icon_color': 'orange', 'icon': 'fa fa-sign-out'}
 
@@ -95,6 +98,7 @@ cc = st.columns(4)
 with cc[0]:
     # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
     hc.info_card(title='NC', content='06.22. (목) 18:30 away 창원', theme_override=theme_away)
+
 
 with cc[1]:
     hc.info_card(title='롯데', content='06.23. (금) 18:30 home 잠실',theme_override=theme_home)
@@ -117,10 +121,12 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 
+
     
 # -------------------- ▲ 경기일정 End ▲ --------------------
 
 ## -------------------- ▼ 요약 START ▼ --------------------
+
 
 st.subheader("부상 통계 📊")
 col201, col202, col203, col204 = st.columns(4)
@@ -129,6 +135,7 @@ with col201:
     st.write(" ")
     st.markdown("<h3 style='font-size: 1rem;'>1. 시즌 부상횟수</h3>", unsafe_allow_html=True)
     col201.metric("", "7 회", "2 회")
+
 
 with col202:
     st.write(" ")
@@ -249,6 +256,6 @@ with col23:
         </div>
         '''
         st.markdown(text.format(image_url=image_url, image_width=image_width, injured_date=injured_date), unsafe_allow_html=True)
-            
+           
     
    
