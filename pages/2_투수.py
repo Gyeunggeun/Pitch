@@ -14,6 +14,14 @@ df3 = df3.set_index('선수ID') # 이민호
 df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
 df4 = df4.set_index('선수ID') # 이정용
 
+# 부상 패턴 매트릭스
+injury_recsys = pd.read_csv('injury_recsys.csv')
+
+injury_list_gang = injury_recsys.iloc[29].sort_values(ascending =False).head(3) #'강효종 부상이력 유사 선수'
+injury_list_suk = injury_recsys.iloc[5].sort_values(ascending =False).head(3)    #'이우석' 부상 패턴 top3
+injury_list_ho= injury_recsys.iloc[4].sort_values(ascending =False).head(3)      #'이민호' 부상 패턴 top3
+injury_list_young = injury_recsys.iloc[6].sort_values(ascending =False).head(3)  #'이정용' 부상 패턴 top3
+
 # streamlit faker 사용 (임시)
 fake = get_streamlit_faker(seed=42)
 
@@ -130,8 +138,15 @@ else:
                             '</div>', unsafe_allow_html=True)
 
             st.markdown(' ')
-            st.subheader('부상 패턴 예측 들어갈곳')
-            fake.bar_chart()
+            st.subheader('주의해야할 부상 Top 3')
+            col306, col307, col308 = st.columns(3)
+            with col306:
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[0]), unsafe_allow_html=True)
+            with col307:
+                st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[1]), unsafe_allow_html=True)
+            with col308:
+                st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[2]), unsafe_allow_html=True)
+            #fake.bar_chart()
             
 
         with tab2:
@@ -196,9 +211,18 @@ else:
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
                 st.markdown('')
+            
             st.markdown(' ')
-            st.subheader('부상 패턴 예측 들어갈곳')
-            fake.bar_chart()
+            st.subheader('주의해야할 부상 Top 3')
+            col306, col307, col308 = st.columns(3)
+            with col306:
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[0]), unsafe_allow_html=True)
+            with col307:
+                st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[1]), unsafe_allow_html=True)
+            with col308:
+                st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[2]), unsafe_allow_html=True)
+            #fake.bar_chart()
+        
         with tab2:
             st.subheader('투구 분석')
             fake.line_chart()
@@ -262,8 +286,16 @@ else:
                             '</div>', unsafe_allow_html=True)
 
             st.markdown(' ')
-            st.subheader('부상 패턴 예측 들어갈곳')
-            fake.bar_chart() 
+            st.subheader('주의해야할 부상 Top 3')
+            col306, col307, col308 = st.columns(3)
+            with col306:
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[0]), unsafe_allow_html=True)
+            with col307:
+                st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[1]), unsafe_allow_html=True)
+            with col308:
+                st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[2]), unsafe_allow_html=True)
+            #fake.bar_chart() 
+            
         with tab2:
             st.subheader('투구 분석')
             fake.line_chart()
@@ -326,8 +358,16 @@ else:
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
                             '</div>', unsafe_allow_html=True)
             st.markdown(' ')
-            st.subheader('부상 패턴 예측 들어갈곳')
-            fake.bar_chart()
+            st.subheader('주의해야할 부상 Top 3')
+            col306, col307, col308 = st.columns(3)
+            with col306:
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[0]), unsafe_allow_html=True)
+            with col307:
+                st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[1]), unsafe_allow_html=True)
+            with col308:
+                st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[2]), unsafe_allow_html=True)
+            #fake.bar_chart()
+            
         with tab2:
             st.subheader('투구 분석')
             fake.line_chart()
