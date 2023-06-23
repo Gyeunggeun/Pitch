@@ -13,7 +13,6 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
 from streamlit_card import card
 import elbowtorque as tq
-
 from streamlit_extras.app_logo import add_logo
 
 
