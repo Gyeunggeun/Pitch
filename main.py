@@ -27,33 +27,15 @@ fake = get_streamlit_faker(seed=42)
 injury = ['가능','재활','부상']
 now_injured = pd.read_csv('now_injured.csv', encoding='euc-kr')
 
-# 부상x선수 중 부상 위험도 데이터프레임
+# 부상 선수 중 부상 위험도 데이터프레임
 high = pd.read_csv('high.csv', encoding='euc-kr')
-
-# 부상자 csv 데이터프레임 !!
-# injury = pd.read_csv('injury.csv')
-# df1 = injury[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
-# df1 = df1.set_index('선수ID')
-
-#일단 예시로 해당csv파일 활용
-df = pd.read_csv('lgpitch.csv')
-df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
-df1 = df1.set_index('선수ID')
-
-# injured_list.csv 파일
-Injured_List = pd.read_csv('Injured_List.csv')
-
-# injured_list3.csv 파일
-Injured_List3 = pd.read_csv('Injured_List3.csv',encoding='cp949' )
-Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
-Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 # injured_list.csv 파일
 Injured_List = pd.read_csv('Injured_List.csv')
 
 # injured_list3.csv 파일
 Injured_List3 = pd.read_csv('players/Injured_List3.csv')
-Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count()
+Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count().rename('빈도')
 Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 
@@ -82,6 +64,11 @@ add_logo("body/LGtwins.png", height=250)
 # if want_to_contribute1:
 #     switch_page("투수")
 
+
+## -------------------- ▼ 경기일정 START ▼ --------------------
+
+st.title('대시보드')
+
 st.markdown("""
             <style>
                   hr {
@@ -93,19 +80,11 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 
-## -------------------- ▼ 경기일정 START ▼ --------------------
-
-st.title('대시보드')
 st.subheader("경기일정")
-st.write('2023년 06월 21일 (수)')
-
-
-
-
+st.write('기준: 2023년 06월 21일 (수)')
 
 #can apply customisation to almost all the properties of the card, including the progress bar
                               
-
 theme_away = {'bgcolor': '#f6f6f6','title_color': '#8e8e8d','content_color': '#8e8e8d','icon_color': 'red', 'icon': 'fas fa-sign-in'}
 theme_home = {'bgcolor': '#ededed','title_color': '#be0737','content_color': '#be0737','icon_color': 'orange', 'icon': 'fa fa-sign-out'}
 
@@ -113,7 +92,7 @@ cc = st.columns(4)
 
 with cc[0]:
     # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
-    hc.info_card(title='NC', content='06.22. (목) 18:30\naway 창원', theme_override=theme_away)
+    hc.info_card(title='NC', content='06.22. (목) 18:30 away 창원', theme_override=theme_away)
 
 with cc[1]:
     hc.info_card(title='롯데', content='06.23. (금) 18:30 home 잠실',theme_override=theme_home)
@@ -124,6 +103,17 @@ with cc[2]:
 with cc[3]:
  #customise the the theming for a neutral content
     hc.info_card(title='롯데',content='06.25. (일) 17:00 home 잠실',key='sec',theme_override=theme_home)
+    
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
 
     
 # -------------------- ▲ 경기일정 End ▲ --------------------
@@ -135,16 +125,12 @@ col201, col202, col203, col204 = st.columns(4)
 with col201:
     st.write(" ")
     st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    col201.metric('시즌 총 부상빈도', "7 회", '2 회')
+    col201.metric('시즌 부상횟수', "7 회", ' 2회')
 
 with col202:
     st.write(" ")
     st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    col202.metric('시즌 총 누적부상일수', "115 일", ' 20일')
+    col202.metric('시즌 누적부상일수', "115 일", ' 20일')
 
 with col203:
     custom_order = ['부상', '재활', '가능']
@@ -171,63 +157,91 @@ with col204:
     fig2.update(layout_showlegend=False)
     st.plotly_chart(fig2)
     
-    #st.dataframe(df)  # 경기일정 data프레임이 들어가야함
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
 
 # --------------------- ▲ 요약 End ▲ --------------------
 
-## -------------------- ▼ 부상통계 START (규한파일합치기) ▼ --------------------
+## -------------------- ▼ 부상통계 START ▼ --------------------
 
 
 st.subheader("부상통계")
-st.write("\n")  # additional space
 col21, col22, col23 = st.columns([0.8, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
 
 # 팀부상종류 통계
 with col21:
-    st.text('2023시즌 팀 부상 종류')
-    st.dataframe(Injured_List3)
+    st.markdown('<h2 style="font-size: 1.25rem;">2023시즌 팀 부상 종류</h2>', unsafe_allow_html=True)
+    st.dataframe(Injured_List3, width=500)
     
 # 팀부상선수 한명씩 나열    
-# 선수 1
 with col23:
-    st.text('최근 부상자')
+    st.markdown('<h2 style="font-size: 1.25rem;">최근 부상자</h2>', unsafe_allow_html=True)
     col231, col232, col233, col234, col235= st.columns([0.4, 0.05, 0.4, 0.05, 0.4])
+    
+    # 선수 1
     with col231:
-        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=200)
-        st.markdown("""<br>
-         <div style="text-align: center;">
-             <h3 style="margin-top: 15px;">이정용</h3>
-         </div>
-         """, unsafe_allow_html=True)
-
-        st.markdown("부상 부위: Shoulder\n"
-            "\n부상 발생일: {}\n"
-            "\n예상 복귀일: D-10".format(Injured_List['날짜'][66]))
-        
-# 선수 2    
-    with col233:
-        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=200)
-        st.markdown("""<br>
-         <div style="text-align: center;">
-             <h3 style="margin-top: 15px;">고우석</h3>
-         </div>
-         """, unsafe_allow_html=True)
+        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png'
+        image_width = 200
+        injured_date = Injured_List['날짜'][66]
+        text = '''
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <img src="{image_url}" width="{image_width}">
+        <h3 style="margin-top: 15px; font-size: 1rem;">이정용</h3>
+        <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
+        부상 부위: Shoulder<br>
+        부상 발생일: {injured_date}<br>
+        예상 복귀일: D-10
+        </p>
+        </div>
+        '''
+        st.markdown(text.format(image_url=image_url, image_width=image_width, injured_date=injured_date), unsafe_allow_html=True)
        
-        st.markdown("부상 부위: Shoulder\n"
-            "\n부상 발생일: {}\n"
-            "\n예상 복귀일: D-7".format(Injured_List['날짜'][64]))
+        
+        
+# 선수 2   
+    with col233:
+        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png'
+        image_width = 200
+        injured_date = Injured_List['날짜'][64]
+        text = '''
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <img src="{image_url}" width="{image_width}">
+        <h3 style="margin-top: 15px; font-size: 1rem;">고우석</h3>
+        <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
+        부상 부위: Shoulder<br>
+        부상 발생일: {injured_date}<br>
+        예상 복귀일: D-7
+        </p>
+        </div>
+        '''
+        st.markdown(text.format(image_url=image_url, image_width=image_width, injured_date=injured_date), unsafe_allow_html=True)
+    
 
-# 선수 3        
+# 선수 3 
     with col235:
-        st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=200)
-        st.markdown("""<br>
-         <div style="text-align: center;">
-             <h3 style="margin-top: 15px;">이민호</h3>
-         </div>
-         """, unsafe_allow_html=True)
-   
-        st.markdown("부상 부위: Biceps\n"
-            "\n부상 발생일: {}\n"
-            "\n예상 복귀일: D-3".format(Injured_List['날짜'][59]))
+        image_url = 'https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png'
+        image_width = 200
+        injured_date = Injured_List['날짜'][59]
+        text = '''
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <img src="{image_url}" width="{image_width}">
+        <h3 style="margin-top: 15px; font-size: 1rem;">이민호</h3>
+        <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
+        부상 부위: Oblique<br>
+        부상 발생일: {injured_date}<br>
+        예상 복귀일: D-3
+        </p>
+        </div>
+        '''
+        st.markdown(text.format(image_url=image_url, image_width=image_width, injured_date=injured_date), unsafe_allow_html=True)
+            
     
    

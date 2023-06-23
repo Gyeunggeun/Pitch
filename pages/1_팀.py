@@ -15,6 +15,19 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 add_logo("body/LGtwins.png", height=250)
 
+st.title('팀')
+
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
+
 st.subheader('부상 위험 감지 투수 명단')
 
 col201, col202, col203, col204, col205, col206 = st.columns([0.3, 0.1, 0.3, 0.1, 0.3, 0.1])
@@ -22,8 +35,8 @@ with col201:
     st.markdown(
         """
         <div style="text-align: center">
-            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png' width='200' style='display: block; margin: auto;'/>
-            <h3>강효종</h3>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EB%B0%B1%EC%8A%B9%ED%98%84.png' width='200' style='display: block; margin: auto;'/>
+            <h3>백승현</h3>
         </div>
         <style>
             .stProgress > div > div > div > div {
@@ -44,6 +57,7 @@ with col201:
         """, 
         unsafe_allow_html=True
     )
+    st.markdown('##### ⚠️ 부위별 위험도')
     st.markdown("팔꿈치")
     progress = st.progress(70)
     st.markdown(
@@ -73,8 +87,8 @@ with col203:
     st.markdown(
         """
         <div style="text-align: center">
-            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png' width='200' style='display: block; margin: auto;'/>
-            <h3>강효종</h3>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B9%80%EC%9C%A0%EC%98%81.png' width='200' style='display: block; margin: auto;'/>
+            <h3>김유영</h3>
         </div>
         <style>
             .stProgress > div > div > div > div {
@@ -95,6 +109,7 @@ with col203:
         """, 
         unsafe_allow_html=True
     )
+    st.markdown('##### ⚠️ 부위별 위험도')
     st.markdown("팔꿈치")
     progress = st.progress(50)
     st.markdown(
@@ -123,8 +138,8 @@ with col205:
     st.markdown(
         """
         <div style="text-align: center">
-            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png' width='200' style='display: block; margin: auto;'/>
-            <h3>강효종</h3>
+            <img src='https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%BC%88%EB%A6%AC.png' width='200' style='display: block; margin: auto;'/>
+            <h3>켈리</h3>
         </div>
         <style>
             .stProgress > div > div > div > div {
@@ -145,6 +160,7 @@ with col205:
         """, 
         unsafe_allow_html=True
     )
+    st.markdown('##### ⚠️ 부위별 위험도')
     st.markdown("팔꿈치")
     progress = st.progress(50)
     st.markdown(
