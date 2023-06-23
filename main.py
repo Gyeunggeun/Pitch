@@ -193,9 +193,9 @@ with col23:
          </div>
          """, unsafe_allow_html=True)
 
-        st.markdown("부상부위: tommy john surgury\n"
-            "\n부상발생일: {}\n"
-            "\n예상 복귀일: D-10".format(Injured_List['날짜'][0]))
+        st.markdown("부상 부위: Shoulder\n"
+            "\n부상 발생일: {}\n"
+            "\n예상 복귀일: D-10".format(Injured_List['날짜'][66]))
         
 # 선수 2    
     with col233:
@@ -206,9 +206,9 @@ with col23:
          </div>
          """, unsafe_allow_html=True)
        
-        st.markdown("부상부위: tommy john surgury\n"
-            "\n부상발생일: {}\n"
-            "\n예상 복귀일: D-7".format(Injured_List['날짜'][1]))
+        st.markdown("부상 부위: Shoulder\n"
+            "\n부상 발생일: {}\n"
+            "\n예상 복귀일: D-7".format(Injured_List['날짜'][64]))
 
 # 선수 3        
     with col235:
@@ -219,8 +219,8 @@ with col23:
          </div>
          """, unsafe_allow_html=True)
    
-        st.markdown("부상부위: tommy john surgury\n"
-            "\n부상발생일: {}\n"
-            "\n예상 복귀일: D-3".format(Injured_List['날짜'][2]))
+        st.markdown("부상 부위: Biceps\n"
+            "\n부상 발생일: {}\n"
+            "\n예상 복귀일: D-3".format(Injured_List['날짜'][59]))
     
    
