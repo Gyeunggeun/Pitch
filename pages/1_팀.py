@@ -15,6 +15,19 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 add_logo("body/LGtwins.png", height=250)
 
+st.title('팀')
+
+st.markdown("""
+            <style>
+                  hr {
+                    height: 3px; /* 가로줄의 두께를 지정 */
+                    background-color: white; /* 가로줄의 색상을 지정 */
+                  }
+            </style>
+            <hr>
+
+            """, unsafe_allow_html=True)
+
 st.subheader('부상 위험 감지 투수 명단')
 
 col201, col202, col203, col204, col205, col206 = st.columns([0.3, 0.1, 0.3, 0.1, 0.3, 0.1])
