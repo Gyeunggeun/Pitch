@@ -143,6 +143,7 @@ else:
 
             st.markdown(' ')
             st.subheader('주의해야할 부상 Top 3')
+            st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
                 st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[0]), unsafe_allow_html=True)
@@ -218,6 +219,7 @@ else:
             
             st.markdown(' ')
             st.subheader('주의해야할 부상 Top 3')
+            st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
                 st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[0]), unsafe_allow_html=True)
@@ -291,6 +293,7 @@ else:
 
             st.markdown(' ')
             st.subheader('주의해야할 부상 Top 3')
+            st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
                 st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[0]), unsafe_allow_html=True)
@@ -363,6 +366,7 @@ else:
                             '</div>', unsafe_allow_html=True)
             st.markdown(' ')
             st.subheader('주의해야할 부상 Top 3')
+            st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
                 st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[0]), unsafe_allow_html=True)
