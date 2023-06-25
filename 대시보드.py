@@ -15,7 +15,7 @@ from streamlit_card import card
 import elbowtorque as tq
 from pandas.io.formats.style import Styler
 from streamlit_extras.app_logo import add_logo
-
+import plotly.graph_objects as go
 
 
 
@@ -50,7 +50,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded")
 
-add_logo("body/LGtwins.png", height=250)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
@@ -186,14 +186,55 @@ st.markdown("""
 
 
 st.subheader("부상 종류 👨‍⚕️")
-col21, col22, col23 = st.columns([0.7, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
+col21, col22, col23 = st.columns([0.9, 0.1, 1.0]) # st.columns([0.1, 0.3, 0.1, 0.3])
 
 # 팀부상종류 통계
 with col21:
     st.markdown('<h2 style="font-size: 1.25rem;"> 1. 2023 시즌 부상 종류</h2>', unsafe_allow_html=True)
     col211,col212, col213 = st.columns([0.05, 1, 0.3])
     with col212:
-        st.dataframe(Injured_List3, width=700)
+        # 데이터 읽기
+        in3 = pd.read_csv('Injured_List3.csv', encoding='euc-kr')
+
+        # 부상명에 대한 빈도를 계산하고 내림차순으로 정렬
+        counts = in3['부상명'].value_counts(sort=True, ascending=False)
+
+        fig = go.Figure()
+
+        # 바 차트 생성
+        fig.add_trace(go.Bar(x=counts.values, y=counts.index, orientation='h',
+                             marker=dict(color='rgba(0, 200, 0, 0.95)', line=dict(color='rgba(0, 200, 0, 0.95)', width=1)),  # 색상 변경
+                             hoverinfo='y',
+                             opacity=0.6,
+                             showlegend=False
+                            )
+                      )
+
+        # 롤리팝 차트에 원형 마커 추가
+        fig.add_trace(go.Scatter(mode='markers', 
+                                 y=counts.index, x=counts.values, 
+                                 marker=dict(color='rgba(0, 200, 0, 0.95)', size=15),  # 색상 변경
+                                 hoverinfo='skip',
+                                 showlegend=False
+                                )
+                     )
+
+        fig.update_layout(title_text='부상 종류별 부상 횟수',
+                          xaxis=dict(showgrid=False, showline=False, showticklabels=True),
+                          yaxis=dict(zeroline=False, gridcolor='white',
+                                     showgrid=False,
+                                     tickmode='array', 
+                                     tickvals=in3['부상명'], 
+                                     ticktext=in3['부상명'],
+                                     tickfont=dict(size=17) 
+                                     ),
+                          bargap=1
+                         )
+
+
+        # 차트 크기 조정 및 출력
+        st.plotly_chart(fig, use_container_width=True)
+
     
 # 팀부상선수 한명씩 나열    
 with col23:

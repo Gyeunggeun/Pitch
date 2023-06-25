@@ -1,7 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
-from streamlit_faker import get_streamlit_faker
 from streamlit_extras.app_logo import add_logo
 import plotly.graph_objs as go
 import time
@@ -27,8 +26,6 @@ injury_list_ho= injury_recsys.iloc[4].sort_values(ascending =False).head(3)     
 injury_list_young = injury_recsys.iloc[6].sort_values(ascending =False).head(3)  #'이정용' 부상 패턴 top3
 
 
-# streamlit faker 사용 (임시)
-fake = get_streamlit_faker(seed=42)
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -37,7 +34,7 @@ st.set_page_config(
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("body/LGtwins.png", height=250)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
 
 # 선수 이미지 URL
 players = { 
@@ -121,7 +118,7 @@ else:
         with tab1:
             col301, col302 = st.columns(2)
             with col301:
-                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=300)
+                st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/6a00464c37f059ac3b52898fabd77bad8e7b36f3/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=300)
             with col302:
                 st.subheader("선수 기본 프로필")
                 st.text("이름: 강효종")
@@ -187,6 +184,9 @@ else:
                 elbow_torque_danger = [105, 119]
                 shoulder_torque_danger = 25
         
+                # 위험한 투구를 추적하는 리스트
+                dangerous_pitches = []
+
                 # 그래프 및 데이터 초기 설정
                 fig = go.Figure()
                 elbow_x, elbow_y = [], []
@@ -199,10 +199,10 @@ else:
                 fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
                 fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
         
-                # 초기 위험 점 추가
+                # 위험 점 추가
                 fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
                 fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='red'), name='Low Shoulder Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
         
                 for i in range(len(hjt)):
                     # 데이터프레임 행 단위 추가
@@ -215,17 +215,25 @@ else:
                     shoulder_y.append(row['shoulder_Torque'])
         
                     # 위험 점 표시
+                    elbow_very_danger = False
+                    shoulder_danger = False
+
                     if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
                         elbow_danger_x.append(row['회차'])
                         elbow_danger_y.append(row['elbow_Torque'])
                     elif row['elbow_Torque'] > elbow_torque_danger[1]:
                         elbow_very_danger_x.append(row['회차'])
                         elbow_very_danger_y.append(row['elbow_Torque'])
-                
+                        elbow_very_danger = True
+
                     if row['shoulder_Torque'] < shoulder_torque_danger:
                         shoulder_danger_x.append(row['회차'])
                         shoulder_danger_y.append(row['shoulder_Torque'])
-                
+                        shoulder_danger = True
+
+                    if elbow_very_danger and shoulder_danger:
+                        dangerous_pitches.append(int(row['회차']))
+
                     # 그래프 업데이트
                     fig.data[0].x = elbow_x
                     fig.data[0].y = elbow_y
@@ -246,6 +254,13 @@ else:
                     time.sleep(0.5)
                 
                 progress_bar.empty()
+                # 위험한 투구에 대한 경고 메시지 출력
+                if dangerous_pitches:
+                    for pitch in dangerous_pitches:
+                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
+                else:
+                    st.info("위험 투구 미발견")
+
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
             st.write('선택 옵션:', option)
@@ -315,12 +330,107 @@ else:
                 st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[1]), unsafe_allow_html=True)
             with col308:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[2]), unsafe_allow_html=True)
-            #fake.bar_chart()
         
         with tab2:
             st.subheader('투구 분석')
-            fake.line_chart()
-            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            wst = pd.read_csv('torque/wstorque.csv')
+            if st.button("부하 측정"):
+                
+                # Streamlit 구성
+                st.text("투구별 토크 측정")
+                progress_bar = st.sidebar.progress(0)
+                status_text = st.sidebar.empty()
+                chart = st.empty()
+        
+                # 위험 범위 정의
+                elbow_torque_danger = [105, 119]
+                shoulder_torque_danger = 28
+        
+                # 위험한 투구를 추적하는 리스트
+                dangerous_pitches = []
+                warning_pitches = []
+
+                # 그래프 및 데이터 초기 설정
+                fig = go.Figure()
+                elbow_x, elbow_y = [], []
+                shoulder_x, shoulder_y = [], []
+                elbow_danger_x, elbow_danger_y = [], []
+                elbow_very_danger_x, elbow_very_danger_y = [], []
+                shoulder_danger_x, shoulder_danger_y = [], []
+        
+                # 처음에 선 그래프를 그립니다
+                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
+        
+                # 위험 점 추가
+                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
+        
+                for i in range(len(wst)):
+                    # 데이터프레임 행 단위 추가
+                    row = wst.iloc[i]
+                
+                    # 데이터 업데이트
+                    elbow_x.append(row['회차'])
+                    elbow_y.append(row['elbow_Torque'])
+                    shoulder_x.append(row['회차'])
+                    shoulder_y.append(row['shoulder_Torque'])
+        
+                    # 위험 점 표시
+                    elbow_danger = False
+                    elbow_very_danger = False
+                    shoulder_danger = False
+
+                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                        elbow_danger_x.append(row['회차'])
+                        elbow_danger_y.append(row['elbow_Torque'])
+                        elbow_danger = True
+                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                        elbow_very_danger_x.append(row['회차'])
+                        elbow_very_danger_y.append(row['elbow_Torque'])
+                        elbow_very_danger = True
+
+                    if row['shoulder_Torque'] < shoulder_torque_danger:
+                        shoulder_danger_x.append(row['회차'])
+                        shoulder_danger_y.append(row['shoulder_Torque'])
+                        shoulder_danger = True
+
+                    if elbow_danger and shoulder_danger:
+                        warning_pitches.append(int(row['회차']))
+
+                    if elbow_very_danger and shoulder_danger:
+                        dangerous_pitches.append(int(row['회차']))
+
+                    # 그래프 업데이트
+                    fig.data[0].x = elbow_x
+                    fig.data[0].y = elbow_y
+                    fig.data[1].x = shoulder_x
+                    fig.data[1].y = shoulder_y
+                    fig.data[2].x = elbow_danger_x
+                    fig.data[2].y = elbow_danger_y
+                    fig.data[3].x = elbow_very_danger_x
+                    fig.data[3].y = elbow_very_danger_y
+                    fig.data[4].x = shoulder_danger_x
+                    fig.data[4].y = shoulder_danger_y
+                    
+                    chart.plotly_chart(fig)
+                    status_text.text(f"{i+1}/{len(wst)} rows processed.")
+                    progress_bar.progress((i+1)/len(wst))
+                
+                    # 0.5초 간격 설정
+                    time.sleep(0.5)
+                
+                progress_bar.empty()
+        # 주의 요소 및 위험한 투구에 대한 경고 메시지 출력
+                if warning_pitches:
+                    for pitch in warning_pitches:
+                        st.warning(f"{pitch}번째 투구에서 주의 요소 탐지")
+                if dangerous_pitches:
+                    for pitch in dangerous_pitches:
+                        st.error(f"{pitch}번째 투구에서 위험 요소 탐지")
+                if not warning_pitches and not dangerous_pitches:
+                    st.info("위험 투구 미발견")
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
             st.write('선택 옵션:', option)
@@ -393,7 +503,95 @@ else:
             
         with tab2:
             st.subheader('투구 분석')
-            fake.line_chart()
+            mht = pd.read_csv('torque/mhtorque.csv')
+            if st.button("부하 측정"):
+                
+                # Streamlit 구성
+                st.text("투구별 토크 측정")
+                progress_bar = st.sidebar.progress(0)
+                status_text = st.sidebar.empty()
+                chart = st.empty()
+        
+                # 위험 범위 정의
+                elbow_torque_danger = [105, 119]
+                shoulder_torque_danger = 28
+        
+                # 위험한 투구를 추적하는 리스트
+                dangerous_pitches = []
+
+                # 그래프 및 데이터 초기 설정
+                fig = go.Figure()
+                elbow_x, elbow_y = [], []
+                shoulder_x, shoulder_y = [], []
+                elbow_danger_x, elbow_danger_y = [], []
+                elbow_very_danger_x, elbow_very_danger_y = [], []
+                shoulder_danger_x, shoulder_danger_y = [], []
+        
+                # 처음에 선 그래프를 그립니다
+                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
+        
+                # 위험 점 추가
+                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
+        
+                for i in range(len(mht)):
+                    # 데이터프레임 행 단위 추가
+                    row = mht.iloc[i]
+                
+                    # 데이터 업데이트
+                    elbow_x.append(row['회차'])
+                    elbow_y.append(row['elbow_Torque'])
+                    shoulder_x.append(row['회차'])
+                    shoulder_y.append(row['shoulder_Torque'])
+        
+                    # 위험 점 표시
+                    elbow_very_danger = False
+                    shoulder_danger = False
+
+                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                        elbow_danger_x.append(row['회차'])
+                        elbow_danger_y.append(row['elbow_Torque'])
+                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                        elbow_very_danger_x.append(row['회차'])
+                        elbow_very_danger_y.append(row['elbow_Torque'])
+                        elbow_very_danger = True
+                        
+                    if row['shoulder_Torque'] < shoulder_torque_danger:
+                        shoulder_danger_x.append(row['회차'])
+                        shoulder_danger_y.append(row['shoulder_Torque'])
+                        shoulder_danger = True
+        
+                    if elbow_very_danger and shoulder_danger:
+                        dangerous_pitches.append(int(row['회차']))
+
+                    # 그래프 업데이트
+                    fig.data[0].x = elbow_x
+                    fig.data[0].y = elbow_y
+                    fig.data[1].x = shoulder_x
+                    fig.data[1].y = shoulder_y
+                    fig.data[2].x = elbow_danger_x
+                    fig.data[2].y = elbow_danger_y
+                    fig.data[3].x = elbow_very_danger_x
+                    fig.data[3].y = elbow_very_danger_y
+                    fig.data[4].x = shoulder_danger_x
+                    fig.data[4].y = shoulder_danger_y
+                    
+                    chart.plotly_chart(fig)
+                    status_text.text(f"{i+1}/{len(mht)} rows processed.")
+                    progress_bar.progress((i+1)/len(mht))
+                
+                    # 0.5초 간격 설정
+                    time.sleep(0.5)
+                
+                progress_bar.empty()
+                # 위험한 투구에 대한 경고 메시지 출력
+                if dangerous_pitches:
+                    for pitch in dangerous_pitches:
+                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
+                else:
+                    st.info("위험 투구 미발견")
             # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
@@ -462,12 +660,92 @@ else:
                 st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[1]), unsafe_allow_html=True)
             with col308:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[2]), unsafe_allow_html=True)
-            #fake.bar_chart()
             
         with tab2:
             st.subheader('투구 분석')
-            fake.line_chart()
-            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
+            jwt = pd.read_csv('torque/jwtorque.csv')
+            if st.button("부하 측정"):
+                
+                # Streamlit 구성
+                st.text("투구별 토크 측정")
+                progress_bar = st.sidebar.progress(0)
+                status_text = st.sidebar.empty()
+                chart = st.empty()
+        
+                # 위험 범위 정의
+                elbow_torque_danger = [105, 119]
+                shoulder_torque_danger = 28
+        
+                # 위험한 투구를 추적하는 리스트
+                dangerous_pitches = []
+
+                # 그래프 및 데이터 초기 설정
+                fig = go.Figure()
+                elbow_x, elbow_y = [], []
+                shoulder_x, shoulder_y = [], []
+                elbow_danger_x, elbow_danger_y = [], []
+                elbow_very_danger_x, elbow_very_danger_y = [], []
+                shoulder_danger_x, shoulder_danger_y = [], []
+        
+                # 처음에 선 그래프를 그립니다
+                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
+        
+                # 위험 점 추가
+                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
+                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
+        
+                for i in range(len(jwt)):
+                    # 데이터프레임 행 단위 추가
+                    row = jwt.iloc[i]
+                
+                    # 데이터 업데이트
+                    elbow_x.append(row['회차'])
+                    elbow_y.append(row['elbow_Torque'])
+                    shoulder_x.append(row['회차'])
+                    shoulder_y.append(row['shoulder_Torque'])
+        
+                    # 위험 점 표시
+                    elbow_very_danger = False
+                    shoulder_danger = False
+
+                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                        elbow_danger_x.append(row['회차'])
+                        elbow_danger_y.append(row['elbow_Torque'])
+                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                        elbow_very_danger_x.append(row['회차'])
+                        elbow_very_danger_y.append(row['elbow_Torque'])
+                        elbow_very_danger = True
+                        
+                    if row['shoulder_Torque'] < shoulder_torque_danger:
+                        shoulder_danger_x.append(row['회차'])
+                        shoulder_danger_y.append(row['shoulder_Torque'])
+                        shoulder_danger = True
+        
+                    if elbow_very_danger and shoulder_danger:
+                        dangerous_pitches.append(int(row['회차']))
+
+                    # 그래프 업데이트
+                    fig.data[0].x = elbow_x
+                    fig.data[0].y = elbow_y
+                    fig.data[1].x = shoulder_x
+                    fig.data[1].y = shoulder_y
+                    fig.data[2].x = elbow_danger_x
+                    fig.data[2].y = elbow_danger_y
+                    fig.data[3].x = elbow_very_danger_x
+                    fig.data[3].y = elbow_very_danger_y
+                    fig.data[4].x = shoulder_danger_x
+                    fig.data[4].y = shoulder_danger_y
+                    
+                    chart.plotly_chart(fig)
+                    status_text.text(f"{i+1}/{len(jwt)} rows processed.")
+                    progress_bar.progress((i+1)/len(jwt))
+                
+                    # 0.5초 간격 설정
+                    time.sleep(0.5)
+                
+                progress_bar.empty()
             option = st.selectbox('투구를 선택하세요',
                          ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
             st.write('선택 옵션:', option)
