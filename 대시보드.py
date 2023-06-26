@@ -12,12 +12,31 @@ from streamlit_echarts import st_echarts
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_faker import get_streamlit_faker
 from streamlit_card import card
-import elbowtorque as tq
+import validators, base64
+from pathlib import Path
 from pandas.io.formats.style import Styler
-from streamlit_extras.app_logo import add_logo
 import plotly.graph_objects as go
 
 
+# 로고 코드
+def add_logo(logo_url: str, height: int = 120):
+    if validators.url(logo_url) is True:
+        logo = f"url({logo_url})"
+    else:
+        logo = f"url(data:image/png;base64,{base64.b64encode(Path(logo_url).read_bytes()).decode()})"
+
+    st.markdown(
+        f"""
+        <style>
+            [data-testid="stSidebarNav"] {{
+                background-image: {logo};
+                background-repeat: no-repeat;
+                padding-top: {height - 100}px;
+                background-position: -100px -150px;
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 # streamlit faker
@@ -50,7 +69,8 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded")
 
-add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
+# add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
+add_logo("_솔루션로고\\KakaoTalk_20230626_115252323_01.png", height=250)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
