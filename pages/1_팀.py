@@ -266,10 +266,17 @@ with col203:
     # 예상된 CSS 코드
     css_code = """
     <style>
+        .myTable .cell {
+        height: 30px;
+        width: 300px;
+        background-color: #6A89BD;
+        color: white;   
+        }
         .myTable .cell:first-child {
             height: 30px;
             width: 300px;
-            background-color: #ADD8E6;
+            background-color: #3F5270;
+            color: white;
         }
         .myTable .header {
             height: 30px;
@@ -297,7 +304,47 @@ with col201:
 
 
 with col203:
-    st.table(df.iloc[-5])
+    table = PrettyTable()
+    table.field_names = ["이름", "고우석"]
+
+    # 데이터프레임에서 마지막 행을 선택합니다.
+    row = df.iloc[-5]
+
+    # 테이블에 각 열 이름과 값을 추가합니다.
+    for key, value in row.items():
+        table.add_row([key, value])
+
+    # HTML 테이블을 생성하고 각 셀에 고유한 클래스를 부여합니다.
+    html_code = table.get_html_string(attributes={"class": "myTable"})
+    html_code = html_code.replace("<th>", "<th class='header'>").replace("<td>", "<td class='cell'>")
+
+    # 예상된 CSS 코드
+    css_code = """
+    <style>
+        .myTable .cell {
+        height: 30px;
+        width: 300px;
+        background-color: #6A89BD;
+        color: white;   
+        }
+        .myTable .cell:first-child {
+            height: 30px;
+            width: 300px;
+            background-color: #3F5270;
+            color: white;
+        }
+        .myTable .header {
+            height: 30px;
+            width: 300px;
+            background-color: #808080; 
+            color: white;
+        }
+    </style>
+    """
+
+    # CSS 코드를 HTML 테이블 코드 앞에 추가합니다.
+    html_code = css_code + html_code
+    components.html(html_code, height=200)
 
 col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
@@ -310,4 +357,44 @@ with col201:
     """, unsafe_allow_html=True)
 
 with col203:
-    st.table(df.iloc[-6])
+    table = PrettyTable()
+    table.field_names = ["이름", "이민호"]
+
+    # 데이터프레임에서 마지막 행을 선택합니다.
+    row = df.iloc[-6]
+
+    # 테이블에 각 열 이름과 값을 추가합니다.
+    for key, value in row.items():
+        table.add_row([key, value])
+
+    # HTML 테이블을 생성하고 각 셀에 고유한 클래스를 부여합니다.
+    html_code = table.get_html_string(attributes={"class": "myTable"})
+    html_code = html_code.replace("<th>", "<th class='header'>").replace("<td>", "<td class='cell'>")
+
+    # 예상된 CSS 코드
+    css_code = """
+    <style>
+        .myTable .cell {
+        height: 30px;
+        width: 300px;
+        background-color: #6A89BD;
+        color: white;   
+        }
+        .myTable .cell:first-child {
+            height: 30px;
+            width: 300px;
+            background-color: #3F5270;
+            color: white;
+        }
+        .myTable .header {
+            height: 30px;
+            width: 300px;
+            background-color: #808080; 
+            color: white;
+        }
+    </style>
+    """
+
+    # CSS 코드를 HTML 테이블 코드 앞에 추가합니다.
+    html_code = css_code + html_code
+    components.html(html_code, height=200)
