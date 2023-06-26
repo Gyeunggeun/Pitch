@@ -4,7 +4,9 @@ from streamlit_card import card
 import pandas as pd
 import validators, base64
 from pathlib import Path
-
+import plotly.graph_objects as go
+from prettytable import PrettyTable
+import streamlit.components.v1 as components
 
 def add_logo(logo_url: str, height: int = 120):
     if validators.url(logo_url) is True:
@@ -80,6 +82,20 @@ with col201:
     st.markdown('##### ⚠️ 부위별 위험도')
     st.markdown("팔꿈치")
     progress = st.progress(70)
+    
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=70,
+        title={'text': "안전도"},
+        domain={'x': [0, 1], 'y': [0, 1]},
+        gauge={
+            'axis': {'range': [0, 100]},
+            'steps': [
+                {'range': [0, 30], 'color': 'red'},
+                {'range': [30, 70], 'color': 'orange'},
+                {'range': [70, 100], 'color': 'green'}]}))
+    
+    st.plotly_chart(fig)
     st.markdown(
     """
     어깨
@@ -220,7 +236,7 @@ st.markdown("""
 
             """, unsafe_allow_html=True)
 st.subheader('부상자 명단')
-st.write("\n")  # additional space
+st.write("\n")
 
 col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
@@ -231,21 +247,42 @@ with col201:
             <h6 style='color: gray; margin-top: -10px;'>YI JUNG YONG</h6>
         </div>
     """, unsafe_allow_html=True)
-# with col202:
-#     st.markdown("""<br>
-#         <div style="text-align: center;">
-#             <h3 style="margin-top: 15px;">이정용</h3>
-#             <h4 style="margin-top: -15px;">투수</h4>
-#         </div>
-#     """, unsafe_allow_html=True)
 
 with col203:
-    st.table(df.iloc[-1])
-    # st.markdown(" ")
-    # st.markdown(" ")
-    # st.text("어깨")
-    # st.text("2023-05-30")
-    # st.text("예상 복귀일 D-7")
+    table = PrettyTable()
+    table.field_names = ["이름", "이정용"]
+
+    # 데이터프레임에서 마지막 행을 선택합니다.
+    row = df.iloc[-1]
+
+    # 테이블에 각 열 이름과 값을 추가합니다.
+    for key, value in row.items():
+        table.add_row([key, value])
+
+    # HTML 테이블을 생성하고 각 셀에 고유한 클래스를 부여합니다.
+    html_code = table.get_html_string(attributes={"class": "myTable"})
+    html_code = html_code.replace("<th>", "<th class='header'>").replace("<td>", "<td class='cell'>")
+
+    # 예상된 CSS 코드
+    css_code = """
+    <style>
+        .myTable .cell:first-child {
+            height: 30px;
+            width: 300px;
+            background-color: #ADD8E6;
+        }
+        .myTable .header {
+            height: 30px;
+            width: 300px;
+            background-color: #808080; 
+            color: white;
+        }
+    </style>
+    """
+
+    # CSS 코드를 HTML 테이블 코드 앞에 추가합니다.
+    html_code = css_code + html_code
+    components.html(html_code, height=200)
 
 
 col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
@@ -258,21 +295,9 @@ with col201:
         </div>
     """, unsafe_allow_html=True)
 
-# with col202:
-#     st.markdown("""<br>
-#         <div style="text-align: center;">
-#             <h3 style="margin-top: 15px;">고우석</h3>
-#             <h4 style="margin-top: -15px;">투수</h4>
-#         </div>
-#     """, unsafe_allow_html=True)
 
 with col203:
     st.table(df.iloc[-5])
-    # st.markdown(" ")
-    # st.markdown(" ")
-    # st.text("어깨")
-    # st.text("2023-05-02")
-    # st.text("예상 복귀일 D-3")
 
 col201, col202, col203 = st.columns([0.25, 0.1, 0.6])
 with col201:
@@ -283,18 +308,6 @@ with col201:
             <h6 style='color: gray; margin-top: -10px;'>LEE MIN HO</h6>
         </div>
     """, unsafe_allow_html=True)
-# with col202:
-#     st.markdown("""
-#         <div style="text-align: center;">
-#             <h3 style="margin-top: 15px;">이민호</h3>
-#             <h4 style="margin-top: -15px;">투수</h4>
-#         </div>
-#     """, unsafe_allow_html=True)
+
 with col203:
     st.table(df.iloc[-6])
-    # st.markdown(" ")
-    # st.markdown(" ")
-    # st.text("팔꿈치")
-    # st.text("2023-04-10")
-    # st.text("예상 복귀일 D-1")
-
