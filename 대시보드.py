@@ -69,22 +69,13 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded")
 
-# add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
 add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png", height=250)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
 # -------------------- ▼ Streamlit 웹 화면 구성 START ▼ --------------------
 
-# st.title('대시보드')
-# # 대시보드 페이지의 내용 추가
-# want_to_contribute = st.button("팀 화면으로 이동")
-# if want_to_contribute:
-#     switch_page("팀")
 
-# want_to_contribute1 = st.button("투수 화면으로 이동")
-# if want_to_contribute1:
-#     switch_page("투수")
 
 
 
@@ -217,15 +208,15 @@ with col21:
         in3 = pd.read_csv('Injured_List3.csv', encoding='euc-kr')
 
         # 부상명에 대한 빈도를 계산하고 내림차순으로 정렬
-        counts = in3['부상명'].value_counts(sort=True, ascending=False)
+        counts = in3['부상명'].value_counts(sort=True, ascending=True)
 
         fig = go.Figure()
 
         # 바 차트 생성
         fig.add_trace(go.Bar(x=counts.values, y=counts.index, orientation='h',
-                             marker=dict(color='rgba(0, 200, 0, 0.95)', line=dict(color='rgba(0, 200, 0, 0.95)', width=1)),  # 색상 변경
+                             marker=dict(color='rgba(255, 140, 0, 0.95)', line=dict(color='rgba(255, 140, 0, 0.95)', width=1)),  # 색상 변경
                              hoverinfo='y',
-                             opacity=0.6,
+                             opacity=1,
                              showlegend=False
                             )
                       )
@@ -233,7 +224,7 @@ with col21:
         # 롤리팝 차트에 원형 마커 추가
         fig.add_trace(go.Scatter(mode='markers', 
                                  y=counts.index, x=counts.values, 
-                                 marker=dict(color='rgba(0, 200, 0, 0.95)', size=15),  # 색상 변경
+                                 marker=dict(color='rgba(255, 140, 0, 0.95)', size=15),  # 색상 변경
                                  hoverinfo='skip',
                                  showlegend=False
                                 )
@@ -248,8 +239,9 @@ with col21:
                                      ticktext=in3['부상명'],
                                      tickfont=dict(size=17) 
                                      ),
-                          bargap=1
-                         )
+                        height=500,
+                        bargap=0.8
+                        )
 
 
         # 차트 크기 조정 및 출력
