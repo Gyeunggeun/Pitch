@@ -33,7 +33,7 @@ st.set_page_config(
     page_icon="⚾️",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("_솔루션로고\\KakaoTalk_20230626_115252323_01.png", height=250)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png", height=250)
 
 st.title('팀')
 
