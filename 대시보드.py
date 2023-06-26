@@ -70,7 +70,7 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 
 # add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
-add_logo("_솔루션로고\\KakaoTalk_20230626_115252323_01.png", height=250)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png", height=250)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
