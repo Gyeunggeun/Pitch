@@ -2,8 +2,28 @@ import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_card import card
 import pandas as pd
-from streamlit_extras.app_logo import add_logo
+import validators, base64
+from pathlib import Path
 
+
+def add_logo(logo_url: str, height: int = 120):
+    if validators.url(logo_url) is True:
+        logo = f"url({logo_url})"
+    else:
+        logo = f"url(data:image/png;base64,{base64.b64encode(Path(logo_url).read_bytes()).decode()})"
+
+    st.markdown(
+        f"""
+        <style>
+            [data-testid="stSidebarNav"] {{
+                background-image: {logo};
+                background-repeat: no-repeat;
+                padding-top: {height - 100}px;
+                background-position: -100px -150px;
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 df = pd.read_csv('./players/Injured_List4.csv', encoding='UTF-8')
 df = df.set_index('선수')
@@ -13,7 +33,7 @@ st.set_page_config(
     page_icon="⚾️",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
+add_logo("_솔루션로고\\KakaoTalk_20230626_115252323_01.png", height=250)
 
 st.title('팀')
 

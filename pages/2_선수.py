@@ -1,9 +1,10 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
-from streamlit_extras.app_logo import add_logo
 import plotly.graph_objs as go
 import time
+import validators, base64
+from pathlib import Path
 
 # 데이터프레임 여기에
 df = pd.read_excel('lgpitch.xlsx')
@@ -16,6 +17,24 @@ df3 = df3.set_index('선수ID') # 이민호
 df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
 df4 = df4.set_index('선수ID') # 이정용
 
+def add_logo(logo_url: str, height: int = 120):
+    if validators.url(logo_url) is True:
+        logo = f"url({logo_url})"
+    else:
+        logo = f"url(data:image/png;base64,{base64.b64encode(Path(logo_url).read_bytes()).decode()})"
+
+    st.markdown(
+        f"""
+        <style>
+            [data-testid="stSidebarNav"] {{
+                background-image: {logo};
+                background-repeat: no-repeat;
+                padding-top: {height - 100}px;
+                background-position: -100px -150px;
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # 부상 패턴 매트릭스
 injury_recsys = pd.read_csv('injury_recsys.csv')
@@ -34,7 +53,7 @@ st.set_page_config(
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EA%B8%B0%EB%B3%B8_%ED%9A%8C%EC%83%89%EC%A1%B01.png", height=250)
+add_logo("_솔루션로고\\KakaoTalk_20230626_115252323_01.png", height=250)
 
 # 선수 이미지 URL
 players = { 
