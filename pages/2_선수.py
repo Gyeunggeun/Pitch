@@ -150,7 +150,6 @@ else:
             st.dataframe(df1, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
             col303, col304, col305 = st.columns(3)
 
             with col303:
