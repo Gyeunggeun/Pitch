@@ -1,13 +1,53 @@
 import streamlit as st
-import streamlit.components.v1 as components
-from streamlit_card import card
 import pandas as pd
 import validators, base64
 from pathlib import Path
 import plotly.graph_objects as go
 from prettytable import PrettyTable
 import streamlit.components.v1 as components
+# 카드
+def style_metric_cards(
+    background_color: str = "#CBD8EC", # 배경 색상 변경
+    border_size_px: int = 1,
+    border_color: str = "#CCC",
+    border_radius_px: int = 5,
+    border_left_color: str = "#82A9E8",
+    box_shadow: bool = True,
+    text_color: str = "#840A54",   # 텍스트 색상 변경
+    label_color: str = "#606770",  # 라벨 색상을 변경
+    arrow_color: str = "#00FF00",  # 화살표 옆 숫자 색상을 변경
+):
 
+    box_shadow_str = (
+        "box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;"
+        if box_shadow
+        else "box-shadow: none !important;"
+    )
+    st.markdown(
+        f"""
+        <style>
+            div[data-testid="metric-container"] {{
+                background-color: {background_color};
+                border: {border_size_px}px solid {border_color};
+                padding: 3% 5% 3% 10%;
+                border-radius: {border_radius_px}px;
+                border-left: 0.5rem solid {border_left_color} !important;
+                color: {text_color} !important;
+                line-height: 0.9;
+                font-size: 0.8rem;
+            }}
+            div[data-testid="stMarkdownContainer"].css-1xzm5la.eqr7zpz4 {{
+                color: {label_color} !important;
+            }}
+            div[data-testid="stMarkdownContainer"].css-wnm74r.e1vioofd0 {{
+                color: {arrow_color} !important;
+            }}
+            {box_shadow_str}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+# 로고
 def add_logo(logo_url: str, height: int = 120):
     if validators.url(logo_url) is True:
         logo = f"url({logo_url})"
@@ -80,30 +120,10 @@ with col201:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    st.markdown("팔꿈치")
-    progress = st.progress(70)
-    st.markdown(
-    """
-    어깨
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(30)
-    st.markdown(
-    """
-    손목
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(20)
+    st.metric(label="팔꿈치", value='높음', delta="") # delta는 증감을 의미
+    st.metric(label="어깨", value="낮음", delta="")
+    st.metric(label="손목", value="낮음", delta="")
+    style_metric_cards()
 
 with col203:
     st.markdown(
@@ -132,30 +152,10 @@ with col203:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    st.markdown("팔꿈치")
-    progress = st.progress(50)
-    st.markdown(
-    """
-    어깨
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(70)
-    st.markdown(
-    """
-    손목
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(20)
+    st.metric(label="팔꿈치", value='중간', delta="") # delta는 증감을 의미
+    st.metric(label="어깨", value="낮음", delta="")
+    st.metric(label="손목", value="높음", delta="")
+    style_metric_cards()
 with col205:
     st.markdown(
         """
@@ -183,30 +183,10 @@ with col205:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    st.markdown("팔꿈치")
-    progress = st.progress(50)
-    st.markdown(
-    """
-    어깨
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(70)
-    st.markdown(
-    """
-    손목
-    <style>
-        .stProgress > div > div > div > div {
-            background-image: linear-gradient(to right, #C10505, yellow, #15FF0D);
-        }
-    </style>""",
-    unsafe_allow_html=True,
-    )
-    progress = st.progress(20)
+    st.metric(label="팔꿈치", value='중간', delta="") # delta는 증감을 의미
+    st.metric(label="어깨", value="높음", delta="")
+    st.metric(label="손목", value="낮음", delta="")
+    style_metric_cards()
 
 
 
