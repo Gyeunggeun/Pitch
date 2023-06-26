@@ -82,20 +82,6 @@ with col201:
     st.markdown('##### ⚠️ 부위별 위험도')
     st.markdown("팔꿈치")
     progress = st.progress(70)
-    
-    fig = go.Figure(go.Indicator(
-        mode="gauge+number",
-        value=70,
-        title={'text': "안전도"},
-        domain={'x': [0, 1], 'y': [0, 1]},
-        gauge={
-            'axis': {'range': [0, 100]},
-            'steps': [
-                {'range': [0, 30], 'color': 'red'},
-                {'range': [30, 70], 'color': 'orange'},
-                {'range': [70, 100], 'color': 'green'}]}))
-    
-    st.plotly_chart(fig)
     st.markdown(
     """
     어깨
