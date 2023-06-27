@@ -3,9 +3,7 @@ import streamlit.components.v1 as components
 import pandas as pd
 import plotly.graph_objs as go
 import time
-import validators, base64
-from pathlib import Path
-
+from packages.logo import add_logo
 
 # 데이터프레임 여기에
 df = pd.read_excel('lgpitch.xlsx')
@@ -19,24 +17,6 @@ df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '�
 df4 = df4.set_index('선수ID') # 이정용
 
 
-def add_logo(logo_url: str, height: int = 120):
-    if validators.url(logo_url) is True:
-        logo = f"url({logo_url})"
-    else:
-        logo = f"url(data:image/png;base64,{base64.b64encode(Path(logo_url).read_bytes()).decode()})"
-
-    st.markdown(
-        f"""
-        <style>
-            [data-testid="stSidebarNav"] {{
-                background-image: {logo};
-                background-repeat: no-repeat;
-                padding-top: {height - 100}px;
-                background-position: -100px -150px;
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
 # 부상 패턴 매트릭스
 injury_recsys = pd.read_csv('injury_recsys_kor.csv')
@@ -51,11 +31,10 @@ injury_list_young = injury_recsys.iloc[6].sort_values(ascending =False).head(3) 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
     page_title="선수",
-
     page_icon="🧢",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png", height=250)
+add_logo("_솔루션로고\\로고확장4.png", height=370)
 
 # 선수 이미지 URL
 players = { 
@@ -294,9 +273,9 @@ else:
             if option == '1구':
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('https://youtu.be/f-tq3W2HvT8') # 출처 필요 -> 세부 페이지에
+                    st.video('pitch_videos\\hyojong_front_dotted.mp4') # 출처 필요 -> 세부 페이지에
                 with col402: 
-                    st.video('https://youtu.be/8s-ZllEX4Zk')
+                    st.video('pitch_videos\\hyojong_front_dotted.mp4')
             elif option == '2구':
                 col403, col404 = st.columns(2)
                 with col403:
@@ -304,7 +283,7 @@ else:
                 with col404:
                     st.image('body/어깨 후면.png')
     elif selected_page == '고우석':
-        tab1, tab2, tab3= st.tabs(['선수 프로필', '투구 영상','부하 측정'])
+        tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
             st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
@@ -363,40 +342,10 @@ else:
             with col308:
                 st.markdown('<a href="https://www.mayoclinic.org/diseases-conditions/hamstring-injury/diagnosis-treatment/drc-20372990" target="_blank"><div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[2]), unsafe_allow_html=True)
         with tab2:
-            st.subheader('투구 분석')
             wst = pd.read_csv('torque/wstorque.csv')
-            # 기본 값을 저장
-            selected_pitch = st.empty()
-            # 투구 확인 버튼
-            if st.button("전체 투구 확인"):
-                selected_pitch = selected_pitch.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
-            else:
-                selected_pitch = selected_pitch.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)], key='selected_pitch', index=0)
-
-            selected_pitch_num = int(selected_pitch.replace('구', ''))
-
-            if selected_pitch_num == 1:
-                col401, col402 = st.columns(2)
-                with col401:
-                    st.video('https://youtu.be/KzDgIkzRfw8') 
-                with col402: 
-                    st.video('https://youtu.be/HTNdAHUKhjg')
-            elif selected_pitch_num == 2:
-                col403, col404 = st.columns(2)
-                with col403:
-                    st.image('0619/스켈레톤.png')
-                with col404:
-                    st.image('0619/원본.png')
-            elif selected_pitch_num == 6:                                
-                col401, col402 = st.columns(2)
-                with col401:
-                    st.video('https://youtu.be/KzDgIkzRfw8')
-                with col402: 
-                    st.video('https://youtu.be/HTNdAHUKhjg')
-        with tab3:
             if st.button("부하 측정"):                    
                     # Streamlit 구성
-                    st.text("투구별 토크 측정")
+                    st.markdown("<h1 style='text-align: center; color: white;'>투구별 토크 측정</h1>", unsafe_allow_html=True)
                     progress_bar = st.sidebar.progress(0)
                     status_text = st.sidebar.empty()
                     chart = st.empty()
@@ -404,6 +353,29 @@ else:
                     # 위험 범위 정의
                     elbow_torque_danger = [105, 119]
                     shoulder_torque_danger = 28
+
+                    
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 28 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
             
                     # 위험한 투구를 추적하는 리스트
                     dangerous_pitches = []
@@ -418,13 +390,13 @@ else:
                     shoulder_danger_x, shoulder_danger_y = [], []
             
                     # 처음에 선 그래프를 그립니다
-                    fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
-                    fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
+                    fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='팔꿈치 토크'))
+                    fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='어깨 토크'))
             
                     # 위험 점 추가
-                    fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
-                    fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
-                    fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
+                    fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='팔꿈치 토크 높음'))
+                    fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='팔꿈치 토크 매우 높음'))
+                    fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='어깨 토크 낮음'))
             
                     for i in range(len(wst)):
                         # 데이터프레임 행 단위 추가
@@ -478,7 +450,7 @@ else:
                         progress_bar.progress((i+1)/len(wst))
                     
                         # 0.5초 간격 설정
-                        time.sleep(0.5)
+                        time.sleep(0.25)
                     
                     progress_bar.empty()
                     if warning_pitches or dangerous_pitches:
@@ -490,9 +462,9 @@ else:
                         if first_danger_pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('https://youtu.be/KzDgIkzRfw8') 
+                                st.video('pitch_videos\\woosuk_back.mp4') 
                             with col402: 
-                                st.video('https://youtu.be/HTNdAHUKhjg')
+                                st.video('pitch_videos\\woosuk_back_dotted.mp4')
                         elif first_danger_pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
@@ -502,11 +474,35 @@ else:
                         elif first_danger_pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('https://youtu.be/KzDgIkzRfw8')
+                                st.video('pitch_videos\\woosuk_back.mp4')
                             with col402: 
-                                st.video('https://youtu.be/HTNdAHUKhjg')
+                                st.video('pitch_videos\\woosuk_back_dotted.mp4')
                     else:
                         st.info("위험 투구 미발견")
+        with tab3:
+            st.subheader('투구 분석')
+
+            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            selected_pitch_num = int(selected_pitch.replace('구', ''))
+
+            if selected_pitch_num == 1:
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\woosuk_back.mp4') 
+                with col402: 
+                    st.video('pitch_videos\\woosuk_back_dotted.mp4')
+            elif selected_pitch_num == 2:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')
+            elif selected_pitch_num == 6:                                
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\woosuk_back.mp4')
+                with col402: 
+                    st.video('pitch_videos\\woosuk_back_dotted.mp4')
     elif selected_page == '이민호':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
@@ -666,9 +662,9 @@ else:
             if option == '1구':
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('https://youtu.be/vmfSRPTCd08') # 출처 필요 -> 세부 페이지에
+                    st.video('pitch_videos\\minho_back.mp4') # 출처 필요 -> 세부 페이지에
                 with col402: 
-                    st.video('https://youtu.be/n-5u2sF28VI')
+                    st.video('pitch_videos\\minho_back_dotted.mp4')
             elif option == '2구':
                 col403, col404 = st.columns(2)
                 with col403:
@@ -825,14 +821,13 @@ else:
             if option == '1구':
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('https://youtu.be/9hXEKLezRmA') # 출처 필요 -> 세부 페이지에
+                    st.video('pitch_videos\\jungyoung_back.mp4') # 출처 필요 -> 세부 페이지에
                 with col402: 
-                    st.video('https://youtu.be/06f3maD7DzA')
+                    st.video('pitch_videos\\jungyoung_back_dotted.mp4')
             elif option == '2구':
                 col403, col404 = st.columns(2)
                 with col403:
                     st.image('0619/스켈레톤.png')
                 with col404:
                     st.image('0619/원본.png')
-        # 고우석 상세정보 코드 여기에
     # 기타 선수들에 대한 코드는 elif를 이용하여 추가

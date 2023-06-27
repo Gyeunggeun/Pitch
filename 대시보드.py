@@ -1,46 +1,9 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcl
-import matplotlib.patches as mpt
 import hydralit_components as hc
-import seaborn as sns
 import plotly.express as px
-from streamlit_echarts import st_echarts
-from streamlit_extras.switch_page_button import switch_page
-from streamlit_faker import get_streamlit_faker
-from streamlit_card import card
-import validators, base64
-from pathlib import Path
-from pandas.io.formats.style import Styler
 import plotly.graph_objects as go
-
-
-# 로고 코드
-def add_logo(logo_url: str, height: int = 120):
-    if validators.url(logo_url) is True:
-        logo = f"url({logo_url})"
-    else:
-        logo = f"url(data:image/png;base64,{base64.b64encode(Path(logo_url).read_bytes()).decode()})"
-
-    st.markdown(
-        f"""
-        <style>
-            [data-testid="stSidebarNav"] {{
-                background-image: {logo};
-                background-repeat: no-repeat;
-                padding-top: {height - 100}px;
-                background-position: -100px -150px;
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-# streamlit faker
-fake = get_streamlit_faker(seed=42)
+from packages.logo import add_logo
 
 # 현재부상투수현황 데이터프레임
 # 재활, 부상, 가능 나열하기 위한 리스트
@@ -68,8 +31,7 @@ st.set_page_config(
     page_icon="⚾",
     layout="wide",
     initial_sidebar_state="expanded")
-
-add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/_%EC%86%94%EB%A3%A8%EC%85%98%EB%A1%9C%EA%B3%A0/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png", height=250)
+add_logo("_솔루션로고\\로고확장4.png", height=370)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
