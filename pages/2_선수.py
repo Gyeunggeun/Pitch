@@ -153,26 +153,33 @@ else:
             col303, col304, col305 = st.columns(3)
 
             with col303:
-                st.image('body/어깨원.png')
+                #st.image('body/어깨원.png')
                 st.markdown('<div style="text-align: center;">'
-                '<strong>Shoulder</strong> | May 1<br>'
-                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
-                '</div>', unsafe_allow_html=True)
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%96%B4%EA%B9%A8%EC%9B%90.png">'
+                            '<br>'
+                            '<strong>Shoulder</strong> | May 1<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                             '</div>', unsafe_allow_html=True)
 
                 
             with col304:
-                st.image('body/이두원.png')
+                #st.image('body/이두원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%9D%B4%EB%91%90%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Biceps</strong> | April 17<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
 
             with col305:
-                st.image('body/허리원.png')
+                #st.image('body/허리원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%ED%97%88%EB%A6%AC%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Oblique</strong> | Feb 4<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
                             '</div>', unsafe_allow_html=True)
+                
 
             st.markdown(' ')
             st.subheader('주의해야할 부상 Top 3')
@@ -316,23 +323,29 @@ else:
             col303, col304, col305 = st.columns(3)
 
             with col303:
-                st.image('body/어깨원.png')
+                #st.image('body/어깨원.png')
                 st.markdown('<div style="text-align: center;">'
-                '<strong>Shoulder</strong> | May 22<br>'
-                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
-                '</div>', unsafe_allow_html=True)
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%96%B4%EA%B9%A8%EC%9B%90.png">'
+                            '<br>'
+                            '<strong>Shoulder</strong> | May 22<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
+                            '</div>', unsafe_allow_html=True)
 
                 
             with col304:
-                st.image('body/어깨원.png')
+                #st.image('body/어깨원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%96%B4%EA%B9%A8%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Shoulder</strong> | May 12<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
 
             with col305:
-                st.image('body/어깨원.png')
+                #st.image('body/어깨원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%96%B4%EA%B9%A8%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Shoulder</strong> | May 2<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
@@ -486,23 +499,29 @@ else:
             col303, col304, col305 = st.columns(3)
 
             with col303:
-                st.image('body/삼두원.png')
+                #st.image('body/삼두원.png')
                 st.markdown('<div style="text-align: center;">'
-                '<strong>Shoulder</strong> | April 10<br>'
-                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
-                '</div>', unsafe_allow_html=True)
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%82%BC%EB%91%90%EC%9B%90.png">'
+                            '<br>'
+                            '<strong>Shoulder</strong> | April 10<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                            '</div>', unsafe_allow_html=True)
 
                 
             with col304:
-                st.image('body/옆구리원.png')
+                #st.image('body/옆구리원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%98%86%EA%B5%AC%EB%A6%AC%EC%9B%90.png>'
+                            '<br>'
                             '<strong>Oblique</strong> | March 23<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
 
             with col305:
-                st.image('body/허리원.png')
+                #st.image('body/허리원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%ED%97%88%EB%A6%AC%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Oblique</strong> | Feb 4<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
                             '</div>', unsafe_allow_html=True)
@@ -648,23 +667,29 @@ else:
             col303, col304, col305 = st.columns(3)
 
             with col303:
-                st.image('body/어깨원.png')
+                #st.image('body/어깨원.png')
                 st.markdown('<div style="text-align: center;">'
-                '<strong>Shoulder</strong> | May 1<br>'
-                '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
-                '</div>', unsafe_allow_html=True)
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%96%B4%EA%B9%A8%EC%9B%90.png">'
+                            '<br>'
+                            '<strong>Shoulder</strong> | May 1<br>'
+                            '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">15 days</span>'
+                            '</div>', unsafe_allow_html=True)
 
                 
             with col304:
-                st.image('body/이두원.png')
+                #st.image('body/이두원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%9D%B4%EB%91%90%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Biceps</strong> | April 17<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
                             '</div>', unsafe_allow_html=True)
 
             with col305:
-                st.image('body/허리원.png')
+                #st.image('body/허리원.png')
                 st.markdown('<div style="text-align: center;">'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%ED%97%88%EB%A6%AC%EC%9B%90.png">'
+                            '<br>'
                             '<strong>Oblique</strong> | Feb 4<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">30 days</span>'
                             '</div>', unsafe_allow_html=True)
