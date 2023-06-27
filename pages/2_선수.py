@@ -37,7 +37,7 @@ def add_logo(logo_url: str, height: int = 120):
     )
 
 # 부상 패턴 매트릭스
-injury_recsys = pd.read_csv('injury_recsys.csv')
+injury_recsys = pd.read_csv('injury_recsys_kor.csv')
 
 injury_list_gang = injury_recsys.iloc[29].sort_values(ascending =False).head(3) #'강효종 부상이력 유사 선수'
 injury_list_suk = injury_recsys.iloc[5].sort_values(ascending =False).head(3)    #'이우석' 부상 패턴 top3
