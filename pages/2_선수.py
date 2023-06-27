@@ -6,6 +6,7 @@ import time
 import validators, base64
 from pathlib import Path
 
+
 # 데이터프레임 여기에
 df = pd.read_excel('lgpitch.xlsx')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
@@ -16,6 +17,7 @@ df3 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '�
 df3 = df3.set_index('선수ID') # 이민호
 df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[4]]
 df4 = df4.set_index('선수ID') # 이정용
+
 
 def add_logo(logo_url: str, height: int = 120):
     if validators.url(logo_url) is True:
@@ -302,7 +304,7 @@ else:
                 with col404:
                     st.image('body/어깨 후면.png')
     elif selected_page == '고우석':
-        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        tab1, tab2, tab3= st.tabs(['선수 프로필', '투구 영상','부하 측정'])
         with tab1:
             col301, col302 = st.columns(2)
             with col301:
@@ -363,28 +365,35 @@ else:
         with tab2:
             st.subheader('투구 분석')
             wst = pd.read_csv('torque/wstorque.csv')
+            # 기본 값을 저장
+            selected_pitch = st.empty()
+            # 투구 확인 버튼
             if st.button("전체 투구 확인"):
-                selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
-                selected_pitch_num = int(selected_pitch.replace('구', ''))
+                selected_pitch = selected_pitch.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            else:
+                selected_pitch = selected_pitch.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)], key='selected_pitch', index=0)
 
-                if selected_pitch_num == 1:
-                    col401, col402 = st.columns(2)
-                    with col401:
-                        st.video('https://youtu.be/KzDgIkzRfw8') 
-                    with col402: 
-                        st.video('https://youtu.be/HTNdAHUKhjg')
-                elif selected_pitch_num == 2:
-                    col403, col404 = st.columns(2)
-                    with col403:
-                        st.image('0619/스켈레톤.png')
-                    with col404:
-                        st.image('0619/원본.png')
-                elif selected_pitch_num == 6:                                
-                    col401, col402 = st.columns(2)
-                    with col401:
-                        st.video('https://youtu.be/KzDgIkzRfw8')
-                    with col402: 
-                        st.video('https://youtu.be/HTNdAHUKhjg')
+            selected_pitch_num = int(selected_pitch.replace('구', ''))
+
+            if selected_pitch_num == 1:
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/KzDgIkzRfw8') 
+                with col402: 
+                    st.video('https://youtu.be/HTNdAHUKhjg')
+            elif selected_pitch_num == 2:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.image('0619/스켈레톤.png')
+                with col404:
+                    st.image('0619/원본.png')
+            elif selected_pitch_num == 6:                                
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('https://youtu.be/KzDgIkzRfw8')
+                with col402: 
+                    st.video('https://youtu.be/HTNdAHUKhjg')
+        with tab3:
             if st.button("부하 측정"):                    
                     # Streamlit 구성
                     st.text("투구별 토크 측정")
@@ -498,7 +507,6 @@ else:
                                 st.video('https://youtu.be/HTNdAHUKhjg')
                     else:
                         st.info("위험 투구 미발견")
-                    pass 
     elif selected_page == '이민호':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
