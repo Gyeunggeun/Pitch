@@ -116,17 +116,17 @@ else:
     if selected_page == '강효종':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
+            st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
             with col301:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B0%95%ED%9A%A8%EC%A2%85.png', width=300)
             with col302:
-                st.subheader("선수 기본 프로필")
                 st.text("이름: 강효종")
                 st.text("포지션: 투수")
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 2002년 10월 14일")
                 st.text("신장/체중: 184cm/86kg")
-            st.text('팔꿈치 부상 위험 존재') # 이것도 볼드체로
+            st.markdown("")
             st.write('2023시즌') # 볼드체로
             st.dataframe(df1, width=1000)
             st.markdown("   ")
@@ -198,17 +198,17 @@ else:
     elif selected_page == '고우석':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
+            st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
             with col301:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EA%B3%A0%EC%9A%B0%EC%84%9D.png', width=300)
             with col302:
-                st.subheader("선수 기본 프로필")
                 st.text("이름: 고우석")
                 st.text("포지션: 투수")
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 1998년 8월 6일")
                 st.text("신장/체중: 177cm/90kg")
-            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.markdown("")
             st.write('2023시즌')
             st.dataframe(df2, width=1000)
             st.markdown("   ")
@@ -279,17 +279,17 @@ else:
     elif selected_page == '이민호':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
+            st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
             with col301:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EB%AF%BC%ED%98%B8.png', width=300)
             with col302:
-                st.subheader("선수 기본 프로필")
                 st.text("이름: 이민호")
                 st.text("포지션: 투수")
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 2001년 8월 30일")
                 st.text("신장/체중: 189cm/95kg")
-            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.markdown('') # 이것도 볼드체로
             st.write('2023시즌')
             st.dataframe(df3, width=1000)
             st.markdown("   ")
@@ -310,7 +310,7 @@ else:
             with col304:
                 #st.image('body/옆구리원.png')
                 st.markdown('<div style="text-align: center;">'
-                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%98%86%EA%B5%AC%EB%A6%AC%EC%9B%90.png>'
+                            '<img src="https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/body/%EC%98%86%EA%B5%AC%EB%A6%AC%EC%9B%90.png">'
                             '<br>'
                             '<strong>Oblique</strong> | March 23<br>'
                             '<span style="color: gray; display: inline-block; border-radius: 20px; background-color: lightgray; padding: 5px;">10 days</span>'
@@ -359,17 +359,17 @@ else:
     elif selected_page == '이정용':
         tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
         with tab1:
+            st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
             with col301:
                 st.image('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_images/%EC%9D%B4%EC%A0%95%EC%9A%A9.png', width=300)
             with col302:
-                st.subheader("선수 기본 프로필")
                 st.text("이름: 이정용")
                 st.text("포지션: 투수")
                 st.text("팀: LG 트윈스")
                 st.text("생년월일: 1996년 3월 26일")
                 st.text("신장/체중: 186cm/85kg")
-            st.markdown('_팔꿈치 부상 위험 존재_') # 이것도 볼드체로
+            st.markdown('') # 이것도 볼드체로
             st.write('2023시즌')
             st.dataframe(df4, width=1000)
             st.markdown("   ")
