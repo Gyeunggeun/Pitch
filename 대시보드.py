@@ -31,7 +31,7 @@ st.set_page_config(
     page_icon="⚾",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("_솔루션로고\\로고확장4.png", height=370)
+add_logo("solutionlogo\\final.png", height=370)
 
 # -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
 
