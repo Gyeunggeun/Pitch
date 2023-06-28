@@ -14,7 +14,7 @@ st.set_page_config(
     page_icon="⚾️",
     layout="wide",
     initial_sidebar_state="expanded")
-add_logo("solutionlogo\\final.png", height=370)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/solutionlogo/final.png", height=370)
 
 st.title('팀')
 
