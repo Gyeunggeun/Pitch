@@ -34,7 +34,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
     )
-add_logo("solutionlogo\\final.png", height=370)
+add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/solutionlogo/final.png", height=370)
 
 # 선수 이미지 URL
 players = { 
