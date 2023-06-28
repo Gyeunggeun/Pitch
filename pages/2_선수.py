@@ -17,7 +17,6 @@ df4 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '�
 df4 = df4.set_index('선수ID') # 이정용
 
 
-
 # 부상 패턴 매트릭스
 injury_recsys = pd.read_csv('injury_recsys_kor.csv')
 
@@ -33,7 +32,8 @@ st.set_page_config(
     page_title="선수",
     page_icon="🧢",
     layout="wide",
-    initial_sidebar_state="expanded")
+    initial_sidebar_state="expanded",
+    )
 add_logo("_솔루션로고\\로고확장4.png", height=370)
 
 # 선수 이미지 URL
@@ -336,7 +336,12 @@ else:
             st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
-                st.markdown('<a href="https://www.mayoclinic.org/diseases-conditions/tennis-elbow/diagnosis-treatment/drc-20351991" target="_blank"><div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div></a>'.format(injury_list_suk.index[0]), unsafe_allow_html=True)
+                if st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[0]), unsafe_allow_html=True):
+                    st.empty()  # 이 줄을 추가해서 공간을 만듭니다.
+                    video_file = open("treatment_videos\\wrist.mp4", 'rb')
+                    video_bytes = video_file.read()
+                    st.video(video_bytes, format='mp4')
+
             with col307:
                 st.markdown('<a href="https://www.tsmp.com.au/blog/oblique-muscle-function-strain-and-treatment.html" target="_blank"><div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[1]), unsafe_allow_html=True)
             with col308:
@@ -689,7 +694,6 @@ else:
             st.dataframe(df4, width=1000)
             st.markdown("   ")
             st.subheader("최근 부상 이력")
-            # st.text("5월 27일 Tommy john surgery (23일 전)") # 이부분 표로?? 아님 데이터프레임?? 
             col303, col304, col305 = st.columns(3)
 
             with col303:

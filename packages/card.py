@@ -1,11 +1,17 @@
 import streamlit as st
-def custom_metric_card(label, value, delta, label_color, text_color):
-    delta_symbol = "↑" if delta == "증가" else "↓"
+def custom_metric_card(label, value, delta, label_color, text_color, delta_color):
+    delta_symbol = ""
+    if delta == "증가":
+        delta_symbol = "↑"
+    elif delta == "감소":
+        delta_symbol = "↓"
     card_html = f"""
-    <div style="position: relative; display: inline-block; padding: 0.2rem 2rem; margin: 0.5rem; width: 15vw; height: 12vh; background: #CBD8EC; border-left: 10px solid #82A9E8; border-radius: 0.5rem; box-shadow: 0 0.25rem 1.75rem 0 rgba(58, 59, 69, 0.15);">
-        <h4 style="color: {label_color}; font-size: 1vw; font-weight: normal; text-align: left;">{label}</h4>
-        <h2 style="color: {text_color}; font-size: 2vw; text-align: left;">{value}</h2>
-        <h4 style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); color: {text_color}; font-size: 1vw;">{delta_symbol} {delta}</h4>
+    <div style="position: relative; display: inline-block; padding: 0rem 1rem; 
+                margin: 0.25rem; width: 16vw; height: 12.3vh; background: #CBD8EC; 
+                border-left: 10px solid #82A9E8; border-radius: 0.5rem; box-shadow: 0 0.25rem 1.75rem 0 rgba(58, 59, 69, 0.15);">
+        <h4 style="position: absolute; top: -10%; left: 0%; color: {label_color}; font-size: 1vw; font-weight: normal; font-family: 'Arial';">{label}</h4>
+        <h2 style="position: absolute; bottom: 0%; left: 10%; color: {text_color}; font-size: 2.2vw; font-family: 'Avenir Next';">{value}</h2>
+        <h4 style="position: absolute; bottom: -30%; left: 40%; color: {delta_color}; font-size: 1vw; font-weight: normal;">{delta_symbol} {delta}</h4>
     </div>
     """
     st.markdown(card_html, unsafe_allow_html=True)

@@ -58,9 +58,9 @@ with col201:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    custom_metric_card(label="어깨", value="낮음", delta="증가", label_color="#00FF00", text_color="#FFFFFF")
-    custom_metric_card(label="팔꿈치", value="중간", delta="증가", label_color="#FFA500", text_color="#000000")
-    custom_metric_card(label="손목", value="높음", delta="감소", label_color="#FF0000", text_color="#FFFFFF")
+    custom_metric_card(label="팔꿈치", value="Low", delta="감소", label_color="#7D7D7D", text_color="#008000", delta_color="#008000")
+    custom_metric_card(label="어깨", value="High", delta="증가", label_color="#7D7D7D", text_color="#D80027", delta_color="#D80027")
+    custom_metric_card(label="손목", value="High", delta="변화 없음", label_color="#7D7D7D", text_color="#D80027", delta_color="#000000")
 
 with col203:
     st.markdown(
@@ -89,10 +89,9 @@ with col203:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    st.metric(label="팔꿈치", value='중간', delta="") # delta는 증감을 의미
-    st.metric(label="어깨", value="낮음", delta="")
-    st.metric(label="손목", value="높음", delta="")
-    style_metric_cards()
+    custom_metric_card(label="팔꿈치", value="Low", delta="변화 없음", label_color="#7D7D7D", text_color="#008000", delta_color="#000000")
+    custom_metric_card(label="어깨", value="Low", delta="감소", label_color="#7D7D7D", text_color="#D80027", delta_color="#008000")
+    custom_metric_card(label="손목", value="High", delta="증가", label_color="#7D7D7D", text_color="#D80027", delta_color="#D80027")
 with col205:
     st.markdown(
         """
@@ -120,10 +119,9 @@ with col205:
         unsafe_allow_html=True
     )
     st.markdown('##### ⚠️ 부위별 위험도')
-    st.metric(label="팔꿈치", value='중간', delta="") # delta는 증감을 의미
-    st.metric(label="어깨", value="높음", delta="")
-    st.metric(label="손목", value="낮음", delta="")
-    style_metric_cards()
+    custom_metric_card(label="팔꿈치", value="Low", delta="변화 없음", label_color="#7D7D7D", text_color="#008000", delta_color="#000000")
+    custom_metric_card(label="어깨", value="High", delta="증가", label_color="#7D7D7D", text_color="#D80027", delta_color="#D80027")
+    custom_metric_card(label="손목", value="Low", delta="변화 없음", label_color="#7D7D7D", text_color="#008000", delta_color="#000000")
 
 
 
