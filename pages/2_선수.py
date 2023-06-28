@@ -114,7 +114,7 @@ else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
     if selected_page == '강효종':
-        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
             st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
@@ -172,116 +172,190 @@ else:
                 st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[1]), unsafe_allow_html=True)
             with col308:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[2]), unsafe_allow_html=True)
-            #fake.bar_chart()
-            
-
+            st.markdown('')
+            options = [injury_list_gang.index[0], injury_list_gang.index[1], injury_list_gang.index[2]]
+            selected_option = st.selectbox("부상명을 선택하세요:", options)
+            if selected_option == options[0]:  # injury_list_gang.index[0]
+                video_file = open("treatment_videos\\TommyJohn.mp4", 'rb')
+            elif selected_option == options[1]:  # injury_list_suk.index[1]
+                video_file = open("treatment_videos\\neck.mp4", 'rb')
+            elif selected_option == options[2]:  # injury_list_suk.index[2]
+                video_file = open("treatment_videos\\calf.mp4", 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes, format='mp4')
         with tab2:
-            st.subheader('투구 분석')
             hjt = pd.read_csv('torque/hjtorque.csv')
-            if st.button("부하 측정"):
-                
-                # Streamlit 구성
-                st.text("투구별 토크 측정")
-                progress_bar = st.sidebar.progress(0)
-                status_text = st.sidebar.empty()
-                chart = st.empty()
-        
-                # 위험 범위 정의
-                elbow_torque_danger = [105, 119]
-                shoulder_torque_danger = 25
-        
-                # 위험한 투구를 추적하는 리스트
-                dangerous_pitches = []
+            if st.button("부하 측정"):                    
+                    # Streamlit 구성
+                    st.markdown("<h1 style='text-align: center; color: white;'>투구별 토크 측정</h1>", unsafe_allow_html=True)
+                    progress_bar = st.sidebar.progress(0)
+                    status_text = st.sidebar.empty()
+                    chart = st.empty()
+            
+                    # 위험 범위 정의
+                    elbow_torque_danger = [105, 119]
+                    shoulder_torque_danger = 25 # 15번째 투구가 위험
 
-                # 그래프 및 데이터 초기 설정
-                fig = go.Figure()
-                elbow_x, elbow_y = [], []
-                shoulder_x, shoulder_y = [], []
-                elbow_danger_x, elbow_danger_y = [], []
-                elbow_very_danger_x, elbow_very_danger_y = [], []
-                shoulder_danger_x, shoulder_danger_y = [], []
-        
-                # 처음에 선 그래프를 그립니다
-                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
-        
-                # 위험 점 추가
-                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
-        
-                for i in range(len(hjt)):
-                    # 데이터프레임 행 단위 추가
-                    row = hjt.iloc[i]
-                
-                    # 데이터 업데이트
-                    elbow_x.append(row['회차'])
-                    elbow_y.append(row['elbow_Torque'])
-                    shoulder_x.append(row['회차'])
-                    shoulder_y.append(row['shoulder_Torque'])
-        
-                    # 위험 점 표시
-                    elbow_very_danger = False
-                    shoulder_danger = False
-
-                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
-                        elbow_danger_x.append(row['회차'])
-                        elbow_danger_y.append(row['elbow_Torque'])
-                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
-                        elbow_very_danger_x.append(row['회차'])
-                        elbow_very_danger_y.append(row['elbow_Torque'])
-                        elbow_very_danger = True
-
-                    if row['shoulder_Torque'] < shoulder_torque_danger:
-                        shoulder_danger_x.append(row['회차'])
-                        shoulder_danger_y.append(row['shoulder_Torque'])
-                        shoulder_danger = True
-
-                    if elbow_very_danger and shoulder_danger:
-                        dangerous_pitches.append(int(row['회차']))
-
-                    # 그래프 업데이트
-                    fig.data[0].x = elbow_x
-                    fig.data[0].y = elbow_y
-                    fig.data[1].x = shoulder_x
-                    fig.data[1].y = shoulder_y
-                    fig.data[2].x = elbow_danger_x
-                    fig.data[2].y = elbow_danger_y
-                    fig.data[3].x = elbow_very_danger_x
-                    fig.data[3].y = elbow_very_danger_y
-                    fig.data[4].x = shoulder_danger_x
-                    fig.data[4].y = shoulder_danger_y
                     
-                    chart.plotly_chart(fig)
-                    status_text.text(f"{i+1}/{len(hjt)} rows processed.")
-                    progress_bar.progress((i+1)/len(hjt))
-                
-                    # 0.5초 간격 설정
-                    time.sleep(0.5)
-                
-                progress_bar.empty()
-                # 위험한 투구에 대한 경고 메시지 출력
-                if dangerous_pitches:
-                    for pitch in dangerous_pitches:
-                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
-                else:
-                    st.info("위험 투구 미발견")
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
+            
+                    # 위험한 투구를 추적하는 리스트
+                    dangerous_pitches = []
+                    warning_pitches = []
 
-            option = st.selectbox('투구를 선택하세요',
-                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
-            st.write('선택 옵션:', option)
-            if option == '1구':
+                    # 그래프 및 데이터 초기 설정
+                    fig = go.Figure()
+                    elbow_x, elbow_y = [], []
+                    shoulder_x, shoulder_y = [], []
+                    elbow_danger_x, elbow_danger_y = [], []
+                    elbow_very_danger_x, elbow_very_danger_y = [], []
+                    shoulder_danger_x, shoulder_danger_y = [], []
+            
+                    # 처음에 선 그래프를 그립니다
+                    fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='팔꿈치 토크'))
+                    fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='어깨 토크'))
+            
+                    # 위험 점 추가
+                    fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='팔꿈치 토크 높음'))
+                    fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='팔꿈치 토크 매우 높음'))
+                    fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='어깨 토크 낮음'))
+            
+                    for i in range(len(hjt)):
+                        # 데이터프레임 행 단위 추가
+                        row = hjt.iloc[i]
+                    
+                        # 데이터 업데이트
+                        elbow_x.append(row['회차'])
+                        elbow_y.append(row['elbow_Torque'])
+                        shoulder_x.append(row['회차'])
+                        shoulder_y.append(row['shoulder_Torque'])
+            
+                        # 위험 점 표시
+                        elbow_danger = False
+                        elbow_very_danger = False
+                        shoulder_danger = False
+
+                        if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                            elbow_danger_x.append(row['회차'])
+                            elbow_danger_y.append(row['elbow_Torque'])
+                            elbow_danger = True
+                        elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                            elbow_very_danger_x.append(row['회차'])
+                            elbow_very_danger_y.append(row['elbow_Torque'])
+                            elbow_very_danger = True
+
+                        if row['shoulder_Torque'] < shoulder_torque_danger:
+                            shoulder_danger_x.append(row['회차'])
+                            shoulder_danger_y.append(row['shoulder_Torque'])
+                            shoulder_danger = True
+
+                        if elbow_danger and shoulder_danger:
+                            warning_pitches.append(int(row['회차']))
+
+                        if elbow_very_danger and shoulder_danger:
+                            dangerous_pitches.append(int(row['회차']))
+
+                        # 그래프 업데이트
+                        fig.data[0].x = elbow_x
+                        fig.data[0].y = elbow_y
+                        fig.data[1].x = shoulder_x
+                        fig.data[1].y = shoulder_y
+                        fig.data[2].x = elbow_danger_x
+                        fig.data[2].y = elbow_danger_y
+                        fig.data[3].x = elbow_very_danger_x
+                        fig.data[3].y = elbow_very_danger_y
+                        fig.data[4].x = shoulder_danger_x
+                        fig.data[4].y = shoulder_danger_y
+                        
+                        chart.plotly_chart(fig)
+                        status_text.text(f"{i+1}/{len(hjt)} rows processed.")
+                        progress_bar.progress((i+1)/len(hjt))
+                    
+                        # 0.5초 간격 설정
+                        time.sleep(0.25)
+                    
+                    progress_bar.empty()
+                    for pitch in warning_pitches + dangerous_pitches:
+                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
+                        if pitch == 1:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\hyojong1.mp4') 
+                            with col402: 
+                                st.video('pitch_videos\\hyojong1_dotted.mp4')
+                        elif pitch == 2:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\hyojong2.mp4')
+                            with col404:
+                                st.video('pitch_videos\\hyojong2_dotted.mp4')
+                        elif pitch == 6:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\hyojong3.mp4')
+                            with col402: 
+                                st.video('pitch_videos\\hyojong3_dotted.mp4')
+                        elif pitch == 7:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\hyojong4.mp4')
+                            with col404:
+                                st.video('pitch_videos\\hyojong4_dotted.mp4')
+                        
+
+                    
+                    if not warning_pitches and not dangerous_pitches:
+                        st.info("위험 투구 미발견")
+        with tab3:
+            st.subheader('투구 분석')
+
+            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            selected_pitch_num = int(selected_pitch.replace('구', ''))
+
+            if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos\\hyojong_front_dotted.mp4') # 출처 필요 -> 세부 페이지에
+                    st.video('pitch_videos\\hyojong1.mp4') 
                 with col402: 
-                    st.video('pitch_videos\\hyojong_front_dotted.mp4')
-            elif option == '2구':
+                    st.video('pitch_videos\\hyojong1_dotted.mp4')
+            elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.image('0619/스켈레톤.png')
+                    st.video('pitch_videos\\hyojong2.mp4')
                 with col404:
-                    st.image('body/어깨 후면.png')
+                    st.video('pitch_videos\\hyojong2_dotted.mp4')
+            elif selected_pitch_num == 6:                                
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\hyojong3.mp4')
+                with col402: 
+                    st.video('pitch_videos\\hyojong3_dotted.mp4')
+            elif selected_pitch_num == 7:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.video('pitch_videos\\hyojong4.mp4')
+                with col404:
+                    st.video('pitch_videos\\hyojong4_dotted.mp4')
     elif selected_page == '고우석':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
@@ -336,16 +410,22 @@ else:
             st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
-                if st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[0]), unsafe_allow_html=True):
-                    st.empty()  # 이 줄을 추가해서 공간을 만듭니다.
-                    video_file = open("treatment_videos\\wrist.mp4", 'rb')
-                    video_bytes = video_file.read()
-                    st.video(video_bytes, format='mp4')
-
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format('팔꿈치 통증'), unsafe_allow_html=True)
             with col307:
-                st.markdown('<a href="https://www.tsmp.com.au/blog/oblique-muscle-function-strain-and-treatment.html" target="_blank"><div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[1]), unsafe_allow_html=True)
+                st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[1]), unsafe_allow_html=True)
             with col308:
-                st.markdown('<a href="https://www.mayoclinic.org/diseases-conditions/hamstring-injury/diagnosis-treatment/drc-20372990" target="_blank"><div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[2]), unsafe_allow_html=True)
+                st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_suk.index[2]), unsafe_allow_html=True)
+            st.markdown('')
+            options = ['팔꿈치 통증', injury_list_suk.index[1], injury_list_suk.index[2]]
+            selected_option = st.selectbox("부상명을 선택하세요:", options)
+            if selected_option == options[0]:  # injury_list_suk.index[0]
+                video_file = open("treatment_videos\\tenniselbow.mp4", 'rb')
+            elif selected_option == options[1]:  # injury_list_suk.index[1]
+                video_file = open("treatment_videos\\waist.mp4", 'rb')
+            elif selected_option == options[2]:  # injury_list_suk.index[2]
+                video_file = open("treatment_videos\\biceps.mp4", 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes, format='mp4')
         with tab2:
             wst = pd.read_csv('torque/wstorque.csv')
             if st.button("부하 측정"):                    
@@ -357,7 +437,7 @@ else:
             
                     # 위험 범위 정의
                     elbow_torque_danger = [105, 119]
-                    shoulder_torque_danger = 28
+                    shoulder_torque_danger = 25 # 6번째 투구가 위험
 
                     
                     st.markdown("""
@@ -376,10 +456,10 @@ else:
                         </tr>
                         <tr>
                             <td style='text-align: left;'>어깨 토크 저위험</td>
-                            <td style='text-align: left;'>어깨 토크가 28 미만일 때</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
                         </tr>
                     </table>
-                    <br>
+                    <br>s
                     """, unsafe_allow_html=True)
             
                     # 위험한 투구를 추적하는 리스트
@@ -458,58 +538,140 @@ else:
                         time.sleep(0.25)
                     
                     progress_bar.empty()
-                    if warning_pitches or dangerous_pitches:
-                        first_danger_pitch = min(warning_pitches + dangerous_pitches) if warning_pitches and dangerous_pitches else \
-                            min(warning_pitches) if warning_pitches else min(dangerous_pitches)
-                        st.warning(f"{first_danger_pitch}번째 투구에서 위험 요소 탐지")
+                    for pitch in warning_pitches + dangerous_pitches:
+                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
 
                         # 첫 번째 위험한 투구를 바로 보여주기
-                        if first_danger_pitch == 1:
+                        if pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos\\woosuk_back.mp4') 
+                                st.video('pitch_videos\\gowoo1.mp4') 
                             with col402: 
-                                st.video('pitch_videos\\woosuk_back_dotted.mp4')
-                        elif first_danger_pitch == 2:
+                                st.video('pitch_videos\\gowoo1_dotted.mp4')
+                        elif pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.image('0619/스켈레톤.png')
+                                st.video('pitch_videos\\gowoo2.mp4')
                             with col404:
-                                st.image('0619/원본.png')
-                        elif first_danger_pitch == 6:
+                                st.video('pitch_videos\\gowoo2_dotted.mp4')
+                        elif pitch == 3:
+                            col405, col406 = st.columns(2)
+                            with col405:
+                                st.video('pitch_videos\\gowoo3.mp4')
+                            with col406:
+                                st.video('pitch_videos\\gowoo3_dotted.mp4')
+                        elif pitch == 4:
+                            col407, col408 = st.columns(2)
+                            with col407:
+                                st.video('pitch_videos\\gowoo4.mp4')
+                            with col408:
+                                st.video('pitch_videos\\gowoo4_dotted.mp4')
+                        elif pitch == 5:
+                            col409, col410 = st.columns(2)
+                            with col409:
+                                st.video('pitch_videos\\gowoo5.mp4')
+                            with col410:
+                                st.video('pitch_videos\\gowoo5_dotted.mp4')
+                        elif pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos\\woosuk_back.mp4')
+                                st.video('pitch_videos\\gowoo6.mp4')
                             with col402: 
-                                st.video('pitch_videos\\woosuk_back_dotted.mp4')
-                    else:
+                                st.video('pitch_videos\\gowoo6_dotted.mp4')
+                        elif pitch == 7:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\gowoo7.mp4')
+                            with col404:
+                                st.video('pitch_videos\\gowoo7_dotted.mp4')
+                        elif pitch == 8:
+                            col405, col406 = st.columns(2)
+                            with col405:
+                                st.video('pitch_videos\\gowoo8.mp4')
+                            with col406:
+                                st.video('pitch_videos\\gowoo8_dotted.mp4')
+                        elif pitch == 9:
+                            col407, col408 = st.columns(2)
+                            with col407:
+                                st.video('pitch_videos\\gowoo9.mp4')
+                            with col408:
+                                st.video('pitch_videos\\gowoo9_dotted.mp4')
+                        elif pitch == 17:
+                            col409, col410 = st.columns(2)
+                            with col409:
+                                st.video('pitch_videos\\gowoo10.mp4')
+                            with col410:
+                                st.video('pitch_videos\\gowoo10_dotted.mp4')
+                    if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
         with tab3:
             st.subheader('투구 분석')
-
             selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
             selected_pitch_num = int(selected_pitch.replace('구', ''))
 
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos\\woosuk_back.mp4') 
+                    st.video('pitch_videos\\gowoo1.mp4')
                 with col402: 
-                    st.video('pitch_videos\\woosuk_back_dotted.mp4')
+                    st.video('pitch_videos\\gowoo1_dotted.mp4')
             elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.image('0619/스켈레톤.png')
+                    st.video('pitch_videos\\gowoo2.mp4')
                 with col404:
-                    st.image('0619/원본.png')
+                    st.video('pitch_videos\\gowoo2_dotted.mp4')
+            elif selected_pitch_num == 3:
+                col405, col406 = st.columns(2)
+                with col405:
+                    st.video('pitch_videos\\gowoo3.mp4')
+                with col406:
+                    st.video('pitch_videos\\gowoo3_dotted.mp4')
+            elif selected_pitch_num == 4:
+                col407, col408 = st.columns(2)
+                with col407:
+                    st.video('pitch_videos\\gowoo4.mp4')
+                with col408:
+                    st.video('pitch_videos\\gowoo4_dotted.mp4')
+
+            elif selected_pitch_num == 5:
+                col409, col410 = st.columns(2)
+                with col409:
+                    st.video('pitch_videos\\gowoo5.mp4')
+                with col410:
+                    st.video('pitch_videos\\gowoo5_dotted.mp4')
             elif selected_pitch_num == 6:                                
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos\\woosuk_back.mp4')
+                    st.video('pitch_videos\\gowoo6.mp4')
                 with col402: 
-                    st.video('pitch_videos\\woosuk_back_dotted.mp4')
+                    st.video('pitch_videos\\gowoo6_dotted.mp4')
+            elif selected_pitch_num == 7:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.video('pitch_videos\\gowoo7.mp4')
+                with col404:
+                    st.video('pitch_videos\\gowoo7_dotted.mp4')
+            elif selected_pitch_num == 8:
+                col405, col406 = st.columns(2)
+                with col405:
+                    st.video('pitch_videos\\gowoo8.mp4')
+                with col406:
+                    st.video('pitch_videos\\gowoo8_dotted.mp4')
+            elif selected_pitch_num == 9:
+                col407, col408 = st.columns(2)
+                with col407:
+                    st.video('pitch_videos\\gowoo9.mp4')
+                with col408:
+                    st.video('pitch_videos\\gowoo9_dotted.mp4')
+            elif selected_pitch_num == 17:
+                col409, col410 = st.columns(2)
+                with col409:
+                    st.video('pitch_videos\\gowoo10.mp4')
+                with col410:
+                    st.video('pitch_videos\\gowoo10_dotted.mp4')   
     elif selected_page == '이민호':
-        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
             st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
@@ -567,117 +729,228 @@ else:
                 st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[1]), unsafe_allow_html=True)
             with col308:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_ho.index[2]), unsafe_allow_html=True)
-            #fake.bar_chart() 
+            options = [injury_list_ho.index[0], injury_list_ho.index[1], injury_list_ho.index[2]]
+            selected_option = st.selectbox("부상명을 선택하세요:", options)
+            if selected_option == options[0]:  # injury_list_ho.index[0]
+                video_file = open("treatment_videos\\tenniselbow.mp4", 'rb')
+            elif selected_option == options[1]:  # injury_list_ho.index[1]
+                video_file = open("treatment_videos\\forearm2.mp4", 'rb')
+            elif selected_option == options[2]:  # injury_list_ho.index[2]
+                video_file = open("treatment_videos\\forearm2.mp4", 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes, format='mp4')
             
         with tab2:
             st.subheader('투구 분석')
             mht = pd.read_csv('torque/mhtorque.csv')
-            if st.button("부하 측정"):
-                
-                # Streamlit 구성
-                st.text("투구별 토크 측정")
-                progress_bar = st.sidebar.progress(0)
-                status_text = st.sidebar.empty()
-                chart = st.empty()
-        
-                # 위험 범위 정의
-                elbow_torque_danger = [105, 119]
-                shoulder_torque_danger = 28
-        
-                # 위험한 투구를 추적하는 리스트
-                dangerous_pitches = []
+            if st.button("부하 측정"):                    
+                    # Streamlit 구성
+                    st.markdown("<h1 style='text-align: center; color: white;'>투구별 토크 측정</h1>", unsafe_allow_html=True)
+                    progress_bar = st.sidebar.progress(0)
+                    status_text = st.sidebar.empty()
+                    chart = st.empty()
+            
+                    # 위험 범위 정의
+                    elbow_torque_danger = [105, 119]
+                    shoulder_torque_danger = 25
 
-                # 그래프 및 데이터 초기 설정
-                fig = go.Figure()
-                elbow_x, elbow_y = [], []
-                shoulder_x, shoulder_y = [], []
-                elbow_danger_x, elbow_danger_y = [], []
-                elbow_very_danger_x, elbow_very_danger_y = [], []
-                shoulder_danger_x, shoulder_danger_y = [], []
-        
-                # 처음에 선 그래프를 그립니다
-                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
-        
-                # 위험 점 추가
-                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
-        
-                for i in range(len(mht)):
-                    # 데이터프레임 행 단위 추가
-                    row = mht.iloc[i]
-                
-                    # 데이터 업데이트
-                    elbow_x.append(row['회차'])
-                    elbow_y.append(row['elbow_Torque'])
-                    shoulder_x.append(row['회차'])
-                    shoulder_y.append(row['shoulder_Torque'])
-        
-                    # 위험 점 표시
-                    elbow_very_danger = False
-                    shoulder_danger = False
-
-                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
-                        elbow_danger_x.append(row['회차'])
-                        elbow_danger_y.append(row['elbow_Torque'])
-                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
-                        elbow_very_danger_x.append(row['회차'])
-                        elbow_very_danger_y.append(row['elbow_Torque'])
-                        elbow_very_danger = True
-                        
-                    if row['shoulder_Torque'] < shoulder_torque_danger:
-                        shoulder_danger_x.append(row['회차'])
-                        shoulder_danger_y.append(row['shoulder_Torque'])
-                        shoulder_danger = True
-        
-                    if elbow_very_danger and shoulder_danger:
-                        dangerous_pitches.append(int(row['회차']))
-
-                    # 그래프 업데이트
-                    fig.data[0].x = elbow_x
-                    fig.data[0].y = elbow_y
-                    fig.data[1].x = shoulder_x
-                    fig.data[1].y = shoulder_y
-                    fig.data[2].x = elbow_danger_x
-                    fig.data[2].y = elbow_danger_y
-                    fig.data[3].x = elbow_very_danger_x
-                    fig.data[3].y = elbow_very_danger_y
-                    fig.data[4].x = shoulder_danger_x
-                    fig.data[4].y = shoulder_danger_y
                     
-                    chart.plotly_chart(fig)
-                    status_text.text(f"{i+1}/{len(mht)} rows processed.")
-                    progress_bar.progress((i+1)/len(mht))
-                
-                    # 0.5초 간격 설정
-                    time.sleep(0.5)
-                
-                progress_bar.empty()
-                # 위험한 투구에 대한 경고 메시지 출력
-                if dangerous_pitches:
-                    for pitch in dangerous_pitches:
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
+            
+                    # 위험한 투구를 추적하는 리스트
+                    dangerous_pitches = []
+                    warning_pitches = []
+
+                    # 그래프 및 데이터 초기 설정
+                    fig = go.Figure()
+                    elbow_x, elbow_y = [], []
+                    shoulder_x, shoulder_y = [], []
+                    elbow_danger_x, elbow_danger_y = [], []
+                    elbow_very_danger_x, elbow_very_danger_y = [], []
+                    shoulder_danger_x, shoulder_danger_y = [], []
+            
+                    # 처음에 선 그래프를 그립니다
+                    fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='팔꿈치 토크'))
+                    fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='어깨 토크'))
+            
+                    # 위험 점 추가
+                    fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='팔꿈치 토크 높음'))
+                    fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='팔꿈치 토크 매우 높음'))
+                    fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='어깨 토크 낮음'))
+            
+                    for i in range(len(mht)):
+                        # 데이터프레임 행 단위 추가
+                        row = mht.iloc[i]
+                    
+                        # 데이터 업데이트
+                        elbow_x.append(row['회차'])
+                        elbow_y.append(row['elbow_Torque'])
+                        shoulder_x.append(row['회차'])
+                        shoulder_y.append(row['shoulder_Torque'])
+            
+                        # 위험 점 표시
+                        elbow_danger = False
+                        elbow_very_danger = False
+                        shoulder_danger = False
+
+                        if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                            elbow_danger_x.append(row['회차'])
+                            elbow_danger_y.append(row['elbow_Torque'])
+                            elbow_danger = True
+                        elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                            elbow_very_danger_x.append(row['회차'])
+                            elbow_very_danger_y.append(row['elbow_Torque'])
+                            elbow_very_danger = True
+
+                        if row['shoulder_Torque'] < shoulder_torque_danger:
+                            shoulder_danger_x.append(row['회차'])
+                            shoulder_danger_y.append(row['shoulder_Torque'])
+                            shoulder_danger = True
+
+                        if elbow_danger and shoulder_danger:
+                            warning_pitches.append(int(row['회차']))
+
+                        if elbow_very_danger and shoulder_danger:
+                            dangerous_pitches.append(int(row['회차']))
+
+                        # 그래프 업데이트
+                        fig.data[0].x = elbow_x
+                        fig.data[0].y = elbow_y
+                        fig.data[1].x = shoulder_x
+                        fig.data[1].y = shoulder_y
+                        fig.data[2].x = elbow_danger_x
+                        fig.data[2].y = elbow_danger_y
+                        fig.data[3].x = elbow_very_danger_x
+                        fig.data[3].y = elbow_very_danger_y
+                        fig.data[4].x = shoulder_danger_x
+                        fig.data[4].y = shoulder_danger_y
+                        
+                        chart.plotly_chart(fig)
+                        status_text.text(f"{i+1}/{len(mht)} rows processed.")
+                        progress_bar.progress((i+1)/len(mht))
+                    
+                        # 0.5초 간격 설정
+                        time.sleep(0.25)
+                    
+                    progress_bar.empty()
+                    for pitch in warning_pitches + dangerous_pitches:
                         st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
-                else:
-                    st.info("위험 투구 미발견")
-            # st.image('투구별 어깨,팔꿈치 부상위험도 차트 이미지 삽입')
-            option = st.selectbox('투구를 선택하세요',
-                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
-            st.write('선택 옵션:', option)
-            if option == '1구':
+
+                        # 첫 번째 위험한 투구를 바로 보여주기
+                        if pitch == 1:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\minho1.mp4')
+                            with col402: 
+                                st.video('pitch_videos\\minho1_dotted.mp4')
+                        elif pitch == 2:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\minho2.mp4')
+                            with col404:
+                                st.video('pitch_videos\\minho2_dotted.mp4')
+                        elif pitch == 3:
+                            col405, col406 = st.columns(2)
+                            with col405:
+                                st.video('pitch_videos\\minho3.mp4')
+                            with col406:
+                                st.video('pitch_videos\\minho3_dotted.mp4')
+                        elif pitch == 4:
+                            col407, col408 = st.columns(2)
+                            with col407:
+                                st.video('pitch_videos\\minho4.mp4')
+                            with col408:
+                                st.video('pitch_videos\\minho4_dotted.mp4')
+                        elif pitch == 5:
+                            col409, col410 = st.columns(2)
+                            with col409:
+                                st.video('pitch_videos\\minho5.mp4')
+                            with col410:
+                                st.video('pitch_videos\\minho5_dotted.mp4')
+                        elif pitch == 6:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\minho6.mp4')
+                            with col402: 
+                                st.video('pitch_videos\\minho6_dotted.mp4')
+                        elif pitch == 15:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\minho7.mp4')
+                            with col404:
+                                st.video('pitch_videos\\minho7_dotted.mp4')
+                    if not warning_pitches and not dangerous_pitches:
+                        st.info("위험 투구 미발견")
+        with tab3:
+            st.subheader('투구 분석')
+
+            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            selected_pitch_num = int(selected_pitch.replace('구', ''))
+
+            if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos\\minho_back.mp4') # 출처 필요 -> 세부 페이지에
+                    st.video('pitch_videos\\minho1.mp4') 
                 with col402: 
-                    st.video('pitch_videos\\minho_back_dotted.mp4')
-            elif option == '2구':
+                    st.video('pitch_videos\\minho1_dotted.mp4')
+            elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.image('0619/스켈레톤.png')
+                    st.video('pitch_videos\\minho2.mp4')
                 with col404:
-                    st.image('0619/원본.png')           
+                    st.video('pitch_videos\\minho2_dotted.mp4')
+            elif selected_pitch_num == 3:
+                col405, col406 = st.columns(2)
+                with col405:
+                    st.video('pitch_videos\\minho3.mp4')
+                with col406:
+                    st.video('pitch_videos\\minho3_dotted.mp4')
+            elif selected_pitch_num == 4:  
+                col407, col408 = st.columns(2)
+                with col407:
+                    st.video('pitch_videos\\minho4.mp4')
+                with col408:
+                    st.video('pitch_videos\\minho4_dotted.mp4')
+            elif selected_pitch_num == 5:
+                col409, col410 = st.columns(2)
+                with col409:
+                    st.video('pitch_videos\\minho5.mp4')
+                with col410:
+                    st.video('pitch_videos\\minho5_dotted.mp4')
+            elif selected_pitch_num == 6:
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\minho6.mp4')
+                with col402: 
+                    st.video('pitch_videos\\minho6_dotted.mp4')
+            elif selected_pitch_num == 15:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.video('pitch_videos\\minho7.mp4')
+                with col404:
+                    st.video('pitch_videos\\minho7_dotted.mp4')              
     elif selected_page == '이정용':
-        tab1, tab2= st.tabs(['선수 프로필', '투구영상'])
+        tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
             st.subheader("선수 기본 프로필")
             col301, col302 = st.columns(2)
@@ -728,110 +1001,277 @@ else:
             st.text('나와 비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
-                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[0]), unsafe_allow_html=True)
+                st.markdown('<div style="background-color: #be0737; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format('팔꿈치 통증'), unsafe_allow_html=True)
             with col307:
                 st.markdown('<div style="background-color: #d8445f; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[1]), unsafe_allow_html=True)
             with col308:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_young.index[2]), unsafe_allow_html=True)
-            
+            st.markdown(' ')
+            options = ['팔꿈치 통증', injury_list_young.index[1], injury_list_young.index[2]]
+            selected_option = st.selectbox("부상명을 선택하세요:", options)
+            if selected_option == options[0]:  # injury_list_young.index[0]
+                video_file = open("treatment_videos\\tenniselbow2.mp4", 'rb')
+            elif selected_option == options[1]:  # injury_list_young.index[1]
+                video_file = open("treatment_videos\\sideflank.mp4", 'rb')
+            elif selected_option == options[2]:  # injury_list_young.index[2]
+                video_file = open("treatment_videos\\biceps.mp4", 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes, format='mp4')
+
         with tab2:
             st.subheader('투구 분석')
             jwt = pd.read_csv('torque/jwtorque.csv')
-            if st.button("부하 측정"):
-                
-                # Streamlit 구성
-                st.text("투구별 토크 측정")
-                progress_bar = st.sidebar.progress(0)
-                status_text = st.sidebar.empty()
-                chart = st.empty()
-        
-                # 위험 범위 정의
-                elbow_torque_danger = [105, 119]
-                shoulder_torque_danger = 28
-        
-                # 위험한 투구를 추적하는 리스트
-                dangerous_pitches = []
+            if st.button("부하 측정"):                    
+                    # Streamlit 구성
+                    st.markdown("<h1 style='text-align: center; color: white;'>투구별 토크 측정</h1>", unsafe_allow_html=True)
+                    progress_bar = st.sidebar.progress(0)
+                    status_text = st.sidebar.empty()
+                    chart = st.empty()
+            
+                    # 위험 범위 정의
+                    elbow_torque_danger = [105, 119]
+                    shoulder_torque_danger = 25
 
-                # 그래프 및 데이터 초기 설정
-                fig = go.Figure()
-                elbow_x, elbow_y = [], []
-                shoulder_x, shoulder_y = [], []
-                elbow_danger_x, elbow_danger_y = [], []
-                elbow_very_danger_x, elbow_very_danger_y = [], []
-                shoulder_danger_x, shoulder_danger_y = [], []
-        
-                # 처음에 선 그래프를 그립니다
-                fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='elbow_Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='shoulder_Torque'))
-        
-                # 위험 점 추가
-                fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='Very High Elbow Torque'))
-                fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='Low Shoulder Torque'))
-        
-                for i in range(len(jwt)):
-                    # 데이터프레임 행 단위 추가
-                    row = jwt.iloc[i]
-                
-                    # 데이터 업데이트
-                    elbow_x.append(row['회차'])
-                    elbow_y.append(row['elbow_Torque'])
-                    shoulder_x.append(row['회차'])
-                    shoulder_y.append(row['shoulder_Torque'])
-        
-                    # 위험 점 표시
-                    elbow_very_danger = False
-                    shoulder_danger = False
-
-                    if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
-                        elbow_danger_x.append(row['회차'])
-                        elbow_danger_y.append(row['elbow_Torque'])
-                    elif row['elbow_Torque'] > elbow_torque_danger[1]:
-                        elbow_very_danger_x.append(row['회차'])
-                        elbow_very_danger_y.append(row['elbow_Torque'])
-                        elbow_very_danger = True
-                        
-                    if row['shoulder_Torque'] < shoulder_torque_danger:
-                        shoulder_danger_x.append(row['회차'])
-                        shoulder_danger_y.append(row['shoulder_Torque'])
-                        shoulder_danger = True
-        
-                    if elbow_very_danger and shoulder_danger:
-                        dangerous_pitches.append(int(row['회차']))
-
-                    # 그래프 업데이트
-                    fig.data[0].x = elbow_x
-                    fig.data[0].y = elbow_y
-                    fig.data[1].x = shoulder_x
-                    fig.data[1].y = shoulder_y
-                    fig.data[2].x = elbow_danger_x
-                    fig.data[2].y = elbow_danger_y
-                    fig.data[3].x = elbow_very_danger_x
-                    fig.data[3].y = elbow_very_danger_y
-                    fig.data[4].x = shoulder_danger_x
-                    fig.data[4].y = shoulder_danger_y
                     
-                    chart.plotly_chart(fig)
-                    status_text.text(f"{i+1}/{len(jwt)} rows processed.")
-                    progress_bar.progress((i+1)/len(jwt))
-                
-                    # 0.5초 간격 설정
-                    time.sleep(0.5)
-                
-                progress_bar.empty()
-            option = st.selectbox('투구를 선택하세요',
-                         ['1구', '2구', '3구', '4구', '5구', '6구', '7구', '8구', '9구', '10구','11구', '12구', '13구', '14구', '15구', '16구', '17구', '18구', '19구', '20구'])
-            st.write('선택 옵션:', option)
-            if option == '1구':
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
+            
+                    # 위험한 투구를 추적하는 리스트
+                    dangerous_pitches = []
+                    warning_pitches = []
+
+                    # 그래프 및 데이터 초기 설정
+                    fig = go.Figure()
+                    elbow_x, elbow_y = [], []
+                    shoulder_x, shoulder_y = [], []
+                    elbow_danger_x, elbow_danger_y = [], []
+                    elbow_very_danger_x, elbow_very_danger_y = [], []
+                    shoulder_danger_x, shoulder_danger_y = [], []
+            
+                    # 처음에 선 그래프를 그립니다
+                    fig.add_trace(go.Scatter(x=elbow_x, y=elbow_y, mode='lines', name='팔꿈치 토크'))
+                    fig.add_trace(go.Scatter(x=shoulder_x, y=shoulder_y, mode='lines', name='어깨 토크'))
+            
+                    # 위험 점 추가
+                    fig.add_trace(go.Scatter(x=elbow_danger_x, y=elbow_danger_y, mode='markers', marker=dict(color='yellow'), name='팔꿈치 토크 높음'))
+                    fig.add_trace(go.Scatter(x=elbow_very_danger_x, y=elbow_very_danger_y, mode='markers', marker=dict(color='red'), name='팔꿈치 토크 매우 높음'))
+                    fig.add_trace(go.Scatter(x=shoulder_danger_x, y=shoulder_danger_y, mode='markers', marker=dict(color='orange'), name='어깨 토크 낮음'))
+            
+                    for i in range(len(jwt)):
+                        # 데이터프레임 행 단위 추가
+                        row = jwt.iloc[i]
+                    
+                        # 데이터 업데이트
+                        elbow_x.append(row['회차'])
+                        elbow_y.append(row['elbow_Torque'])
+                        shoulder_x.append(row['회차'])
+                        shoulder_y.append(row['shoulder_Torque'])
+            
+                        # 위험 점 표시
+                        elbow_danger = False
+                        elbow_very_danger = False
+                        shoulder_danger = False
+
+                        if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
+                            elbow_danger_x.append(row['회차'])
+                            elbow_danger_y.append(row['elbow_Torque'])
+                            elbow_danger = True
+                        elif row['elbow_Torque'] > elbow_torque_danger[1]:
+                            elbow_very_danger_x.append(row['회차'])
+                            elbow_very_danger_y.append(row['elbow_Torque'])
+                            elbow_very_danger = True
+
+                        if row['shoulder_Torque'] < shoulder_torque_danger:
+                            shoulder_danger_x.append(row['회차'])
+                            shoulder_danger_y.append(row['shoulder_Torque'])
+                            shoulder_danger = True
+
+                        if elbow_danger and shoulder_danger:
+                            warning_pitches.append(int(row['회차']))
+
+                        if elbow_very_danger and shoulder_danger:
+                            dangerous_pitches.append(int(row['회차']))
+
+                        # 그래프 업데이트
+                        fig.data[0].x = elbow_x
+                        fig.data[0].y = elbow_y
+                        fig.data[1].x = shoulder_x
+                        fig.data[1].y = shoulder_y
+                        fig.data[2].x = elbow_danger_x
+                        fig.data[2].y = elbow_danger_y
+                        fig.data[3].x = elbow_very_danger_x
+                        fig.data[3].y = elbow_very_danger_y
+                        fig.data[4].x = shoulder_danger_x
+                        fig.data[4].y = shoulder_danger_y
+                        
+                        chart.plotly_chart(fig)
+                        status_text.text(f"{i+1}/{len(jwt)} rows processed.")
+                        progress_bar.progress((i+1)/len(jwt))
+                    
+                        # 0.5초 간격 설정
+                        time.sleep(0.25)
+                    
+                    progress_bar.empty()
+                    for pitch in warning_pitches + dangerous_pitches:
+                        st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
+
+                        # 첫 번째 위험한 투구를 바로 보여주기
+                        if pitch == 1:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\yong1.mp4')
+                            with col402: 
+                                st.video('pitch_videos\\yong1_dotted.mp4')
+                        elif pitch == 2:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\yong2.mp4')
+                            with col404:
+                                st.video('pitch_videos\\yong2_dotted.mp4')
+                        elif pitch == 3:
+                            col405, col406 = st.columns(2)
+                            with col405:
+                                st.video('pitch_videos\\yong3.mp4')
+                            with col406:
+                                st.video('pitch_videos\\yong3_dotted.mp4')
+                        elif pitch == 4:
+                            col407, col408 = st.columns(2)
+                            with col407:
+                                st.video('pitch_videos\\yong4.mp4')
+                            with col408:
+                                st.video('pitch_videos\\yong4_dotted.mp4')
+                        elif pitch == 5:
+                            col409, col410 = st.columns(2)
+                            with col409:
+                                st.video('pitch_videos\\yong5.mp4')
+                            with col410:
+                                st.video('pitch_videos\\yong5_dotted.mp4')
+                        elif pitch == 6:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\yong6.mp4')
+                            with col402: 
+                                st.video('pitch_videos\\yong6_dotted.mp4')
+                        elif pitch == 7:
+                            col403, col404 = st.columns(2)
+                            with col403:
+                                st.video('pitch_videos\\yong7.mp4')
+                            with col404:
+                                st.video('pitch_videos\\yong7_dotted.mp4')
+                        elif pitch == 8:
+                            col405, col406 = st.columns(2)
+                            with col405:
+                                st.video('pitch_videos\\yong8.mp4')
+                            with col406:
+                                st.video('pitch_videos\\yong8_dotted.mp4')
+                        elif pitch == 9:
+                            col407, col408 = st.columns(2)
+                            with col407:
+                                st.video('pitch_videos\\yong9.mp4')
+                            with col408:
+                                st.video('pitch_videos\\yong9_dotted.mp4')
+                        elif pitch == 10:
+                            col409, col410 = st.columns(2)
+                            with col409:
+                                st.video('pitch_videos\\yong10.mp4')
+                            with col410:
+                                st.video('pitch_videos\\yong10_dotted.mp4')
+                        elif pitch == 11:
+                            col401, col402 = st.columns(2)
+                            with col401:
+                                st.video('pitch_videos\\yong11.mp4')
+                            with col402:
+                                st.video('pitch_videos\\yong11_dotted.mp4')
+                    if not warning_pitches and not dangerous_pitches:
+                        st.info("위험 투구 미발견")
+        with tab3:
+            st.subheader('투구 분석')
+
+            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            selected_pitch_num = int(selected_pitch.replace('구', ''))
+
+            if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos\\jungyoung_back.mp4') # 출처 필요 -> 세부 페이지에
-                with col402: 
-                    st.video('pitch_videos\\jungyoung_back_dotted.mp4')
-            elif option == '2구':
+                    st.video('pitch_videos\\yong1.mp4')
+                with col402:
+                    st.video('pitch_videos\\yong1_dotted.mp4')
+            elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.image('0619/스켈레톤.png')
+                    st.video('pitch_videos\\yong2.mp4')
                 with col404:
-                    st.image('0619/원본.png')
-    # 기타 선수들에 대한 코드는 elif를 이용하여 추가
+                    st.video('pitch_videos\\yong2_dotted.mp4')
+            elif selected_pitch_num == 3:
+                col405, col406 = st.columns(2)
+                with col405:
+                    st.video('pitch_videos\\yong3.mp4')
+                with col406:
+                    st.video('pitch_videos\\yong3_dotted.mp4')
+            elif selected_pitch_num == 4:
+                col407, col408 = st.columns(2)
+                with col407:
+                    st.video('pitch_videos\\yong4.mp4')
+                with col408:
+                    st.video('pitch_videos\\yong4_dotted.mp4')
+            elif selected_pitch_num == 5:
+                col409, col410 = st.columns(2)
+                with col409:
+                    st.video('pitch_videos\\yong5.mp4')
+                with col410:
+                    st.video('pitch_videos\\yong5_dotted.mp4')
+            elif selected_pitch_num == 6:
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\yong6.mp4')
+                with col402:
+                    st.video('pitch_videos\\yong6_dotted.mp4')
+            elif selected_pitch_num == 7:
+                col403, col404 = st.columns(2)
+                with col403:
+                    st.video('pitch_videos\\yong7.mp4')
+                with col404:
+                    st.video('pitch_videos\\yong7_dotted.mp4')
+            elif selected_pitch_num == 8:
+                col405, col406 = st.columns(2)
+                with col405:
+                    st.video('pitch_videos\\yong8.mp4')
+                with col406:
+                    st.video('pitch_videos\\yong8_dotted.mp4')
+            elif selected_pitch_num == 9:
+                col407, col408 = st.columns(2)
+                with col407:
+                    st.video('pitch_videos\\yong9.mp4')
+                with col408:
+                    st.video('pitch_videos\\yong9_dotted.mp4')
+            elif selected_pitch_num == 10:
+                col409, col410 = st.columns(2)
+                with col409:
+                    st.video('pitch_videos\\yong10.mp4')
+                with col410:
+                    st.video('pitch_videos\\yong10_dotted.mp4')
+            elif selected_pitch_num == 11:
+                col401, col402 = st.columns(2)
+                with col401:
+                    st.video('pitch_videos\\yong11.mp4')
+                with col402:
+                    st.video('pitch_videos\\yong11_dotted.mp4')
