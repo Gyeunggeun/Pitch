@@ -23,7 +23,7 @@ def style_metric_cards(
     border_size_px: int = 1,
     border_color: str = "#CCC",
     border_radius_px: int = 5,
-    border_left_color: str = "#82A9E8",
+    border_left_color: str = "#82A9E8",  # 왼쪽 테두리 색상 변경
     box_shadow: bool = True,
     text_colors: list = ["#840A54", "#840A54", "#840A54"],   # 텍스트 색상 변경
     label_colors: list = ["#606770", "#606770", "#606770"],  # 라벨 색상을 변경
