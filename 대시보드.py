@@ -118,13 +118,14 @@ with col202:
     #col202.metric('2. 시즌 누적부상일수', "115 일", ' 20일')
 
 with col203:
-    custom_order = ['부상', '재활', '가능']
+    custom_order = ['부상', '재활', '복귀']
 
-    fig = px.pie(now_injured, values="값", names="출전여부", title="3. 투수 부상 현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
+    fig = px.pie(now_injured, values="값", names="출전여부", title="3. 투수 부상 현황", hole=.5, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '복귀':'#f6f6f6'}, category_orders={"출전여부": custom_order})
 
     #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
     fig.update_traces(textposition='outside', textinfo='label+value',
                           textfont_size=10) # textfont_color="blact"
+        
     fig.update_layout(font=dict(size=16))
     fig.update_layout(width=250,height=300)
     fig.update(layout_showlegend=False)
@@ -134,7 +135,7 @@ with col204:
     # 현재 팀 투수 부상 누적일수
     custom_order1 = ['고위험', '보통']
     
-    fig2 = px.pie(high, values="값", names = "부상위험", title="4. 부상 고위험 투수 현황", hole=.7, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
+    fig2 = px.pie(high, values="값", names = "부상위험", title="4. 부상 고위험 투수 현황", hole=.5, color = '부상위험', color_discrete_map={'고위험':'#BE0737', '보통':'#ededed'},category_orders={"부상위험": custom_order1})
 
     fig2.update_traces(textposition='outside', textinfo='label+value', textfont_size=10)
     fig2.update_layout(font=dict(size=16))
@@ -192,7 +193,7 @@ with col21:
                                 )
                      )
 
-        fig.update_layout(title_text='부상 종류별 부상 횟수',
+        fig.update_layout(title_text='부상 종류별 발생 횟수',
                           xaxis=dict(showgrid=False, showline=False, showticklabels=True),
                           yaxis=dict(zeroline=False, gridcolor='white',
                                      showgrid=False,
