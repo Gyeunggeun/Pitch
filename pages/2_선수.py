@@ -196,29 +196,6 @@ else:
                     elbow_torque_danger = [105, 119]
                     shoulder_torque_danger = 25 # 15번째 투구가 위험
 
-                    
-                    st.markdown("""
-                    <table>
-                        <tr>
-                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
-                            <th style='text-align: left; background-color: #606770'>기준</th>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>어깨 토크 저위험</td>
-                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
-                        </tr>
-                    </table>
-                    <br>
-                    """, unsafe_allow_html=True)
-            
                     # 위험한 투구를 추적하는 리스트
                     dangerous_pitches = []
                     warning_pitches = []
@@ -359,6 +336,27 @@ else:
                                 st.video('pitch_videos/hyojong10_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
         with tab3:
             st.subheader('투구 분석')
 
@@ -508,29 +506,6 @@ else:
                     elbow_torque_danger = [105, 119]
                     shoulder_torque_danger = 25 # 6번째 투구가 위험
 
-                    
-                    st.markdown("""
-                    <table>
-                        <tr>
-                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
-                            <th style='text-align: left; background-color: #606770'>기준</th>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>어깨 토크 저위험</td>
-                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
-                        </tr>
-                    </table>
-                    <br>s
-                    """, unsafe_allow_html=True)
-            
                     # 위험한 투구를 추적하는 리스트
                     dangerous_pitches = []
                     warning_pitches = []
@@ -673,6 +648,27 @@ else:
                                 st.video('pitch_videos/gowoo10_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
         with tab3:
             st.subheader('투구 분석')
             selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
@@ -822,29 +818,6 @@ else:
                     # 위험 범위 정의
                     elbow_torque_danger = [105, 119]
                     shoulder_torque_danger = 25
-
-                    
-                    st.markdown("""
-                    <table>
-                        <tr>
-                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
-                            <th style='text-align: left; background-color: #606770'>기준</th>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>어깨 토크 저위험</td>
-                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
-                        </tr>
-                    </table>
-                    <br>
-                    """, unsafe_allow_html=True)
             
                     # 위험한 투구를 추적하는 리스트
                     dangerous_pitches = []
@@ -970,6 +943,27 @@ else:
                                 st.video('pitch_videos/minho7_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
         with tab3:
             st.subheader('투구 분석')
 
@@ -1100,29 +1094,6 @@ else:
                     # 위험 범위 정의
                     elbow_torque_danger = [105, 119]
                     shoulder_torque_danger = 25
-
-                    
-                    st.markdown("""
-                    <table>
-                        <tr>
-                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
-                            <th style='text-align: left; background-color: #606770'>기준</th>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
-                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
-                        </tr>
-                        <tr>
-                            <td style='text-align: left;'>어깨 토크 저위험</td>
-                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
-                        </tr>
-                    </table>
-                    <br>
-                    """, unsafe_allow_html=True)
             
                     # 위험한 투구를 추적하는 리스트
                     dangerous_pitches = []
@@ -1272,6 +1243,27 @@ else:
                                 st.video('pitch_videos/yong11_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
+                    st.markdown("""
+                    <table>
+                        <tr>
+                            <th style='text-align: left; background-color: #606770'>위험 유형</th>
+                            <th style='text-align: left; background-color: #606770'>기준</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 고위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 119 이상일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>팔꿈치 토크 위험</td>
+                            <td style='text-align: left;'>팔꿈치 토크가 105 이상 119 이하일 때</td>
+                        </tr>
+                        <tr>
+                            <td style='text-align: left;'>어깨 토크 저위험</td>
+                            <td style='text-align: left;'>어깨 토크가 25 미만일 때</td>
+                        </tr>
+                    </table>
+                    <br>
+                    """, unsafe_allow_html=True)
         with tab3:
             st.subheader('투구 분석')
 

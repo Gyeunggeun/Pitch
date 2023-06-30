@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 from packages.card import custom_metric_card, style_metric_cards
 from packages.logo import add_logo
 
-df = pd.read_csv('./players/Injured_List4.csv', encoding='UTF-8')
+df = pd.read_csv('./players/Injured_List4.csv', encoding='euc-kr')
 df = df.set_index('선수')
 
 st.set_page_config(

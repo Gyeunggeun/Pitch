@@ -225,7 +225,7 @@ with col23:
         <img src="{image_url}" width="{image_width}">
         <h3 style="margin-top: 15px; font-size: 1rem;">이정용</h3>
         <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
-        부상 부위: Shoulder<br>
+        부상 부위: 어깨<br>
         부상 발생일: {injured_date}<br>
         예상 복귀일: D-10
         </p>
@@ -245,7 +245,7 @@ with col23:
         <img src="{image_url}" width="{image_width}">
         <h3 style="margin-top: 15px; font-size: 1rem;">고우석</h3>
         <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
-        부상 부위: Shoulder<br>
+        부상 부위: 어깨<br>
         부상 발생일: {injured_date}<br>
         예상 복귀일: D-7
         </p>
@@ -264,7 +264,7 @@ with col23:
         <img src="{image_url}" width="{image_width}">
         <h3 style="margin-top: 15px; font-size: 1rem;">이민호</h3>
         <p style="margin-top: 15px; font-size: 0.9rem; text-align: left;">
-        부상 부위: Oblique<br>
+        부상 부위: 옆구리<br>
         부상 발생일: {injured_date}<br>
         예상 복귀일: D-3
         </p>
