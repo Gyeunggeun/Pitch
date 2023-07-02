@@ -3,7 +3,7 @@ import pandas as pd
 import hydralit_components as hc
 import plotly.express as px
 import plotly.graph_objects as go
-from packages.logo import add_logo
+from packages.logo import add_logo # 커스텀 로고 패키지
 
 # 현재부상투수현황 데이터프레임
 # 재활, 부상, 가능 나열하기 위한 리스트
@@ -23,7 +23,7 @@ Injured_List3 = Injured_List3.groupby(['부상명'])['선수'].count().rename('�
 Injured_List3 = Injured_List3.sort_values(ascending=False)
 
 
-# -------------------- ▼ 필요 변수 생성 코딩 Start ▼ --------------------
+# -------------------- ▼ 전역 변수 설정 ▼ --------------------
 
 # Streamlit 애플리케이션 설정
 st.set_page_config(
@@ -33,9 +33,9 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 add_logo("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/solutionlogo/final.png", height=370)
 
-# -------------------- ▲ 필요 변수 생성 코딩 End ▲ --------------------
+# -------------------- ▲ 전역 변수 설정 ▲ --------------------
 
-# -------------------- ▼ Streamlit 웹 화면 구성 START ▼ --------------------
+# -------------------- ▼ 메인 페이지 화면 구성 START ▼ --------------------
 
 
 
@@ -60,7 +60,7 @@ st.markdown("""
 st.subheader("경기 일정 📅")
 st.write('기준: 2023년 06월 21일 (수)')
 
-#can apply customisation to almost all the properties of the card, including the progress bar
+#경기 일정 카드
                               
 
 theme_away = {'bgcolor': '#f6f6f6','title_color': '#8e8e8d','content_color': '#8e8e8d','icon_color': 'red', 'icon': 'fas fa-sign-in'}
@@ -69,7 +69,7 @@ theme_home = {'bgcolor': '#ededed','title_color': '#be0737','content_color': '#b
 cc = st.columns(4)
 
 with cc[0]:
-    # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
+
     hc.info_card(title='NC', content='06.22. (목) 18:30 away 창원', theme_override=theme_away)
 
 
@@ -80,7 +80,7 @@ with cc[2]:
     hc.info_card(title='롯데', content='06.24. (토) 17:00 home 잠실',theme_override=theme_home)
 
 with cc[3]:
- #customise the the theming for a neutral content
+ 
     hc.info_card(title='롯데',content='06.25. (일) 17:00 home 잠실',key='sec',theme_override=theme_home)
     
 st.markdown("""
@@ -115,14 +115,14 @@ with col202:
     st.write(" ")
     st.markdown("<h3 style='font-size: 1rem;'>2. 시즌 누적부상일수</h3>", unsafe_allow_html=True)
     col202.metric('',"115 일", "20일")
-    #col202.metric('2. 시즌 누적부상일수', "115 일", ' 20일')
+
 
 with col203:
     custom_order = ['부상', '재활', '가능']
 
     fig = px.pie(now_injured, values="값", names="출전여부", title="3. 투수 부상 현황", hole=.7, color = '출전여부', color_discrete_map={'부상':'#df839b', '재활':'#8e8e8d', '가능':'#f6f6f6'}, category_orders={"출전여부": custom_order})
 
-    #fig.update_traces(now_injured.sort_values(by="출전여부", key=leg)
+
     fig.update_traces(textposition='outside', textinfo='label+value',
                           textfont_size=10) # textfont_color="blact"
     fig.update_layout(font=dict(size=16))
@@ -209,7 +209,8 @@ with col21:
         # 차트 크기 조정 및 출력
         st.plotly_chart(fig, use_container_width=True)
 
-    
+## -------------------- ▲ 팀부상통계 End ▲ --------------------
+## -------------------- ▼ 선수별 부상 통계 START ▼ --------------------
 # 팀부상선수 한명씩 나열    
 with col23:
     st.markdown('<h2 style="font-size: 1.25rem;"> 2. 최근 부상자</h2>', unsafe_allow_html=True)
@@ -271,6 +272,4 @@ with col23:
         </div>
         '''
         st.markdown(text.format(image_url=image_url, image_width=image_width, injured_date=injured_date), unsafe_allow_html=True)
-           
-    
-   
+# -------------------- ▲ 선수별 부상 통계 End ▲ --------------------

@@ -3,9 +3,9 @@ import streamlit.components.v1 as components
 import pandas as pd
 import plotly.graph_objs as go
 import time
-from packages.logo import add_logo
-
-# 데이터프레임 여기에
+from packages.logo import add_logo # 커스텀 로고 패키지
+# -------------------- ▼ 전역 변수 설정 ▼ --------------------
+# 데이터프레임에서 필요한 정보 불러오기
 df = pd.read_excel('lgpitch.xlsx')
 df1 = df[['선수ID', '포지션', '출장경기수', '이닝', '투구수', '승리', '패배', '홀드', '세이브', 'ERA', '탈삼진', 'WHIP']].iloc[[0]]
 df1 = df1.set_index('선수ID') # 강효종
@@ -77,7 +77,8 @@ players = {
 # 사이드바
 pages = ['선수'] + list(players.keys())
 selected_page = st.sidebar.selectbox('확인할 선수를 선택해주세요.', pages)
-
+# -------------------- ▲ 전역 변수 설정 ▲ --------------------
+## -------------------- ▼ 선수 목록 페이지 START▼ --------------------
 # 선수 목록 페이지 구성
 if selected_page == '선수':
     st.title('선수')
@@ -113,6 +114,7 @@ if selected_page == '선수':
 else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
+    # 강효종
     if selected_page == '강효종':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
@@ -163,7 +165,8 @@ else:
                 
 
             st.markdown(' ')
-            st.subheader('주의해야할 부상 Top 3')
+            # 주의해야할 부상 Top 3 가져오기
+            st.subheader('주의해야할 부상 Top 3') 
             st.text('비슷한 부상 이력을 가진 선수의 패턴이에요.')
             col306, col307, col308 = st.columns(3)
             with col306:
@@ -174,15 +177,16 @@ else:
                 st.markdown('<div style="background-color: #f0597a; padding: 10px; border-radius: 5px; text-align: center;">{}</div>'.format(injury_list_gang.index[2]), unsafe_allow_html=True)
             st.markdown('')
             options = [injury_list_gang.index[0], injury_list_gang.index[1], injury_list_gang.index[2]]
-            selected_option = st.selectbox("부상명을 선택하세요:", options)
-            if selected_option == options[0]:  # injury_list_gang.index[0]
+            selected_option = st.selectbox("부상명을 선택하세요:", options) # 부상명 선택
+            if selected_option == options[0]:  
                 video_file = open("treatment_videos/TommyJohn.mp4", 'rb')
-            elif selected_option == options[1]:  # injury_list_suk.index[1]
+            elif selected_option == options[1]:  
                 video_file = open("treatment_videos/neck.mp4", 'rb')
-            elif selected_option == options[2]:  # injury_list_suk.index[2]
+            elif selected_option == options[2]:  
                 video_file = open("treatment_videos/calf.mp4", 'rb')
             video_bytes = video_file.read()
             st.video(video_bytes, format='mp4')
+        # 토크 측정
         with tab2:
             hjt = pd.read_csv('torque/hjtorque.csv')
             if st.button("부하 측정"):                    
@@ -231,7 +235,8 @@ else:
                         elbow_danger = False
                         elbow_very_danger = False
                         shoulder_danger = False
-
+                        # 노란 점과 빨간 점을 구분
+                        # 노란 점과 주황 점이 겹치면 위험, 빨간 점과 주황 점이 겹치면 매우 위험
                         if row['elbow_Torque'] >= elbow_torque_danger[0] and row['elbow_Torque'] <= elbow_torque_danger[1]:
                             elbow_danger_x.append(row['회차'])
                             elbow_danger_y.append(row['elbow_Torque'])
@@ -270,8 +275,9 @@ else:
                     
                         # 0.5초 간격 설정
                         time.sleep(0.25)
-                    
+                    # progress bar이 완료되면 결과 표시
                     progress_bar.empty()
+                    # 투구 영상 목록
                     for pitch in warning_pitches + dangerous_pitches:
                         st.warning(f"{pitch}번째 투구에서 위험 요소 탐지")
                         if pitch == 1:
@@ -336,6 +342,7 @@ else:
                                 st.video('pitch_videos/hyojong10_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
+                    # 위험 기준 표 작성
                     st.markdown("""
                     <table>
                         <tr>
@@ -358,11 +365,11 @@ else:
                     <br>
                     """, unsafe_allow_html=True)
         with tab3:
-            st.subheader('투구 분석')
+            st.subheader('투구 분석') # 전체 투구 영상 표시 페이진
 
-            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)])
+            selected_pitch = st.selectbox('투구를 선택하세요', [str(x) + '구' for x in range(1, 21)]) # selectbox로 투구 선택
             selected_pitch_num = int(selected_pitch.replace('구', ''))
-
+            # 선택한 투구에 대한 영상 표시
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
@@ -423,6 +430,7 @@ else:
                     st.video('pitch_videos/hyojong10.mp4')
                 with col410:
                     st.video('pitch_videos/hyojong10_dotted.mp4')
+    # 고우석
     elif selected_page == '고우석':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
