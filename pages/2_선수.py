@@ -114,7 +114,7 @@ if selected_page == '선수':
 else:
     st.title(f'{selected_page}')
     # 선수의 세부 페이지에서 보여줄 정보
-    # 강효종
+    # # 강효종
     if selected_page == '강효종':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
@@ -179,13 +179,11 @@ else:
             options = [injury_list_gang.index[0], injury_list_gang.index[1], injury_list_gang.index[2]]
             selected_option = st.selectbox("부상명을 선택하세요:", options) # 부상명 선택
             if selected_option == options[0]:  
-                video_file = open("treatment_videos/TommyJohn.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/TommyJohn.mp4")
             elif selected_option == options[1]:  
-                video_file = open("treatment_videos/neck.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/neck.mp4")
             elif selected_option == options[2]:  
-                video_file = open("treatment_videos/calf.mp4", 'rb')
-            video_bytes = video_file.read()
-            st.video(video_bytes, format='mp4')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/calf.mp4")
         # 토크 측정
         with tab2:
             hjt = pd.read_csv('torque/hjtorque.csv')
@@ -283,63 +281,63 @@ else:
                         if pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/hyojong1.mp4') 
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong1.mp4') 
                             with col402: 
-                                st.video('pitch_videos/hyojong1_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong1_dotted.mp4')
                         elif pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/hyojong2.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong2.mp4')
                             with col404:
-                                st.video('pitch_videos/hyojong2_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong2_dotted.mp4')
                         elif pitch == 3:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/hyojong3.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong3.mp4')
                             with col406:
-                                st.video('pitch_videos/hyojong3_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong3_dotted.mp4')
                         elif pitch == 4:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/hyojong4.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong4.mp4')
                             with col408:
-                                st.video('pitch_videos/hyojong4_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong4_dotted.mp4')
                         elif pitch == 5:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/hyojong5.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong5.mp4')
                             with col410:
-                                st.video('pitch_videos/hyojong5_dotted.mp4')         
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong5_dotted.mp4')         
                         elif pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/hyojong6.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong6.mp4')
                             with col402: 
-                                st.video('pitch_videos/hyojong6_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong6_dotted.mp4')
                         elif pitch == 7:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/hyojong7.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong7.mp4')
                             with col404:
-                                st.video('pitch_videos/hyojong7_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong7_dotted.mp4')
                         elif pitch == 8:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/hyojong8.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong8.mp4')
                             with col406:
-                                st.video('pitch_videos/hyojong8_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong8_dotted.mp4')
                         elif pitch == 9:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/hyojong9.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong9.mp4')
                             with col408:
-                                st.video('pitch_videos/hyojong9_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong9_dotted.mp4')
                         elif pitch == 10:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/hyojong10.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong10.mp4')
                             with col410:
-                                st.video('pitch_videos/hyojong10_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong10_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
                     # 위험 기준 표 작성
@@ -373,63 +371,63 @@ else:
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/hyojong1.mp4') 
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong1.mp4') 
                 with col402: 
-                    st.video('pitch_videos/hyojong1_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong1_dotted.mp4')
             elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/hyojong2.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong2.mp4')
                 with col404:
-                    st.video('pitch_videos/hyojong2_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong2_dotted.mp4')
             elif selected_pitch_num == 3:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/hyojong3.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong3.mp4')
                 with col406:
-                    st.video('pitch_videos/hyojong3_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong3_dotted.mp4')
             elif selected_pitch_num == 4:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/hyojong4.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong4.mp4')
                 with col408:
-                    st.video('pitch_videos/hyojong4_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong4_dotted.mp4')
             elif selected_pitch_num == 5:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/hyojong5.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong5.mp4')
                 with col410:
-                    st.video('pitch_videos/hyojong5_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong5_dotted.mp4')
             elif selected_pitch_num == 6:                                
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/hyojong6.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong6.mp4')
                 with col402: 
-                    st.video('pitch_videos/hyojong6_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong6_dotted.mp4')
             elif selected_pitch_num == 7:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/hyojong7.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong7.mp4')
                 with col404:
-                    st.video('pitch_videos/hyojong7_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong7_dotted.mp4')
             elif selected_pitch_num == 8:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/hyojong8.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong8.mp4')
                 with col406:
-                    st.video('pitch_videos/hyojong8_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong8_dotted.mp4')
             elif selected_pitch_num == 9:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/hyojong9.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong9.mp4')
                 with col408:
-                    st.video('pitch_videos/hyojong9_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong9_dotted.mp4')
             elif selected_pitch_num == 10:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/hyojong10.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong10.mp4')
                 with col410:
-                    st.video('pitch_videos/hyojong10_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/hyojong10_dotted.mp4')
     # 고우석
     elif selected_page == '고우석':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
@@ -494,13 +492,11 @@ else:
             options = ['팔꿈치 통증', injury_list_suk.index[1], injury_list_suk.index[2]]
             selected_option = st.selectbox("부상명을 선택하세요:", options)
             if selected_option == options[0]:  # injury_list_suk.index[0]
-                video_file = open("treatment_videos/tenniselbow.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/tenniselbow.mp4")
             elif selected_option == options[1]:  # injury_list_suk.index[1]
-                video_file = open("treatment_videos/waist.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/waist.mp4")
             elif selected_option == options[2]:  # injury_list_suk.index[2]
-                video_file = open("treatment_videos/biceps.mp4", 'rb')
-            video_bytes = video_file.read()
-            st.video(video_bytes, format='mp4')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/biceps.mp4")
         with tab2:
             wst = pd.read_csv('torque/wstorque.csv')
             if st.button("부하 측정"):                    
@@ -597,63 +593,63 @@ else:
                         if pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/gowoo1.mp4') 
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo1.mp4') 
                             with col402: 
-                                st.video('pitch_videos/gowoo1_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo1_dotted.mp4')
                         elif pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/gowoo2.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo2.mp4')
                             with col404:
-                                st.video('pitch_videos/gowoo2_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo2_dotted.mp4')
                         elif pitch == 3:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/gowoo3.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo3.mp4')
                             with col406:
-                                st.video('pitch_videos/gowoo3_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo3_dotted.mp4')
                         elif pitch == 4:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/gowoo4.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo4.mp4')
                             with col408:
-                                st.video('pitch_videos/gowoo4_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo4_dotted.mp4')
                         elif pitch == 5:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/gowoo5.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo5.mp4')
                             with col410:
-                                st.video('pitch_videos/gowoo5_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo5_dotted.mp4')
                         elif pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/gowoo6.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo6.mp4')
                             with col402: 
-                                st.video('pitch_videos/gowoo6_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo6_dotted.mp4')
                         elif pitch == 7:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/gowoo7.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo7.mp4')
                             with col404:
-                                st.video('pitch_videos/gowoo7_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo7_dotted.mp4')
                         elif pitch == 8:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/gowoo8.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo8.mp4')
                             with col406:
-                                st.video('pitch_videos/gowoo8_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo8_dotted.mp4')
                         elif pitch == 9:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/gowoo9.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo9.mp4')
                             with col408:
-                                st.video('pitch_videos/gowoo9_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo9_dotted.mp4')
                         elif pitch == 17:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/gowoo10.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo10.mp4')
                             with col410:
-                                st.video('pitch_videos/gowoo10_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo10_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
                     st.markdown("""
@@ -685,64 +681,64 @@ else:
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/gowoo1.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo1.mp4')
                 with col402: 
-                    st.video('pitch_videos/gowoo1_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo1_dotted.mp4')
             elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/gowoo2.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo2.mp4')
                 with col404:
-                    st.video('pitch_videos/gowoo2_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo2_dotted.mp4')
             elif selected_pitch_num == 3:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/gowoo3.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo3.mp4')
                 with col406:
-                    st.video('pitch_videos/gowoo3_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo3_dotted.mp4')
             elif selected_pitch_num == 4:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/gowoo4.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo4.mp4')
                 with col408:
-                    st.video('pitch_videos/gowoo4_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo4_dotted.mp4')
 
             elif selected_pitch_num == 5:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/gowoo5.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo5.mp4')
                 with col410:
-                    st.video('pitch_videos/gowoo5_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo5_dotted.mp4')
             elif selected_pitch_num == 6:                                
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/gowoo6.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo6.mp4')
                 with col402: 
-                    st.video('pitch_videos/gowoo6_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo6_dotted.mp4')
             elif selected_pitch_num == 7:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/gowoo7.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo7.mp4')
                 with col404:
-                    st.video('pitch_videos/gowoo7_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo7_dotted.mp4')
             elif selected_pitch_num == 8:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/gowoo8.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo8.mp4')
                 with col406:
-                    st.video('pitch_videos/gowoo8_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo8_dotted.mp4')
             elif selected_pitch_num == 9:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/gowoo9.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo9.mp4')
                 with col408:
-                    st.video('pitch_videos/gowoo9_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo9_dotted.mp4')
             elif selected_pitch_num == 17:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/gowoo10.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo10.mp4')
                 with col410:
-                    st.video('pitch_videos/gowoo10_dotted.mp4')   
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/gowoo10_dotted.mp4')   
     elif selected_page == '이민호':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
@@ -805,13 +801,11 @@ else:
             options = [injury_list_ho.index[0], injury_list_ho.index[1], injury_list_ho.index[2]]
             selected_option = st.selectbox("부상명을 선택하세요:", options)
             if selected_option == options[0]:  # injury_list_ho.index[0]
-                video_file = open("treatment_videos/tenniselbow.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/tenniselbow.mp4")
             elif selected_option == options[1]:  # injury_list_ho.index[1]
-                video_file = open("treatment_videos/forearm2.mp4", 'rb')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/forearm2.mp4")
             elif selected_option == options[2]:  # injury_list_ho.index[2]
-                video_file = open("treatment_videos/forearm2.mp4", 'rb')
-            video_bytes = video_file.read()
-            st.video(video_bytes, format='mp4')
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/forearm2.mp4")
             
         with tab2:
             st.subheader('투구 분석')
@@ -910,45 +904,45 @@ else:
                         if pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/minho1.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho1.mp4')
                             with col402: 
-                                st.video('pitch_videos/minho1_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho1_dotted.mp4')
                         elif pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/minho2.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho2.mp4')
                             with col404:
-                                st.video('pitch_videos/minho2_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho2_dotted.mp4')
                         elif pitch == 3:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/minho3.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho3.mp4')
                             with col406:
-                                st.video('pitch_videos/minho3_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho3_dotted.mp4')
                         elif pitch == 4:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/minho4.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho4.mp4')
                             with col408:
-                                st.video('pitch_videos/minho4_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho4_dotted.mp4')
                         elif pitch == 5:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/minho5.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho5.mp4')
                             with col410:
-                                st.video('pitch_videos/minho5_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho5_dotted.mp4')
                         elif pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/minho6.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho6.mp4')
                             with col402: 
-                                st.video('pitch_videos/minho6_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho6_dotted.mp4')
                         elif pitch == 15:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/minho7.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho7.mp4')
                             with col404:
-                                st.video('pitch_videos/minho7_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho7_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
                     st.markdown("""
@@ -981,45 +975,45 @@ else:
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/minho1.mp4') 
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho1.mp4') 
                 with col402: 
-                    st.video('pitch_videos/minho1_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho1_dotted.mp4')
             elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/minho2.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho2.mp4')
                 with col404:
-                    st.video('pitch_videos/minho2_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho2_dotted.mp4')
             elif selected_pitch_num == 3:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/minho3.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho3.mp4')
                 with col406:
-                    st.video('pitch_videos/minho3_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho3_dotted.mp4')
             elif selected_pitch_num == 4:  
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/minho4.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho4.mp4')
                 with col408:
-                    st.video('pitch_videos/minho4_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho4_dotted.mp4')
             elif selected_pitch_num == 5:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/minho5.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho5.mp4')
                 with col410:
-                    st.video('pitch_videos/minho5_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho5_dotted.mp4')
             elif selected_pitch_num == 6:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/minho6.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho6.mp4')
                 with col402: 
-                    st.video('pitch_videos/minho6_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho6_dotted.mp4')
             elif selected_pitch_num == 15:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/minho7.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho7.mp4')
                 with col404:
-                    st.video('pitch_videos/minho7_dotted.mp4')              
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/minho7_dotted.mp4')              
     elif selected_page == '이정용':
         tab1, tab2, tab3= st.tabs(['선수 프로필', '부하 측정','전체 투구 영상'])
         with tab1:
@@ -1080,14 +1074,12 @@ else:
             st.markdown(' ')
             options = ['팔꿈치 통증', injury_list_young.index[1], injury_list_young.index[2]]
             selected_option = st.selectbox("부상명을 선택하세요:", options)
-            if selected_option == options[0]:  # injury_list_young.index[0]
-                video_file = open("treatment_videos/tenniselbow2.mp4", 'rb')
-            elif selected_option == options[1]:  # injury_list_young.index[1]
-                video_file = open("treatment_videos/sideflank.mp4", 'rb')
-            elif selected_option == options[2]:  # injury_list_young.index[2]
-                video_file = open("treatment_videos/biceps.mp4", 'rb')
-            video_bytes = video_file.read()
-            st.video(video_bytes, format='mp4')
+            if selected_option == options[0]: 
+                st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/tenniselbow2.mp4")
+            elif selected_option == options[1]: 
+               st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/sideflank.mp4")
+            elif selected_option == options[2]: 
+               st.video("https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/treatment_videos/biceps.mp4")
 
         with tab2:
             st.subheader('투구 분석')
@@ -1186,69 +1178,69 @@ else:
                         if pitch == 1:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/yong1.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong1.mp4')
                             with col402: 
-                                st.video('pitch_videos/yong1_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong1_dotted.mp4')
                         elif pitch == 2:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/yong2.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong2.mp4')
                             with col404:
-                                st.video('pitch_videos/yong2_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong2_dotted.mp4')
                         elif pitch == 3:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/yong3.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong3.mp4')
                             with col406:
-                                st.video('pitch_videos/yong3_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong3_dotted.mp4')
                         elif pitch == 4:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/yong4.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong4.mp4')
                             with col408:
-                                st.video('pitch_videos/yong4_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong4_dotted.mp4')
                         elif pitch == 5:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/yong5.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong5.mp4')
                             with col410:
-                                st.video('pitch_videos/yong5_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong5_dotted.mp4')
                         elif pitch == 6:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/yong6.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong6.mp4')
                             with col402: 
-                                st.video('pitch_videos/yong6_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong6_dotted.mp4')
                         elif pitch == 7:
                             col403, col404 = st.columns(2)
                             with col403:
-                                st.video('pitch_videos/yong7.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong7.mp4')
                             with col404:
-                                st.video('pitch_videos/yong7_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong7_dotted.mp4')
                         elif pitch == 8:
                             col405, col406 = st.columns(2)
                             with col405:
-                                st.video('pitch_videos/yong8.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong8.mp4')
                             with col406:
-                                st.video('pitch_videos/yong8_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong8_dotted.mp4')
                         elif pitch == 9:
                             col407, col408 = st.columns(2)
                             with col407:
-                                st.video('pitch_videos/yong9.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong9.mp4')
                             with col408:
-                                st.video('pitch_videos/yong9_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong9_dotted.mp4')
                         elif pitch == 10:
                             col409, col410 = st.columns(2)
                             with col409:
-                                st.video('pitch_videos/yong10.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong10.mp4')
                             with col410:
-                                st.video('pitch_videos/yong10_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong10_dotted.mp4')
                         elif pitch == 11:
                             col401, col402 = st.columns(2)
                             with col401:
-                                st.video('pitch_videos/yong11.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong11.mp4')
                             with col402:
-                                st.video('pitch_videos/yong11_dotted.mp4')
+                                st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong11_dotted.mp4')
                     if not warning_pitches and not dangerous_pitches:
                         st.info("위험 투구 미발견")
                     st.markdown("""
@@ -1281,66 +1273,66 @@ else:
             if selected_pitch_num == 1:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/yong1.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong1.mp4')
                 with col402:
-                    st.video('pitch_videos/yong1_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong1_dotted.mp4')
             elif selected_pitch_num == 2:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/yong2.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong2.mp4')
                 with col404:
-                    st.video('pitch_videos/yong2_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong2_dotted.mp4')
             elif selected_pitch_num == 3:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/yong3.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong3.mp4')
                 with col406:
-                    st.video('pitch_videos/yong3_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong3_dotted.mp4')
             elif selected_pitch_num == 4:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/yong4.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong4.mp4')
                 with col408:
-                    st.video('pitch_videos/yong4_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong4_dotted.mp4')
             elif selected_pitch_num == 5:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/yong5.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong5.mp4')
                 with col410:
-                    st.video('pitch_videos/yong5_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong5_dotted.mp4')
             elif selected_pitch_num == 6:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/yong6.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong6.mp4')
                 with col402:
-                    st.video('pitch_videos/yong6_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong6_dotted.mp4')
             elif selected_pitch_num == 7:
                 col403, col404 = st.columns(2)
                 with col403:
-                    st.video('pitch_videos/yong7.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong7.mp4')
                 with col404:
-                    st.video('pitch_videos/yong7_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong7_dotted.mp4')
             elif selected_pitch_num == 8:
                 col405, col406 = st.columns(2)
                 with col405:
-                    st.video('pitch_videos/yong8.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong8.mp4')
                 with col406:
-                    st.video('pitch_videos/yong8_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong8_dotted.mp4')
             elif selected_pitch_num == 9:
                 col407, col408 = st.columns(2)
                 with col407:
-                    st.video('pitch_videos/yong9.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong9.mp4')
                 with col408:
-                    st.video('pitch_videos/yong9_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong9_dotted.mp4')
             elif selected_pitch_num == 10:
                 col409, col410 = st.columns(2)
                 with col409:
-                    st.video('pitch_videos/yong10.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong10.mp4')
                 with col410:
-                    st.video('pitch_videos/yong10_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong10_dotted.mp4')
             elif selected_pitch_num == 11:
                 col401, col402 = st.columns(2)
                 with col401:
-                    st.video('pitch_videos/yong11.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong11.mp4')
                 with col402:
-                    st.video('pitch_videos/yong11_dotted.mp4')
+                    st.video('https://raw.githubusercontent.com/Gyeunggeun/Pitch/main/pitch_videos/yong11_dotted.mp4')
